@@ -24,10 +24,11 @@ class user extends Model {
                 $errors[] = "Wrong password. Please try again.";
             }
         } else {
-            $errors[] = "Can't find a member with the email '$mail'. Please sign up.";
+            $errors[] = "Can't find a user with the email '$mail'. Please sign up.";
         }
         return $errors;
     }
+
     public static function get_user_by_mail(string $mail) : user|false {
         $query = self::execute("SELECT * FROM users where mail = :mail", ["mail"=>$mail]);
         $data = $query->fetch(); // un seul résultat au maximum
