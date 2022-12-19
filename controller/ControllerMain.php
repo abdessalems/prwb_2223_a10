@@ -6,8 +6,7 @@ require_once 'framework/Controller.php';
 
 class ControllerMain extends Controller {
 
-    //si l'utilisateur est connecté, redirige vers son profil.
-    //sinon, produit la vue d'accueil.
+ 
     public function index() : void {
         if ($this->user_logged()) {
             $this->redirect("user", "full_name");
