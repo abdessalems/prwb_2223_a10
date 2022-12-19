@@ -9,4 +9,17 @@ class ControllerMain extends Controller {
         echo "<h1>Heyjj!</h1>";
     }
 
+    public function signup() : void {
+        $email = '';
+        $fullname = '';
+        $iban = '';
+        $password = '';
+        $password_confirm = '';
+        $errors = [];
+
+       
+        (new View("signup"))->show(["email" => $email,"fullname" =>$fullname,"iban" =>$iban, "password" => $password, 
+                                         "password_confirm" => $password_confirm, "errors" => $errors]);
+    }
+
 }
