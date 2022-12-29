@@ -6,13 +6,13 @@ class user extends Model {
 
 
 
-    public function __construct(public string $mail, public string $hashed_password) {
+    public function __construct(public int $id,public string $mail, public string $hashed_password) {
         
-        echo "LOGIN WORK NOW<br>";
-        echo "LOGIN DONE <br>";
+
     }
 
     private static function check_password(string $clear_password, string $hash) : bool {
+        // echo Tools::my_hash($clear_password);
         return $hash === Tools::my_hash($clear_password);
     }
 
@@ -22,6 +22,7 @@ class user extends Model {
         if ($user) {
             if (!self::check_password($password, $user->hashed_password)) {
                 $errors[] = "Wrong password. Please try again.";
+
             }
         } else {
             $errors[] = "Can't find a user with the email '$mail'. Please sign up.";
@@ -36,12 +37,13 @@ class user extends Model {
             return false;
         } else {
            
-            return new user($data["mail"], $data["hashed_password"]);
+            return new user($data["id"],$data["mail"], $data["hashed_password"]);
         }
 
     }
 
-
-
-
 }
+
+
+
+

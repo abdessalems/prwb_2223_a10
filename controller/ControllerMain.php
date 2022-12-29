@@ -9,11 +9,11 @@ class ControllerMain extends Controller {
  
     public function index() : void {
         if ($this->user_logged()) {
-            $this->redirect("user", "full_name");
+            $this->redirect("user", "tricount");
         } else {
-            (new View("login"))->show();
+            (new View("index"))->show();
         }
-    }
+     }
 
     //gestion de la connexion d'un utilisateur
     public function login() : void {
