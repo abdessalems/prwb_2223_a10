@@ -3,6 +3,6 @@ require_once "framework/Controller.php";
 
 class ControllerTest extends Controller {
     public function index() : void {
-        echo "<h1>baganda</h1>";
+        echo "<h1>bag</h1>";
     }
 }
