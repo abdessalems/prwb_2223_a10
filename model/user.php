@@ -42,14 +42,22 @@ class user extends Model {
         return $errors;
     }
 
-    public static function validate_unicity(string $email) : array {
+    public static function validate_unicity(string $mail) : array {
         $errors = [];
-        $member = self::get_user_by_mail($email);
+        $member = self::get_user_by_mail($mail);
         if ($member) {
             $errors[] = "This user already exists.";
         } 
         return $errors;
     }
-
+    public function persist() : user {
+        if(self::get_user_by_mail($this->mail))
+           self::execute("UPDATE users SET mail:=mail, full_name=:full_name, iban=:iban WHERE =mail:mail ", 
+                         ["mail"=>$this->mail, ""=>$this->profile, "pseudo"=>$this->pseudo, "password"=>$this->hashed_password]);
+        else
+            self::execute("INSERT INTO users(mail,hashed_password,full_name,iban) VALUES(:mail,:hashed_password,:full_name,:iban)", 
+                          ["pseudo"=>$this->mail, "password"=>$this->hashed_password, "full_name"=>$this->full_NAME, "iban"=>$this->iban]);
+        return $this;
+    }
 
 }
