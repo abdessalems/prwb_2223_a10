@@ -6,7 +6,7 @@ class user extends Model {
 
 
 
-    public function __construct(public string $mail, public string $hashed_password, public string $full_name, public string $role , public ?string $iban = null) {
+    public function __construct(public string $mail, public string $hashed_password, public string $full_name, public ?string $iban = null) {
     }
     public static function get_user_by_mail(string $mail) : user|false {
         $query = self::execute("SELECT * FROM users where mail = :mail", ["mail"=>$mail]);
@@ -28,8 +28,21 @@ class user extends Model {
         }
         return $errors;
     }
+    public static function validate_name(string $full_name) : array{
+        $errors = [];
+        if (strlen($full_name) == 0) {
+            $errors[] = "Name is required";} 
+        if (!preg_match("/^[a-zA-Zz]*$/",$full_name)) {
+            $errors[] = "Name should contain only letters";
+        }
+        return $errors ;
+    }
+
+   
     public static function validate_iban(string $iban) : array{
         $errors = [];
+        if (!strlen($iban) == 16) {
+            $errors[] = "Iban should contain 16 caracters";}
         
         return $errors ;
     }
@@ -50,13 +63,22 @@ class user extends Model {
         } 
         return $errors;
     }
+    public function validate() : array {
+        $errors = [];
+        if (!strlen($this->mail) > 0) {
+            $errors[] = "Email is required.";
+        }if (!filter_var($this->mail, FILTER_VALIDATE_EMAIL)){
+            $errors[] = "you must respect  form of email";
+        }
+        return $errors;
+    }
     public function persist() : user {
         if(self::get_user_by_mail($this->mail))
-           self::execute("UPDATE users SET mail:=mail, full_name=:full_name, iban=:iban WHERE =mail:mail ", 
-                         ["mail"=>$this->mail, ""=>$this->profile, "pseudo"=>$this->pseudo, "password"=>$this->hashed_password]);
+           self::execute("UPDATE users SET mail:=mail, full_name=:full_name, iban=:iban WHERE mail=:mail ", 
+                         ["mail"=>$this->mail, "mail"=>$this->mail, "password"=>$this->hashed_password]);
         else
-            self::execute("INSERT INTO users(mail,hashed_password,full_name,iban) VALUES(:mail,:hashed_password,:full_name,:iban)", 
-                          ["pseudo"=>$this->mail, "password"=>$this->hashed_password, "full_name"=>$this->full_NAME, "iban"=>$this->iban]);
+            self::execute("INSERT INTO users(mail,hashed_password,full_name,iban) VALUES(:mail,:password,:full_name,:iban)", 
+                          ["mail"=>$this->mail, "password"=>$this->hashed_password, "full_name"=>$this->full_name, "iban"=>$this->iban]);
         return $this;
     }
 

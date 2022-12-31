@@ -15,25 +15,26 @@
             <br><br>
             <form id="signupForm" action="main/signup" method="post">
                 <table>
+                    
                     <tr>
-                        <td>Email</td>
-                        <td><input id="email" name="email" type="text" size="16" value="<?= $email ?>"></td>
+                        
+                        <td><input id="mail" name="mail" type="mail" size="16" placeholder="Email" value="<?= $mail ?>"></td>
                     </tr>
 					<tr>
-                        <td>fullname</td>
-                        <td><input id="fullname" name="fullname" type="text" size="16" value="<?= $fullname?>"></td>
+                        
+                        <td><input id="fullname" name="fullname" type="text" size="16" placeholder="Full Name" value="<?= $fullname?>"></td>
                     </tr>
 					<tr>
-                        <td>IBAN</td>
-                        <td><input id="email" name="email" type="text" size="16" value="<?= $iban ?>"></td>
+                        
+                        <td><input id="iban" name="iban" type="text" size="16" placeholder="IBAN" value="<?= $iban ?>"></td>
                     </tr>
                     <tr>
-                        <td>Password:</td>
-                        <td><input id="password" name="password" type="password" size="16" value="<?= $password ?>"></td>
+                        
+                        <td><input id="password" name="password" type="password" size="16" placeholder="Password" value="<?= $password ?>"></td>
                     </tr>
                     <tr>
-                        <td>Confirm your Password:</td>
-                        <td><input id="password_confirm" name="password_confirm" type="password" size="16" value="<?= $password_confirm ?>"></td>
+                        
+                        <td><input id="password_confirm" name="password_confirm" type="password" size="16" placeholder="Confirm Your Password" value="<?= $password_confirm ?>"></td>
                     </tr>
                 </table>
                 <input type="submit" value="Sign Up">

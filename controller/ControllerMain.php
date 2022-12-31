@@ -14,7 +14,7 @@ class ControllerMain extends Controller {
     }
 
     public function signup() : void {
-        $email = '';
+        $mail = '';
         $fullname = '';
         $iban = '';
         $password = '';
@@ -22,16 +22,18 @@ class ControllerMain extends Controller {
         $errors = [];
 
 
-        if (isset($_POST['email']) && isset($_POST['fullname']) && isset($_POST['iban'])&& isset($_POST['password']) && isset($_POST['password_confirm'])) {
-            $email = $_POST['email'];
+        if (isset($_POST['mail']) && isset($_POST['fullname']) && isset($_POST['iban'])&& isset($_POST['password']) && isset($_POST['password_confirm'])) {
+            $mail = $_POST['mail'];
             $fullname = trim($_POST['fullname']);
             $iban = $_POST['iban'];
             $password = $_POST['password'];
             $password_confirm = $_POST['password_confirm'];
 
-            $user = new user ($email,$fullname,$iban, Tools::my_hash($password));
-            $errors = user::validate_unicity($email);
+            $user = new user ($mail, Tools::my_hash($password),$fullname);
+            $errors = user::validate_unicity($mail);
             $errors = array_merge($errors, $user->validate());
+            $errors = array_merge($errors, user::validate_name($fullname));
+            $errors = array_merge($errors, user::validate_iban($iban));
             $errors = array_merge($errors, user::validate_passwords($password, $password_confirm));
 
             if (count($errors) == 0) { 
@@ -41,7 +43,7 @@ class ControllerMain extends Controller {
         }
 
        
-        (new View("signup"))->show(["email" => $email,"fullname" =>$fullname,"iban" =>$iban, "password" => $password, 
+        (new View("signup"))->show(["mail" => $mail,"fullname" =>$fullname,"iban" =>$iban, "password" => $password, 
                                          "password_confirm" => $password_confirm, "errors" => $errors]);
     }
 
