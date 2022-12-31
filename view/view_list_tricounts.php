@@ -12,7 +12,6 @@
     <body>
         <div  class="title"><h3>Your Tricounts <h3/> <input type="submit" value="Add"/>
         </div>
-        <?php include('menu.html'); ?>
         <div class="main">
             <table>
 
@@ -33,6 +32,8 @@
                     </tr>
                     <?php endforeach; ?>
             </table>
+
+            <a href="settings/settings">Settings</a>
         </div>
     </body>
 </html>  

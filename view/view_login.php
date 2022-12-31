@@ -11,11 +11,6 @@
     <hr />
         <div class="title">Sing in</div>
         <hr />
-        <div class="menu"> 
-        <a href="main/index">Home</a>
-        <a href="main/signup">Sign Up</a>
-        
-        </div>
         <div class="main">
             <form action="main/login" method="post">
                 <table>
