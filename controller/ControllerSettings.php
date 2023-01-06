@@ -19,9 +19,19 @@ class ControllerSettings extends Controller {
         $full_name = $_POST['full_name'] ;
         $iban = $_POST['iban']  ;
         $password = $user->hashed_password;
-        $user->update($mail,$full_name,$iban,$password) ;
-     (new View("edit_profile"))->show(["user" => $user ,"mail"=>$mail,"full_name"=>$full_name,"iban"=>$iban]);
+        if($mail)
+        {
+            $user->update($mail,$full_name,$iban,$password) ;
+            $this->redirect("settings", "settings");
+        }else{
+
+            (new View("edit_profile"))->show(["user" => $user ]);
+        }
     }
+
+
+
+
     public function change_password() : void {
         $user = $this->get_user_or_redirect();
         $p = "";
@@ -31,7 +41,6 @@ class ControllerSettings extends Controller {
         $name=$user->full_name ;
         $iban =$user->iban;
         $mail = $user->mail ;
-
          if (isset($_POST['password']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
              $p = $_POST['password'];
              $np = $_POST['new_password'] ;
@@ -40,6 +49,7 @@ class ControllerSettings extends Controller {
              $po =Tools::my_hash($np) ;
              if (empty($errors)) {
                  $user->update($mail,$name,$iban,$po) ;
+                 $this->redirect("settings", "settings");
              }
         }
         (new View("change_password"))->show(["user" => $user,"errors"=>$errors ]);

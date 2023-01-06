@@ -15,17 +15,10 @@
     <h4> Hey <?=  $user->full_name ?> ! </h5>
         <p> I know your email adress is   <?=  $user->mail ?></p>
         <p> What can Ido for you ?</p>
-        <form id="settings" action="settings/edit_profile" method="post">
-            <form action="main/Edite">
-                <input type="submit" value="Edite Profile" />
-            </form><br>
-            <form action="settings/change_password">
-                <input type="submit" value="Change password" />
-            </form><br>
-            <form action="user/logout">
-                <input type="submit" value="Logout" />
-            </form>
-        </form>
+
+        <a href="settings/edit_profile">Edite Profile</a> <br>
+        <a href="settings/change_password">Change password</a><br>
+        <a href="user/logout">Logout</a>
 
 
 </div>

@@ -32,13 +32,6 @@ class ControllerMain extends Controller {
         (new View("login"))->show(["mail" => $mail, "password" => $password, "errors" => $errors]);
     }
 
-    public function settings() : void {
-        $mail = '';
-        $password = '';
-        $errors = [];
-
-        (new View("settings"))->show(["mail" => $mail, "password" => $password, "errors" => $errors]);
-    }
 
     
 
