@@ -25,7 +25,7 @@ class operation extends Model {
             $query = self::execute("SELECT u.full_name f from users u WHERE u.id in ( SELECT initiator FROM operations WHERE initiator= :initiatorr AND tricount = :TRICOUNT )", ["initiatorr"=>$operation->initiator,"TRICOUNT"=>$operation->tricount ] );
             $data_ = $query->fetchAll() ;
             $name =  $data_[0]['f'] ;;
-            $operations_with_paidName [] = new operation($operation->title,$operation->tricount, $operation->amount, $operation->operation_date, $operation->initiator,$operation->created_at,$operation->id ) ;
+            $operations_with_paidName [] = new operation($operation->title,$operation->tricount, $operation->amount, $operation->operation_date, $operation->initiator,$operation->created_at,$operation->id,$name ) ;
         }
 
         return $operations_with_paidName;

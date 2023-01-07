@@ -14,15 +14,21 @@
 <div  class="title"><h3><?= $tricount->title ?> > Expenses <h3/>
         <a href="your link of edit here yassin ok ">edite</a>
 </div>
-<div class="main">
     <table>
         <?php foreach ($operations as $operation): ?>
-        <h3><?= $operation->title ?></h3>
-            <h3><?= $operation->amount ?></h3>
-            <h3><?= $operation->created_at ?></h3>
+
+        <tr>
+            <th> <?= $operation->title ?> </th>
+            <th> <?= $operation->amount ?> </th>
+        </tr>
+
+        <tr>
+            <td> Paid par <?= $operation->name_paid ?> </td>
+            <td> <?= $operation->created_at ?>  </td>
+        </tr>
+
 
         <?php endforeach; ?>
-
     </table>
 
 </div>
