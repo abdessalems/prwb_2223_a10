@@ -10,7 +10,9 @@
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div  class="title"><h3>Your Tricounts <h3/> <input type="submit" value="Add"/>
+        <div  class="title"><h3>Your Tricounts <h3/>
+                <a href="your link for add tricount here yassin">Add </a>
+
         </div>
         <?php include('menu.html'); ?>
         <div class="main">
@@ -33,6 +35,8 @@
                     </tr>
                     <?php endforeach; ?>
             </table>
+            <a href="user/logout">Logout</a>
+
         </div>
     </body>
 </html>  
