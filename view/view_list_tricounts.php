@@ -14,22 +14,22 @@
                 <a href="your link for add tricount here yassin">Add </a>
 
         </div>
-        <?php include('menu.html'); ?>
         <div class="main">
             <table>
 
                 <?php foreach ($tricounts as $tricount): ?>
                     <tr>
-                  <th style="width:50%"><h5> <?=  $tricount->title ?>  </h5></th>
+                        <th> <?=  $tricount->title ?>  </th>
+                        <th>     </th>
                     </tr>
                     <tr>
                         <td> <?= $tricount->description ?></td>
-                       <td><?php if ($tricount->nb_participant== 1){
-                               echo " &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp You're alone ";
+                       <td><?php if ($tricount->nb_participant< 2){
+                               echo " You're alone ";
                            }else if ($tricount->nb_participant== 2) {
-                               echo  " &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp with " , $tricount->nb_participant -1, "  Friend"   ;
+                               echo  " with " , $tricount->nb_participant -1, "  Friend"   ;
                            } else {
-                               echo  " &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp with " , $tricount->nb_participant -1, "  Friends"   ;
+                               echo  "  with " , $tricount->nb_participant -1, "  Friends"   ;
                            }
                            ?></td>
                     </tr>
