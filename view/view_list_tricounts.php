@@ -18,7 +18,11 @@
 
                 <?php foreach ($tricounts as $tricount): ?>
                     <tr>
-                  <th style="width:50%"><h5> <?=  $tricount->title ?>  </h5></th>
+                        <th style="width:50%"> <a href='tricount/view_tricount/<?=  $tricount->id ?>'> <?=  $tricount->title ?> </a></th>
+
+
+
+
                     </tr>
                     <tr>
                         <td> <?= $tricount->description ?></td>
