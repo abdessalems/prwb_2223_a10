@@ -6,7 +6,7 @@ class user extends Model {
 
 
 
-    public function __construct(public int $id,public string $mail, public string $hashed_password) {
+    public function __construct(public int $id,public string $mail, public string $hashed_password,public ?string $full_name=null) {
         
 
     }
@@ -37,7 +37,7 @@ class user extends Model {
             return false;
         } else {
            
-            return new user($data["id"],$data["mail"], $data["hashed_password"]);
+            return new user($data["id"],$data["mail"], $data["hashed_password"],$data["full_name"]);
         }
 
     }

@@ -25,20 +25,15 @@ class tricount extends Model {
         if ($query->rowCount() == 0) {
             return false;
         } else {
-            return new tricount($data["id"],$data["title"], $data["description"],$data["created_at"],$data["creator"]);
+            $tricount= new tricount($data["id"],$data["title"], $data["description"],$data["created_at"],$data["creator"]);
+            $query = self::execute("SELECT COUNT(*) nbr FROM subscriptions WHERE tricount= :TRICOUNT", ["TRICOUNT"=>$tricount->id] );
+            $data_ = $query->fetchAll() ;
+            $nbr_participents = $data_[0]['nbr'] ;
+            return new tricount($tricount->id,$tricount->title, $tricount->description, $tricount->created_at, $tricount->creator,$nbr_participents ) ;
+
         }
 
     }
-    public static function get_member_by_pseudo(string $pseudo) : Member|false {
-        $query = self::execute("SELECT * FROM Members where pseudo = :pseudo", ["pseudo"=>$pseudo]);
-        $data = $query->fetch(); // un seul résultat au maximum
-        if ($query->rowCount() == 0) {
-            return false;
-        } else {
-            return new Member($data["pseudo"], $data["password"], $data["profile"], $data["picture_path"]);
-        }
-    }
-
     public static function get_tricounts(user $user) : array{
         $tricounts = [];
         $tricounts_with_particepent = [];

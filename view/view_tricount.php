@@ -4,33 +4,63 @@
 </style>
 <head>
     <meta charset="UTF-8">
-    <title>users</title>
+    <title>view_tricount</title>
     <base href="<?= $web_root ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/styles.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <a href="user/tricount">Back</a>
-<div  class="title"><h3><?= $tricount->title ?> > Expenses <h3/>
-        <a href="your link of edit here yassin ok ">edite</a>
+<div class="view_tricount">
+    <h3><?= $tricount->title ?> > Expenses <h3/>
+        <a href="your link of edit here yassin ok ">Edit</a> <br>
+
+
+    <?php if  (empty($operations)) : ?>
+         <?php if  ($tricount->nb_participant < 1) : ?>
+            <div>
+                   <h3> Your are alone !</h3>
+                   <p> Click below to add your friends ! </p>
+                   <a href="link ">Add Friends</a> <br>
+             </div>
+            <?php else :  ?>
+            </div>
+                   <h3> Your Tricount is empty !</h3>
+                   <p> Click below to add your first expense ! </p>
+                   <a href="link ">Add an expense</a> <br>
+            </div>
+        <?php endif; ?>
+      <?php else :?>
+          <div>
+            <a href="view balance ">view balance </a>
+            <table>
+               <?php foreach ($operations as $operation): ?>
+
+              <tr>
+                  <th> <?= $operation->title ?> </th>
+                  <th> <?= $operation->amount ?>  </th>
+               </tr>
+
+              <tr>
+                  <td> Paid par <?= $operation->name_paid ?> </td>
+                  <td> <?= $operation->created_at ?>  </td>
+               </tr>
+             <?php endforeach; ?>
+           </table>
+          </div>
+    <?php endif; ?>
+
+       <div>
+         <h5> <?= $My_total ?> My total </h5>
+         <h5> <?= $Total_expenses ?> Total expenses </h5>
+       </div>
+       <!--
+    <h1> <?= $tricount->nb_participant ?> nbr part </h1>
+
+    <h1> <?= $nbr_total_repartitions ?> </h1>
+    -->
 </div>
-    <table>
-        <?php foreach ($operations as $operation): ?>
-
-        <tr>
-            <th> <?= $operation->title ?> </th>
-            <th> <?= $operation->amount ?> </th>
-        </tr>
-
-        <tr>
-            <td> Paid par <?= $operation->name_paid ?> </td>
-            <td> <?= $operation->created_at ?>  </td>
-        </tr>
 
 
-        <?php endforeach; ?>
-    </table>
-
-</div>
-</body>
+   </body>
 </html>

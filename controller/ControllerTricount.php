@@ -25,14 +25,23 @@ class ControllerTricount extends Controller {
         $user = $this->get_user_or_redirect();
         $id = $_GET["param1"] ;
         $tricount = tricount::get_tricount_by_id($id);
-
+        $nbr_total_repartitions = 0;
+        $My_total= 0 ;
+        $Total_expenses =0 ;
        if (isset($_GET["param1"]) && $_GET["param1"] !== "") {
             $operations = operation::get_operations($tricount);
+           foreach ($operations as $operation) {
+               $nbr_total_repartitions =$nbr_total_repartitions + $operation->nbr_repartition ;
+               if ($user->full_name=== $operation->name_paid) {
+                   $My_total= $My_total + $operation->amount ;
+               }
+               $Total_expenses =$Total_expenses + $operation->amount  ;
+           }
         }
-        (new View("tricount"))->show(["operations" => $operations ,"tricount" => $tricount]);
+        (new View("tricount"))->show(["operations" => $operations ,"tricount" => $tricount,
+            "nbr_total_repartitions" =>$nbr_total_repartitions,"My_total"=>$My_total,"Total_expenses"=>$Total_expenses,"trcount"=>$tricount]);
 
     }
-
 
 
 
