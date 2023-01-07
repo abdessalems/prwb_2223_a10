@@ -1,6 +1,7 @@
 <?php
 
 require_once "framework/Model.php";
+require_once 'model/tricount.php';
 
 class user extends Model {
 
@@ -41,6 +42,11 @@ class user extends Model {
         }
 
     }
+    public function add_tricount (tricount $tricount) : tricount|array {
+        return $tricount ->persist();
+    }
+
+
 
 }
 

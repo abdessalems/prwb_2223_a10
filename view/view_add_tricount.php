@@ -13,7 +13,7 @@
     <div  class="title">
     <div  class="title"><button type="reset">Cancel</button> <h3>Your Tricounts <h3/> 
     </div>
-      <form id="addForm" action="tricount/addTricounts" method="post">
+      <form id="addForm" action="tricount/addNewTricount" method="post">
              <div>
         <label > title :</label><br>
         <input type="text" id="title"><br><br>

@@ -36,5 +36,24 @@ class tricount extends Model {
         return $tricounts_with_particepent;
     }
 
+    public  function persist() : tricount|array {
+        if($this->id == NULL) {
+            $errors = $this->validate();
+            if(empty($errors)){
+                self::execute('INSERT INTO tricounts (title, description, creator) VALUES (:title,:description,:creator)', 
+                               [ 'title' => $this->title,
+                                'description' => $this->description,
+                                'creator'=> $this->creator->id
+                               ]);
+                $tricount = self::get_tricount(self::lastInsertId());
+                $this->id = $tricount->id;
+                $this->date_time = $tricount->date_time;
+                return $this;
+            } else {
+                return $errors; 
+            }
+        } 
+    }
+
 
 }
