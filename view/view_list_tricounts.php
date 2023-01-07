@@ -10,7 +10,9 @@
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div  class="title"><h3>Your Tricounts <h3/> <input type="submit" value="Add"/>
+        <div  class="title"><h3>Your Tricounts <h3/>
+        <a href="tricount/addTricounts">Add </a>
+        
         </div>
         <?php include('menu.html'); ?>
         <div class="main">

@@ -21,6 +21,13 @@ class ControllerTricount extends Controller {
         (new View("tricounts"))->show(["user" => $user, "tricounts" => $tricounts ]);
     }
 
+    public function addTricounts () : void {
+        $creator = $this->get_user_or_redirect();
+        
+        
 
+       
+        (new View("add_tricount"))->show(["user" => $creator ]);
 
+    }
 }
