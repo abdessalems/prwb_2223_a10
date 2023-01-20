@@ -37,13 +37,14 @@
                <?php foreach ($operations as $operation): ?>
 
               <tr>
-                  <th> <?= $operation->title ?> </th>
-                  <th> <?= $operation->amount ?>  </th>
+
+                  <th><a href='operation/view_operation/<?=  $operation->id ?>/<?=$id_user?>'><?= $operation->title ?></a> </th>
+                  <th> <a href='operation/view_operation/<?=  $operation->id ?>'><?= $operation->amount ?></a>  </th>
                </tr>
 
               <tr>
-                  <td> Paid par <?= $operation->name_paid ?> </td>
-                  <td> <?= $operation->created_at ?>  </td>
+                  <td> Paid par <a href='operation/view_operation/<?=  $operation->id ?>'><?= $operation->name_paid ?></a> </td>
+                  <td> <a href='operation/view_operation/<?=  $operation->id ?>'><?= $operation->created_at ?>  </td>
                </tr>
              <?php endforeach; ?>
            </table>

@@ -19,7 +19,7 @@
 
         <?php foreach ($tricounts as $tricount): ?>
             <tr>
-                <th><a href='tricount/view_tricount/<?=  $tricount->id ?>'> <?=  $tricount->title ?>  </a></th>
+                <th><a href='tricount/view_tricount/<?=  $tricount->id ?>/<?=  $user->id ?>'> <?=  $tricount->title ?>  </a></th>
 
                 <th>     </th>
             </tr>
