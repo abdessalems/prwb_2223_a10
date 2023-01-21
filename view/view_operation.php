@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<a href='operation/view_operation/<?=  $operation->id ?>/<?=$id_user?>'> Back</a>
+<a href='operation/view_operation/<?=  $operation->id ?>/<?= $id_user ?>'> Back</a>
 <div class="view_ operation ">
     <h3><?= $tricount->title ?> > <?= $operation->title ?> <h3/>
         <a href="your link of edit here yassin ok ">Edit</a>
@@ -29,12 +29,11 @@
         </tr>
         </table>
         <?php if  ($operation->nbr_repartition < 2) : ?>
-        <p> For <?=$operation->nbr_repartition?> participent </p>
-        <?php else :  ?> <p> For <?=$operation->nbr_repartition?> participents </p>
+        <p> For <?=$operation->nbr_repartition?> participent
+        <?php else :  ?> <p> For <?=$operation->nbr_repartition?> participents <?php endif; ?>
+            <?php if  ($cmpt > 0) : ?>  including me <?php endif; ?>
+        </p>
 
-
-
-        <?php endif; ?>
 
 
 

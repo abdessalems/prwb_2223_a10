@@ -20,6 +20,13 @@ class operation extends Model {
     }
 
 
+    public static function get_including_operation_by_idUser_operationId(int $idUser,int $idOperation) : int {//if the user includ in operation return >=1 si nn 0
+        $query = self::execute("SELECT * FROM repartitions WHERE user= :user AND operation= :operation ;", ["user" =>$idUser,"operation"=>$idOperation]);
+        $data = $query->fetchAll();
+        $cmpt= $query->rowCount() ;
+        return $cmpt ;
+    }
+
     public static function get_operation_by_id( int $id) : operation|false{
         $query = self::execute("SELECT * FROM operations WHERE id= :id ;", ["id" =>$id]);
         $data = $query->fetchAll();
