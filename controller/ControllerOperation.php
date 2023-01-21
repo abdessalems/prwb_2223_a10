@@ -3,6 +3,7 @@ require_once 'model/operation.php';
 require_once 'framework/View.php';
 require_once 'framework/Controller.php';
 require_once 'model/tricount.php';
+require_once 'model/user.php';
 
 class ControllerOperation extends Controller {
 
@@ -20,9 +21,10 @@ class ControllerOperation extends Controller {
         $id_tricount =$operation->tricount ;
         $tricount = tricount::get_tricount_by_id($id_tricount) ;
         $operations =operation::get_operations($tricount);
+        $operation_amount= user::get_amount_operations($operation,$operation->nbr_repartition);
+        $nbr_operations =(count($operations)) ;
         $cmpt=$operation::get_including_operation_by_idUser_operationId($id_user,$operation->id); ////if the user includ in operation return >=1 si nn 0
-        $nbr_repartions = $operation::get_nbr_repartitions_By_operationt_id($operation->id) ;
-        (new View("operation"))->show(["operation" => $operation,"tricount" =>$tricount,"id_user"=>$id_user,"operations" => $operations,"cmpt"=>$cmpt]);
+        (new View("operation"))->show(["operation" => $operation,"tricount" =>$tricount,"id_user"=>$id_user,"operations" => $operations,"cmpt"=>$cmpt,"operation_amount"=>$operation_amount,"nbr_operations"=>$nbr_operations]);
 
 
     }

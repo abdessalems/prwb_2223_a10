@@ -2,6 +2,7 @@
 
 require_once "framework/Model.php";
 
+
 class operation extends Model {
 
 
@@ -9,6 +10,10 @@ class operation extends Model {
         , public string $operation_date , public int $initiator,public string $created_at ,public  int $id
         ,public ?string $name_paid = NULL,public ?int $nbr_repartition = NULL  ) {
     }
+
+
+
+
 
 
     public static function get_nbr_repartitions_By_operationt_id(string $id) : int {

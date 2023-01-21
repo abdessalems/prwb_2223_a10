@@ -21,7 +21,7 @@
 
         <table>
         <tr>
-            <th> <h3><?= $operation->amount ?> <h3/></th>
+            <th> <h3><?= $operation->amount ?> € <h3/></th>
         </tr>
         <tr>
             <td>Paid par   <?= $operation->name_paid ?> &nbsp </td>
@@ -31,11 +31,21 @@
         <?php if  ($operation->nbr_repartition < 2) : ?>
         <p> For <?=$operation->nbr_repartition?> participent
         <?php else :  ?> <p> For <?=$operation->nbr_repartition?> participents <?php endif; ?>
-            <?php if  ($cmpt > 0) : ?>  including me <?php endif; ?>
+            <?php if  ($cmpt > 0) : ?> including me <?php endif; ?>
         </p>
 
 
 
+            <table>
+            <?php foreach ($operation_amount as $o): ?>
+
+            <tr>
+                <td><?=$o->full_name?></td>
+                <td> <?=$o->amount?> €   </td><br>
+            </tr>
+
+            <?php endforeach; ?>
+            </table>
 
 
 
