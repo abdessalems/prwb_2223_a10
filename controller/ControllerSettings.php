@@ -15,12 +15,11 @@ class ControllerSettings extends Controller {
 
     public function edit_profile() : void {
         $user = $this->get_user_or_redirect();
-        $mail = $_POST['mail'];
-        $full_name = $_POST['full_name'] ;
-        $iban = $_POST['iban']  ;
         $password = $user->hashed_password;
-        if($mail)
-        {
+        if(isset($_POST['mail']) ) {
+            $mail = $_POST['mail'];
+            $full_name = $_POST['full_name'] ;
+            $iban = $_POST['iban']  ;
             $user->update($mail,$full_name,$iban,$password) ;
             $this->redirect("settings", "settings");
         }else{
