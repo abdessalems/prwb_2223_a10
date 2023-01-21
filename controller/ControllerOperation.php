@@ -13,6 +13,21 @@ class ControllerOperation extends Controller {
         $this->view_operation();
     }
 
+    public function edit_operation(): void {
+        $id_operation = $_GET["param1"];
+        $operation =operation::get_operation_by_id($id_operation);
+        $tricount = tricount::get_tricount_by_id($operation->tricount) ;
+        echo $tricount->id ;
+        $operations =operation::get_operations($tricount);
+        $operation_amount= user::get_amount_operations($operation,$operation->nbr_repartition);
+        echo $_POST['title'];
+        (new View("edit_operation"))->show(["operation" => $operation,"tricount"=>$tricount,"operations" => $operations,"operation_amount"=>$operation_amount]);
+
+        // ,"tricount" => $tricount, "nbr_total_repartitions" =>$nbr_total_repartitions,"My_total"=>$My_total,"Total_expenses"=>$Total_expenses,"trcount"=>$tricount,"id_user"=>$id_user]);
+
+
+    }
+
     public function view_operation(): void {
         $user= $this->get_user_or_redirect();
         $id = $_GET["param1"];

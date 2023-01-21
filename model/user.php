@@ -6,7 +6,7 @@ class user extends Model {
 
 
 
-    public function __construct(public int $id,public string $mail, public string $hashed_password,public string $full_name,public float $amount) {
+    public function __construct(public int $id,public string $mail, public string $hashed_password,public string $full_name,public float $amount,public int $weight) {
         
 
     }
@@ -23,7 +23,7 @@ class user extends Model {
         }
         foreach ($data as $row) {
             $amount_for_this_person= ($operation_amount / $total_weight ) * ($row['weight']) ;
-            $operations_with_amount[] = new user($row['id'],$row['mail'],$row['hashed_password'],$row['full_name'],$amount_for_this_person);
+            $operations_with_amount[] = new user($row['id'],$row['mail'],$row['hashed_password'],$row['full_name'],$amount_for_this_person,$row['weight']);
         }
         return $operations_with_amount ;
 
