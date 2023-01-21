@@ -46,6 +46,14 @@
 
             <?php endforeach; ?>
             </table>
+        <?php if  ($operation->id > 0) : ?>
+            <a href='operation/view_operation/<?=  $operation->id - 1 ?>/<?=$id_user?>'>Previous</a>  <br>
+        <?php else :  ?> <a href='operation/view_operation/<?=  $operation->id ?>/<?=$id_user?>'>Previous</a>  <br>
+        <?php endif; ?>
+        <?php if  ($nbr_operations + 1  > $operation->id) : ?>
+            <a href='operation/view_operation/<?=  $operation->id + 1 ?>/<?=$id_user?>'>Next</a>  <br>
+        <?php else :  ?> <a href='operation/view_operation/<?=  $operation->id ?>/<?=$id_user?>'>Next</a>  <br>
+        <?php endif; ?>
 
 
 
