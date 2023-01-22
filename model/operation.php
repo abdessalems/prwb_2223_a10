@@ -24,7 +24,9 @@ class operation extends Model {
 
 
 
-    public static function get_nbr_repartitions_By_operationt_id(string $id) : int {
+
+
+            public static function get_nbr_repartitions_By_operationt_id(string $id) : int {
         $nb = 0 ;
         $query = self::execute("SELECT COUNT(*) nbr FROM `repartitions` WHERE operation= :id ;", ["id"=>$id] );
         $data_ = $query->fetchAll() ;

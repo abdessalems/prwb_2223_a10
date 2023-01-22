@@ -45,11 +45,19 @@ class ControllerOperation extends Controller {
         $operations =operation::get_operations($tricount);
         $operation_amount= user::get_amount_operations($operation,$operation->nbr_repartition);
         $nbr_operations =(count($operations)) ;
+        $all_operation=$operation::get_operations($tricount) ;
+       // $id_next_operation=ControllerOperation:: ;
+        //$id_previous_operation= ;
+
+
         $cmpt=$operation::get_including_operation_by_idUser_operationId($id_user,$operation->id); ////if the user includ in operation return >=1 si nn 0
-        (new View("operation"))->show(["operation" => $operation,"id_operation"=> $id_operation ,"tricount" =>$tricount,"id_user"=>$id_user,"operations" => $operations,"cmpt"=>$cmpt,"operation_amount"=>$operation_amount,"nbr_operations"=>$nbr_operations]);
-
-
+        (new View("operation"))->show(["operation" => $operation,"all_operation"=>$all_operation,"id_operation"=> $id_operation ,"tricount" =>$tricount,"id_user"=>$id_user,"operations" => $operations,"cmpt"=>$cmpt,"operation_amount"=>$operation_amount,"nbr_operations"=>$nbr_operations]);
     }
+
+
+
+
+
 
 
 
