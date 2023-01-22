@@ -18,7 +18,7 @@ class tricount extends Model {
 
 
     public static function get_tricount_by_id(int $id) : tricount|false {
-       // echo $id;
+        //echo $id;
         $query = self::execute("SELECT * FROM tricounts where id = :id", ["id"=>$id]);
         // echo $id + 1;
         $data = $query->fetch(); // un seul résultat au maximum

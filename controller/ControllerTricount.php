@@ -21,12 +21,11 @@ class ControllerTricount extends Controller {
         (new View("tricounts"))->show(["user" => $user, "tricounts" => $tricounts ]);
     }
 
-    public function view_tricount () : void {
+    public function view_tricount() : void {
         $user = $this->get_user_or_redirect();
-        $id = $_GET["param1"] ;
+        $id_tricount = $_GET["param1"] ;
         $id_user =$_GET["param2"];
-
-        $tricount = tricount::get_tricount_by_id($id);
+        $tricount = tricount::get_tricount_by_id($id_tricount);
         $nbr_total_repartitions = 0;
         $My_total= 0 ;
         $Total_expenses =0 ;
@@ -40,7 +39,7 @@ class ControllerTricount extends Controller {
                $Total_expenses =$Total_expenses + $operation->amount  ;
            }
         }
-        (new View("tricount"))->show(["operations" => $operations ,"tricount" => $tricount,
+        (new View("tricount"))->show(["operations" => $operations , "tricount" => $tricount,
             "nbr_total_repartitions" =>$nbr_total_repartitions,"My_total"=>$My_total,"Total_expenses"=>$Total_expenses,"trcount"=>$tricount,"id_user"=>$id_user]);
 
     }

@@ -11,10 +11,10 @@
 </head>
 <body>
 
-<a href='operation/view_operation/<?=  $operation->id ?>/<?= $id_user ?>'> Back</a>
+<a href="tricount/view_tricount/<?=$operation->tricount?>/<?=$id_user?>"> Back</a>
 <div class="view_ operation ">
     <h3><?= $tricount->title ?> > <?= $operation->title ?> <h3/>
-        <a href="operation/edit_operation/<?=  $operation->id ?>">Edit</a>
+        <a href="operation/edit_operation/<?=$operation->id ?>/<?= $id_user ?>">Edit</a>
 
         <?php if  (empty($operations)) : ?>
         <?php endif; ?>

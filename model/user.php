@@ -6,7 +6,7 @@ class user extends Model {
 
 
 
-    public function __construct(public int $id,public string $mail, public string $hashed_password,public string $full_name,public float $amount,public int $weight) {
+    public function __construct(public int $id,public string $mail, public string $hashed_password,public string $full_name,public float $amount,public ?int $weight=null) {
         
 
     }

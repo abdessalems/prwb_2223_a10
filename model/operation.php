@@ -6,9 +6,17 @@ require_once "framework/Model.php";
 class operation extends Model {
 
 
-    public function __construct(public string $title , public int $tricount , public float $amount
+    public function __construct(public string $title , public int $tricount , public String $amount
         , public string $operation_date , public int $initiator,public string $created_at ,public  int $id
         ,public ?string $name_paid = NULL,public ?int $nbr_repartition = NULL  ) {
+    }
+    public function update_operation(operation $operation,int $id_user) : operation {
+
+        if(self::get_operation_by_id($operation->id))
+        self::execute("UPDATE operations SET title=:title,amount=:amount,operation_date=:date,initiator=:initiator WHERE id= :id",
+        ["id"=> $operation->id,"title"=>$operation->title,"amount"=>$operation->amount,"date"=>$operation->operation_date,
+            "initiator"=>$id_user,"amount"=>$operation->amount] );
+        return $this;
     }
 
 
@@ -32,7 +40,7 @@ class operation extends Model {
         return $cmpt ;
     }
 
-    public static function get_operation_by_id( int $id) : operation|false{
+    public static function get_operation_by_id(int $id) : operation|false{
         $query = self::execute("SELECT * FROM operations WHERE id= :id ;", ["id" =>$id]);
         $data = $query->fetchAll();
         //$nb= $data[0]['title'] ;
