@@ -10,7 +10,8 @@
     <link href="css/styles.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<div  class="title"><h3>Your Tricounts <h3/>
+<div class="title">
+    <h3>Your Tricounts <h3/>
         <a href="your link for add tricount here yassin">Add </a>
 
 </div>
@@ -19,18 +20,20 @@
 
         <?php foreach ($tricounts as $tricount): ?>
             <tr>
-                <th><a href='tricount/view_tricount/<?=  $tricount->id ?>/<?=  $user->id ?>'> <?=  $tricount->title ?>  </a></th>
+                <th>
+                    <a href='tricount/view_tricount/<?= $tricount->id ?>/<?= $user->id ?>'> <?= $tricount->title ?>  </a>
+                </th>
 
-                <th>     </th>
+                <th></th>
             </tr>
             <tr>
                 <td> <?= $tricount->description ?></td>
-                <td><?php if ($tricount->nb_participant< 2){
+                <td><?php if ($tricount->nb_participant < 2) {
                         echo " You're alone ";
-                    }else if ($tricount->nb_participant== 2) {
-                        echo  " with " , $tricount->nb_participant -1, "  Friend"   ;
+                    } else if ($tricount->nb_participant == 2) {
+                        echo " with ", $tricount->nb_participant - 1, "  Friend";
                     } else {
-                        echo  "  with " , $tricount->nb_participant -1, "  Friends"   ;
+                        echo "  with ", $tricount->nb_participant - 1, "  Friends";
                     }
                     ?></td>
             </tr>
