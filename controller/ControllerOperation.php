@@ -13,6 +13,8 @@ class ControllerOperation extends Controller {
         $this->view_operation();
     }
 
+
+
     public function edit_operation(): void {
         $id_operation = $_GET["param1"];
          $id_user = $_GET["param2"];
@@ -20,6 +22,7 @@ class ControllerOperation extends Controller {
         $tricount = tricount::get_tricount_by_id($operation->tricount) ;
         $operations =operation::get_operations($tricount);
         $operation_amount= user::get_amount_operations($operation,$operation->nbr_repartition);
+        //print_r($operation_amount) ;
         if(isset($_POST['titlee']) ) {
             $new_operation= new operation($_POST['titlee'],$operation->tricount,$_POST['amount']
                 ,$_POST['date'],$operation->initiator,$operation->created_at,$operation->id,$_POST['paid']);
@@ -46,12 +49,10 @@ class ControllerOperation extends Controller {
         $operation_amount= user::get_amount_operations($operation,$operation->nbr_repartition);
         $nbr_operations =(count($operations)) ;
         $all_operation=$operation::get_operations($tricount) ;
-       // $id_next_operation=ControllerOperation:: ;
-        //$id_previous_operation= ;
-
-
+        $id_next_operation=operation::get_next_operation($id_operation,$all_operation) ;
+        $id_previous_operation=operation::get_prev_operation($id_operation,$all_operation) ;
         $cmpt=$operation::get_including_operation_by_idUser_operationId($id_user,$operation->id); ////if the user includ in operation return >=1 si nn 0
-        (new View("operation"))->show(["operation" => $operation,"all_operation"=>$all_operation,"id_operation"=> $id_operation ,"tricount" =>$tricount,"id_user"=>$id_user,"operations" => $operations,"cmpt"=>$cmpt,"operation_amount"=>$operation_amount,"nbr_operations"=>$nbr_operations]);
+        (new View("operation"))->show(["id_next_operation"=>$id_next_operation,"id_previous_operation"=>$id_previous_operation,"operation" => $operation,"all_operation"=>$all_operation,"id_operation"=> $id_operation ,"tricount" =>$tricount,"id_user"=>$id_user,"operations" => $operations,"cmpt"=>$cmpt,"operation_amount"=>$operation_amount,"nbr_operations"=>$nbr_operations]);
     }
 
 

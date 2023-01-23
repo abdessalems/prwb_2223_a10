@@ -18,6 +18,60 @@ class operation extends Model {
             "initiator"=>$id_user,"amount"=>$operation->amount] );
         return $this;
     }
+    public static function get_nxt_operation(int $id_operation, array $operations): int {
+        $array_length= count($operations)-1;
+        $i =0;
+        $test=false ;
+        while ($test == false) {
+            if($operations[$i]->id == $id_operation ){
+               $test=true;
+            }
+            $i++ ;
+        }
+        if ( ( $array_length) == ( $i ) ) {
+            return $operations[0]->id ;
+        }else return $operations[$i]->id ;
+    }
+    public static function get_prev_operation(int $id_operation, array $operations): int {
+        $array_length= count($operations)-1;$i =$array_length;
+        $test=false ;
+        $result=$id_operation ;
+        if ($array_length< 1 ) {
+            return $id_operation;
+        }
+        while( ($test == false) || ($i>0) ){
+            if($operations[0]->id == $id_operation ){
+                $result= $operations[$array_length]->id;
+                 $test=true ;
+            }
+            if($operations[$i]->id == $id_operation ){
+                $result= $operations[$i-1]->id ;
+                $test=true;
+            }
+            $i--;
+        }
+        return $result;
+    }
+    public static function get_next_operation(int $id_operation, array $operations): int {
+        $array_length= count($operations)-1;$i =0;
+        $test=false ;
+        $result=$id_operation ;
+        if ($array_length<1) {
+            return $id_operation;
+        }
+        while( ($test == false) || ($i<$array_length) ){
+            if($operations[$array_length]->id == $id_operation ){
+                $result= $operations[0]->id;
+                $test=true ;
+            }
+            if($operations[$i]->id == $id_operation ){
+                $result= $operations[$i+1]->id ;
+                $test=true;
+            }
+            $i++;
+        }
+        return $result;
+    }
 
 
 
