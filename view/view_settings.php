@@ -12,8 +12,8 @@
 <div class="title">Settings</div>
 <div class="main">
 
-    <h4> Hey <?=  $user->full_name ?> ! </h5>
-        <p> I know your email adress is   <?=  $user->mail ?></p>
+    <h4> Hey <?= $user->full_name ?> ! </h5>
+        <p> I know your email adress is <?= $user->mail ?></p>
         <p> What can Ido for you ?</p>
 
         <a href="settings/edit_profile">Edite Profile</a> <br>

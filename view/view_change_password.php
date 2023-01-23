@@ -10,7 +10,7 @@
 <body>
 <a href="user/tricount">Back</a>
 <div class="main">
-    Change password  :
+    Change password :
     <br><br>
     <form id="change_password" action="settings/change_password" method="post">
         <table>
@@ -34,7 +34,8 @@
     <?php if (count($errors) != 0): ?>
 
         <div class='errors'>
-            <br><br><p>Please correct the following error(s) :</p>
+            <br><br>
+            <p>Please correct the following error(s) :</p>
             <ul>
                 <?php foreach ($errors as $error): ?>
                     <li><?= $error ?></li>

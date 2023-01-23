@@ -16,7 +16,7 @@
         <table>
             <tr>
                 <td>mail :</td>
-                <td><input id="mail" name="mail" type="text" size="16" value="<?=$user->mail ?>"></td>
+                <td><input id="mail" name="mail" type="text" size="16" value="<?= $user->mail ?>"></td>
             </tr>
             <tr>
                 <td>full_name :</td>
