@@ -47,9 +47,6 @@
             <?php endforeach; ?>
             </table>
 
-
-
-
         <a href='operation/view_operation/<?=$id_previous_operation?>/<?=$id_user?>'>Previous</a>  <br>
         <a href='operation/view_operation/<?=$id_next_operation?>/<?=$id_user?>'>Next</a>  <br>
 

@@ -18,20 +18,6 @@ class operation extends Model {
             "initiator"=>$id_user,"amount"=>$operation->amount] );
         return $this;
     }
-    public static function get_nxt_operation(int $id_operation, array $operations): int {
-        $array_length= count($operations)-1;
-        $i =0;
-        $test=false ;
-        while ($test == false) {
-            if($operations[$i]->id == $id_operation ){
-               $test=true;
-            }
-            $i++ ;
-        }
-        if ( ( $array_length) == ( $i ) ) {
-            return $operations[0]->id ;
-        }else return $operations[$i]->id ;
-    }
     public static function get_prev_operation(int $id_operation, array $operations): int {
         $array_length= count($operations)-1;$i =$array_length;
         $test=false ;
