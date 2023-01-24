@@ -11,18 +11,19 @@
     <body>
         
     <div  class="title">
-    <div  class="title"><button type="reset">Cancel</button> <h3>Your Tricounts <h3/> 
+    <div  class="title"> <h3>Your Tricounts <h3/>
     </div>
-      <form id="addForm" action="tricount/addNewTricount" method="post">
+      <form id="addForm" action="tricount/addTricounts" method="post">
              <div>
         <label > title :</label><br>
-        <input type="text" id="title"><br><br>
+        <input type="text" id="title" name="title"><br><br>
     </div>
     <div>
         <label >description(optional) :</label><br>
-        <input type="text" id="description"><br><br>
+        <input type="text" id="description" name="description"><br><br>
     </div>
 
     <input type="submit" value="save"/>
+          <button type="reset">Cancel</button>
     </body>
 </html>

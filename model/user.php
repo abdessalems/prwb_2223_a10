@@ -42,9 +42,6 @@ class user extends Model {
         }
 
     }
-    public function add_tricount (tricount $tricount) : tricount|array {
-        return $tricount ->persist();
-    }
 
 
 

@@ -5,7 +5,13 @@ require_once "framework/Model.php";
 class tricount extends Model {
 
 
-    public function __construct(public int $id, public string $title, public ? string $description ,public string $created_at , public int $creator, public int $nb_participant) {
+//    public function __construct(public int $id, public string $title, public ? string $description ,public string $created_at , public int $creator, public int $nb_participant) {
+//
+//    }
+
+
+    public function __construct( public string $title,   public user $creator,public ?string $description = null,public ?int $id = NULL, public ?string $created_at = NULL)
+    {
 
     }
 
@@ -36,23 +42,13 @@ class tricount extends Model {
         return $tricounts_with_particepent;
     }
 
-    public  function persist() : tricount|array {
-        if($this->id == NULL) {
-            $errors = $this->validate();
-            if(empty($errors)){
-                self::execute('INSERT INTO tricounts (title, description, creator) VALUES (:title,:description,:creator)', 
-                               [ 'title' => $this->title,
-                                'description' => $this->description,
-                                'creator'=> $this->creator->id
-                               ]);
-                $tricount = self::get_tricount(self::lastInsertId());
-                $this->id = $tricount->id;
-                $this->date_time = $tricount->date_time;
-                return $this;
-            } else {
-                return $errors; 
-            }
-        } 
+    public function insert_tricount(): tricount{
+        $description = $this->description !== "" ? $this->description : 'NULL';
+        self::execute("INSERT INTO tricounts ( `title`, `description`, `creator`) 
+                                                 VALUES (:title,:description,:creator)",
+            ["title"=>$this->title, "description"=>$this->description,"creator"=>$this->creator->id]);
+        return $this;
+
     }
 
 
