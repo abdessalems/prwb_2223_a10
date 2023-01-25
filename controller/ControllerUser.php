@@ -1,9 +1,9 @@
 <?php
 
-require_once 'model/user.php';
+require_once 'model/User.php';
 require_once 'framework/View.php';
 require_once 'framework/Controller.php';
-require_once 'model/tricount.php';
+require_once 'model/Tricount.php';
 
 class ControllerUser extends Controller {
     

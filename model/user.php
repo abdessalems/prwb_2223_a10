@@ -1,9 +1,9 @@
 <?php
 
 require_once "framework/Model.php";
-require_once 'model/tricount.php';
+require_once 'model/Tricount.php';
 
-class user extends Model {
+class User extends Model {
 
 
 
@@ -31,7 +31,7 @@ class user extends Model {
         return $errors;
     }
 
-    public static function get_user_by_mail(string $mail) : user|false {
+    public static function get_user_by_mail(string $mail) :User|false {
         $query = self::execute("SELECT * FROM users where mail = :mail", ["mail"=>$mail]);
         $data = $query->fetch(); // un seul résultat au maximum
         if ($query->rowCount() == 0) {

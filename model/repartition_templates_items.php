@@ -2,7 +2,7 @@
 
 require_once "framework/Model.php";
 
-class reoperation_template extends Model {
+class Reoperation_template extends Model {
 
 
     public function __construct(public int $weight,  public int $user) {
