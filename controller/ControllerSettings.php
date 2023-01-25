@@ -34,7 +34,7 @@ class ControllerSettings extends Controller
     public function change_password(): void
     {
         $user = $this->get_user_or_redirect();
-        $p = "";
+        $p = ""; 
         $np = "";
         $cp = "";
         $errors = [];
