@@ -29,32 +29,7 @@ class ControllerSettings extends Controller
             (new View("edit_profile"))->show(["user" => $user]);
         }
     }
-
-
-    public function change_password(): void
-    {
-        $user = $this->get_user_or_redirect();
-        $p = "";
-        $np = "";
-        $cp = "";
-        $errors = [];
-        $name = $user->full_name;
-        $iban = $user->iban;
-        $mail = $user->mail;
-        if (isset($_POST['password']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
-            $p = $_POST['password'];
-            $np = $_POST['new_password'];
-            $cp = $_POST['confirm_password'];
-            $errors = user::validate_password($mail, $p, $np, $cp);
-            $po = Tools::my_hash($np);
-            if (empty($errors)) {
-                $user->update($mail, $name, $iban, $po);
-                $this->redirect("settings", "settings");
-            }
-        }
-        (new View("change_password"))->show(["user" => $user, "errors" => $errors]);
-
-    }
+    
 
 
     public function login(): void
