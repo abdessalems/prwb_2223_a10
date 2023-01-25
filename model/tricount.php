@@ -41,14 +41,44 @@ class tricount extends Model {
 
         return $tricounts_with_particepent;
     }
+   public  static function titleExists( string  $title,int  $creator) :bool {
 
-    public function insert_tricount(): tricount{
-        $description = $this->description !== "" ? $this->description : 'NULL';
-        self::execute("INSERT INTO tricounts ( `title`, `description`, `creator`) 
+        $query=self::execute("SELECT COUNT(*) nbr_title FROM tricounts WHERE title :=title and creator=:creator " , ["title"=>$title,"creator"=>$creator]);
+        $data_ = $query->fetchall();
+       $nbr_title = $data_[0];
+       $nbr_title =1;
+       if ($nbr_title > 0) {
+           return true;
+       } else {
+           return false;
+       }
+    }
+
+
+
+    public static function validate(tricount $tricount,user $user) : array {
+        $errors = [];
+
+        if(!(strlen($tricount->title) > 0)){
+            $errors[] = "title must be filled";
+       }
+    else if(self::titleExists($tricount->title,$user->id)){
+            $errors[] = "title already exists in the database";
+       }
+        return $errors;
+    }
+
+
+    public function insert_tricount():  tricount|array {
+
+        if(empty($errors)) {
+            $description = $this->description !== "" ? $this->description : 'NULL';
+            self::execute("INSERT INTO tricounts ( `title`, `description`, `creator`) 
                                                  VALUES (:title,:description,:creator)",
-            ["title"=>$this->title, "description"=>$this->description,"creator"=>$this->creator->id]);
-        return $this;
-
+                ["title" => $this->title, "description" => $description, "creator" => $this->creator->id]);
+            return $this;
+        }
+        return $errors;
     }
 
 

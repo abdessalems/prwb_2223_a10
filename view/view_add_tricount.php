@@ -11,7 +11,7 @@
     <body>
         
     <div  class="title">
-    <div  class="title"> <h3>Your Tricounts <h3/>
+    <div  class="title"> <h3>Your Tricounts </h3>
     </div>
       <form id="addForm" action="tricount/addTricounts" method="post">
              <div>
@@ -20,10 +20,26 @@
     </div>
     <div>
         <label >description(optional) :</label><br>
-        <input type="text" id="description" name="description"><br><br>
+        <textarea name="description" rows="10" cols="30"></textarea>
+<!--        <input type="text" id="description" name="description"><br><br>-->
     </div>
 
+
     <input type="submit" value="save"/>
-          <button type="reset">Cancel</button>
+     <button type="reset">Cancel</button>
+      </form>
+    </div>
+
+    <?php if (count($errors) != 0): ?>
+        <div class='errors'>
+            <br><br><p>Please correct the following error(s) :</p>
+            <ul>
+                <?php foreach ($errors as $error): ?>
+                    <li><?= $error ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
     </body>
 </html>
