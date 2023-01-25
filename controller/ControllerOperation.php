@@ -16,30 +16,6 @@ class ControllerOperation extends Controller
     }
 
 
-    public function edit_operation(): void
-    {
-        $id_operation = $_GET["param1"];
-        $id_user = $_GET["param2"];
-        $operation = operation::get_operation_by_id($id_operation);
-        $tricount = tricount::get_tricount_by_id($operation->tricount);
-        $operations = operation::get_operations($tricount);
-        $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
-        //print_r($operation_amount) ;
-        if (isset($_POST['titlee'])) {
-            $new_operation = new operation($_POST['titlee'], $operation->tricount, $_POST['amount']
-                , $_POST['date'], $operation->initiator, $operation->created_at, $operation->id, $_POST['paid']);
-            $operation->update_operation($new_operation, $operation->initiator);
-            (new View("edit_operation"))->show(["operation" => $operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "operation_amount" => $operation_amount]);
-
-        }
-
-        (new View("edit_operation"))->show(["operation" => $operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "operation_amount" => $operation_amount]);
-
-        // ,"tricount" => $tricount, "nbr_total_repartitions" =>$nbr_total_repartitions,"My_total"=>$My_total,"Total_expenses"=>$Total_expenses,"trcount"=>$tricount,"id_user"=>$id_user]);
-
-
-    }
-
 
     public function view_operation(): void
     {

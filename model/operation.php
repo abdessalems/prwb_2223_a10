@@ -13,15 +13,6 @@ class operation extends Model
     {
     }
 
-    public function update_operation(operation $operation, int $id_user): operation
-    {
-
-        if (self::get_operation_by_id($operation->id))
-            self::execute("UPDATE operations SET title=:title,amount=:amount,operation_date=:date,initiator=:initiator WHERE id= :id",
-                ["id" => $operation->id, "title" => $operation->title, "amount" => $operation->amount, "date" => $operation->operation_date,
-                    "initiator" => $id_user, "amount" => $operation->amount]);
-        return $this;
-    }
 
     public static function get_prev_operation(int $id_operation, array $operations): int
     {
