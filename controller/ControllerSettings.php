@@ -14,22 +14,6 @@ class ControllerSettings extends Controller
         $this->settings();
     }
 
-    public function edit_profile(): void
-    {
-        $user = $this->get_user_or_redirect();
-        $password = $user->hashed_password;
-        if (isset($_POST['mail'])) {
-            $mail = $_POST['mail'];
-            $full_name = $_POST['full_name'];
-            $iban = $_POST['iban'];
-            $user->update($mail, $full_name, $iban, $password);
-            $this->redirect("settings", "settings");
-        } else {
-
-            (new View("edit_profile"))->show(["user" => $user]);
-        }
-    }
-
 
     public function change_password(): void
     {
