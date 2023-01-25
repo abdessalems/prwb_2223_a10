@@ -25,7 +25,7 @@ class user extends Model {
             $amount_for_this_person= ($operation_amount / $total_weight ) * ($row['weight']) ;
             $operations_with_amount[] = new user($row['id'],$row['mail'],$row['hashed_password'],$row['full_name'],$amount_for_this_person);
         }
-        return $operations_with_amount ;
+        return $operations_with_amount ;  
 
     }
 
