@@ -24,7 +24,7 @@
                     </tr>
                     <tr>
                         <td> <?= $tricount->description ?></td>
-                       <td><?php if ($tricount->nb_participant< 2){
+                       <td><?php if ($tricount->nb_participant< 2) {
                                echo " You're alone ";
                            }else if ($tricount->nb_participant== 2) {
                                echo  " with " , $tricount->nb_participant -1, "  Friend"   ;
