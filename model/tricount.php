@@ -62,9 +62,9 @@ class tricount extends Model {
         if(!(strlen($tricount->title) > 0)){
             $errors[] = "title must be filled";
        }
-    else if(self::titleExists($tricount->title,$user->id)){
-            $errors[] = "title already exists in the database";
-       }
+//    else if(self::titleExists($tricount->title,$user->id)){
+//            $errors[] = "title already exists in the database";
+//       }
         return $errors;
     }
 
