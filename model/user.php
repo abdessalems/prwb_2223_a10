@@ -79,7 +79,7 @@ class user extends Model
 
     }
 
-    public function update(string $mail, string $full_name, string $iban, string $password): user
+    public function update(string $mail, string $full_name, string $iban, string $password)
     {
         if (self::get_user_by_id($this->id)) {
             self::execute("UPDATE users SET mail= :mail,hashed_password= :password, full_name= :full_name,iban= :iban WHERE id= :id ",

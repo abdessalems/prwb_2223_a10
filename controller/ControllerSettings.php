@@ -22,8 +22,10 @@ class ControllerSettings extends Controller
             $mail = $_POST['mail'];
             $full_name = $_POST['full_name'];
             $iban = $_POST['iban'];
+            $user->mail=$mail;
+            $user->full_name=$full_name;
+            $user->iban=$iban;
             $user->update($mail, $full_name, $iban, $password);
-            (new View("edit_profile"))->show(["user" => $user]);
             $this->redirect("settings", "settings");
         }
 
