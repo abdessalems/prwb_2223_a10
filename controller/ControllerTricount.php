@@ -47,8 +47,8 @@ class ControllerTricount extends Controller {
 
     public function EditTricounts () : void {
         $user = $this->get_user_or_redirect();
-        $idTricount = 4;
-        $id_user =1;
+        $idTricount = $_GET["param1"] ;;
+        $id_user =$_GET["param2"];
         $tricount = tricount::get_tricount_by_id($idTricount);
         $subscribers =$tricount::get_subscriber($idTricount);
         $Nosubscribers=$tricount::getNOsubscriber($idTricount);
@@ -71,8 +71,8 @@ class ControllerTricount extends Controller {
 
     public function Editeditsubscriber () : void {
         $user = $this->get_user_or_redirect();
-        $idTricount = 4;
-        $id_user =1;
+        $idTricount = $_GET["param1"];
+        $id_user =$_GET["param2"];
         $tricount = tricount::get_tricount_by_id($idTricount);
         $subscribers =$tricount::get_subscriber($idTricount);
         $Nosubscribers=$tricount::getNOsubscriber($idTricount);

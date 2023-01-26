@@ -40,20 +40,21 @@
                     }
                     ?>
                 </div>
-                   <form form id="addNoSubForm" action="tricount/editsubscriber>
-                        <label for="subscriber">Add new subscriber</label>
-                        <select id="subscriber" name="subscriber">
-                            <?php
+                <form form id="addNoSubForm" action="tricount/editsubscriber>
+                       <label for="subscriber"></label>
+                <select id="subscriber" name="subscriber">
+                    <option value="">Add new subscriber</option>
+                    <?php
 
-                            foreach ($Nosubscribers as$Nosubscribers) {
-                                ?>
-                                <option value="<?= $Nosubscribers['full_name']  ?>"><?= $Nosubscribers['full_name']  ?></option>
-                                <?php
-                            }
-                            ?>
-                        </select>
-                        <input type="submit" value="Add">
-                    </form>
+                    foreach ($Nosubscribers as$Nosubscribers) {
+                        ?>
+                        <option value="<?= $Nosubscribers['full_name']  ?>"><?= $Nosubscribers['full_name']  ?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
+                <input type="submit" value="Add">
+            </form>
 $
                 </div>
             </form>
