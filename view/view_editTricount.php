@@ -40,7 +40,7 @@
                     }
                     ?>
                 </div>
-                   <form>
+                   <form form id="addNoSubForm" action="tricount/editsubscriber>
                         <label for="subscriber">Add new subscriber</label>
                         <select id="subscriber" name="subscriber">
                             <?php

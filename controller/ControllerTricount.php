@@ -60,13 +60,29 @@ class ControllerTricount extends Controller {
 
                 $new_tricount = new tricount($title, $id_user,$idTricount, $description);
                 print_r($new_tricount);
-              //  $tricount ::update_tricount($new_tricount);
+                $tricount->update_tricount($new_tricount,$idTricount );
+                print_r($tricount);
                 (new View("editTricount"))->show(["user" => $user,"tricount" => $tricount,"id_user"=>$id_user,"subscribers"=>$subscribers,"Nosubscribers" =>$Nosubscribers] );
             }
             else {
                 (new View("editTricount"))->show(["user" => $user, "tricount" => $tricount, "id_user" => $id_user, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
             }
     }
+
+    public function Editeditsubscriber () : void {
+        $user = $this->get_user_or_redirect();
+        $idTricount = 4;
+        $id_user =1;
+        $tricount = tricount::get_tricount_by_id($idTricount);
+        $subscribers =$tricount::get_subscriber($idTricount);
+        $Nosubscribers=$tricount::getNOsubscriber($idTricount);
+
+
+
+            (new View("editTricount"))->show(["user" => $user, "tricount" => $tricount, "id_user" => $id_user, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
+        }
+
+
 
 //if (isset($_POST['titlee'])) {
 //$new_operation = new operation($_POST['titlee'], $operation->tricount, $_POST['amount']

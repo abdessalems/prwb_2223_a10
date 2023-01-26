@@ -78,12 +78,13 @@ class tricount extends Model {
         return $tricounts_with_particepent;
     }
 
-    public static  function update_tricount(tricount $tricount): tricount
+    public   function update_tricount(tricount $tricount,int $idTricount ): tricount
     {
 
-        if (self::get_tricount_by_id($tricount->id))
-           self::execute("UPDATE tricounts SET title =: 'new_title', description =: 'new_description' WHERE tricounts.id =: id;",
-               ["id" => $tricount->id, "new_title" => $tricount->title, "new_description" =>$tricount->description ,"id"=>$tricount->id]);
+
+           self::execute("UPDATE tricounts SET title =:'new_title', description =: 'new_description' WHERE tricounts.id =:idTricount",
+
+               ["idTricount" => $idTricount , "new_title" => $tricount->title, "new_description" =>$tricount->description ]);
         return $this;
     }
 
