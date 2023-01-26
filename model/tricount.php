@@ -6,13 +6,13 @@ class tricount extends Model {
 
 
 
+    public function __construct(public int $id, public string $title, public ?string $description, public string $created_at, public int $creator, public int $nb_participant)
+    {}
 
 
 
-    public function __construct( public string $title,   public user $creator,public ?string $description = null,public ?int $id = NULL, public ?string $created_at = NULL)
-    {
 
-    }
+
 
     public static function get_tricount ( user $user) : tricount {
         $query = self::execute("SELECT * FROM `tricounts` WHERE creator = :id", ["id" => $user->id]);
@@ -79,6 +79,10 @@ class tricount extends Model {
         }
         return $errors;
     }
+
+
+
+
 
 
 

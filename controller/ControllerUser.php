@@ -5,8 +5,8 @@ require_once 'framework/View.php';
 require_once 'framework/Controller.php';
 require_once 'model/tricount.php';
 
+
 class ControllerUser extends Controller {
-    
 
     //page d'accueil. 
     public function index() : void {
@@ -24,11 +24,16 @@ class ControllerUser extends Controller {
         return tricount::Participent_Tricount($tricount) ;
      }
 
-    public function get_tricount(user $user): array{
 
+
+    public function get_tricount(user $user): array
+    {
         return tricount::get_tricounts($user);
     }
 
 
-
 }
+
+
+
+
