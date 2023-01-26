@@ -45,6 +45,37 @@ class ControllerTricount extends Controller {
 
     }
 
+    public function EditTricounts () : void {
+        $user = $this->get_user_or_redirect();
+        $idTricount = 4;
+        $id_user =1;
+        $tricount = tricount::get_tricount_by_id($idTricount);
+        $subscribers =$tricount::get_subscriber($idTricount);
+        $Nosubscribers=$tricount::getNOsubscriber($idTricount);
+
+
+            if(isset($_POST['title'])) {
+                $title = $_POST['title'];
+                $description = $_POST['description'];
+
+                $new_tricount = new tricount($title, $id_user,$idTricount, $description);
+                print_r($new_tricount);
+              //  $tricount ::update_tricount($new_tricount);
+                (new View("editTricount"))->show(["user" => $user,"tricount" => $tricount,"id_user"=>$id_user,"subscribers"=>$subscribers,"Nosubscribers" =>$Nosubscribers] );
+            }
+            else {
+                (new View("editTricount"))->show(["user" => $user, "tricount" => $tricount, "id_user" => $id_user, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
+            }
+    }
+
+//if (isset($_POST['titlee'])) {
+//$new_operation = new operation($_POST['titlee'], $operation->tricount, $_POST['amount']
+//, $_POST['date'], $operation->initiator, $operation->created_at, $operation->id, $_POST['paid']);
+//$operation->update_operation($new_operation, $operation->initiator);
+//(new View("edit_operation"))->show(["operation" => $operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "operation_amount" => $operation_amount]);
+
+
+
 
 
 

@@ -19,15 +19,7 @@
         <?php if  (empty($operations)) : ?>
         <?php endif; ?>
 
-        <table>
-        <tr>
-            <th> <h3><?= $operation->amount ?> € <h3/></th>
-        </tr>
-        <tr>
-            <td>Paid par   <?= $operation->name_paid ?> &nbsp </td>
-              <td> &nbsp <?= $operation->created_at ?> </td>
-        </tr>
-        </table>
+<!--        -->
         <?php if  ($operation->nbr_repartition < 2) : ?>
         <p> For <?=$operation->nbr_repartition?> participent
         <?php else :  ?> <p> For <?=$operation->nbr_repartition?> participents <?php endif; ?>

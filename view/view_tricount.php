@@ -13,7 +13,7 @@
 <a href="user/tricount">Back</a>
 <div class="view_tricount">
     <h3><?= $tricount->title ?> > Expenses <h3/>
-        <a href="your link of edit here yassin ok ">Edit</a> <br>
+        <a href="tricount/EditTricounts">Edit</a> <br>
 
 
     <?php if  (empty($operations)) : ?>
