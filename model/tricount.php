@@ -49,10 +49,22 @@ class tricount extends Model {
         return $subscriber;
 
     }
-    public static function getNOsubscriber(int $idtricount) :array{
-        $subscriber=[];
-        $query = self::execute("SELECT users.full_name FROM users  where users.id NOT IN (select subscriptions.user  from subscriptions WHERE tricount=:tricount and subscriptions.user=users.id)", ["tricount" => $idtricount]);
+    public static function get_creator(int $userId) :array
+    {
+        $subscriber = [];
 
+        $query = self::execute("SELECT users.full_name FROM users WHERE id = :id", ["id" => $userId]);
+        if ($query->rowCount() > 0) {
+            $subscriber = $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $subscriber;
+
+
+    }
+    public static function getNOsubscriber(int $idtricount,int $idUser) :array{
+        $subscriber=[];
+//        $query = self::execute("SELECT users.full_name FROM users  where users.id NOT IN (select subscriptions.user  from subscriptions WHERE tricount=:tricount and subscriptions.user=users.id)and  users.id !=: id", ["tricount" => $idtricount,"id"=>$idUser]);
+        $query = self::execute("SELECT users.full_name FROM users  where users.id NOT IN (select subscriptions.user  from subscriptions WHERE tricount=:tricount and subscriptions.user=users.id)and  users.id !=:id", ["tricount" => $idtricount,"id"=>$idUser]);
         if ($query->rowCount() > 0) {
             $subscriber = $query->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -82,11 +94,21 @@ class tricount extends Model {
     {
 
 
-           self::execute("UPDATE tricounts SET title =:'new_title', description =: 'new_description' WHERE tricounts.id =:idTricount",
 
-               ["idTricount" => $idTricount , "new_title" => $tricount->title, "new_description" =>$tricount->description ]);
+        self::execute("UPDATE tricounts SET title =:new_title, description =:new_description WHERE tricounts.id =:idTricount", ["idTricount" => $idTricount , "new_title" => $tricount->title, "new_description" =>$tricount->description ]);
         return $this;
     }
+    public static  function delete_tricount(int $idTricount )
+    {
+        self::execute("DELETE FROM tricounts WHERE id=:id", ["id" => $idTricount ]);
+        self::execute("DELETE FROM tricounts WHERE id=:id", ["id" => $idTricount ]);
+
+    }
+
+    public static function add_Subscriber(int $idTricount, int $idUser) {
+        self::execute("INSERT INTO `subscriptions` (`tricount`, `user`) VALUES (:tricount_id, :user_id)", ["tricount_id" => $idTricount, "user_id" => $idUser]);
+    }
+
 
 
 }

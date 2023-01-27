@@ -63,6 +63,19 @@ class user extends Model {
 
     }
 
+//    public static function get_user_by_name ( String   $name) : array {
+//        $query = self::execute( "SELECT users.id ,users.* FROM users WHERE full_name =:full_name", ["full_name" => $name]);
+//
+//        return $query->fetchAll() ;
+//
+//    }
+
+    public static function get_user_by_name(String $name): int {
+        $query = self::execute("SELECT users.id FROM users WHERE full_name =:full_name", ["full_name" => $name]);
+        $result = $query->fetch();
+        return intval($result['id']);
+    }
+
 }
 
 

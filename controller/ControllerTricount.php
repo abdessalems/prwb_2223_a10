@@ -45,18 +45,33 @@ class ControllerTricount extends Controller {
 
     }
 
-    public function EditTricounts () : void {
+    public function EditTricounts () : void
+    {
         $user = $this->get_user_or_redirect();
-        $idTricount = $_GET["param1"] ;;
-        $id_user =$_GET["param2"];
+        $idTricount = $_GET["param1"];
+        $id_user = $_GET["param2"];
         $tricount = tricount::get_tricount_by_id($idTricount);
-        $subscribers =$tricount::get_subscriber($idTricount);
-        $Nosubscribers=$tricount::getNOsubscriber($idTricount);
+        $subscribers = $tricount::get_subscriber($idTricount);
+        $Nosubscribers = $tricount::getNOsubscriber($idTricount, $id_user);
+        $ceator = tricount::get_creator($id_user);
 
+        //  $subscribers = array_merge($subscribers, $ceator);
+
+      //  $nameSubscriber = $_POST['subscriber'];
+       // print_r(user::get_user_by_name($nameSubscriber));
+//        print_r($nameSubscriber);
+
+
+
+
+//        if (isset($nameSubscriber)) {
+//            tricount::add_Subscriber($idTricount, $newSubsribers['id']);
+//        }
 
             if(isset($_POST['title'])) {
                 $title = $_POST['title'];
                 $description = $_POST['description'];
+
 
                 $new_tricount = new tricount($title, $id_user,$idTricount, $description);
                 print_r($new_tricount);
@@ -67,20 +82,36 @@ class ControllerTricount extends Controller {
             else {
                 (new View("editTricount"))->show(["user" => $user, "tricount" => $tricount, "id_user" => $id_user, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
             }
+
+
+
     }
 
-    public function Editeditsubscriber () : void {
+    public function editSubscriber () : void {
+        $user = $this->get_user_or_redirect();
+        echo"00";
+        $idTricount = $_GET["param1"];
+        $nameSubscriber = $_POST['subscriber'];
+       $idSubscriber= user::get_user_by_name($nameSubscriber);
+        if (isset($nameSubscriber)) {tricount::add_Subscriber($idTricount, $idSubscriber);
+        }
+
+
+            (new View("editTricount"))->show(["user" => $user]);
+        }
+
+    public function deleteTricount () : void {
         $user = $this->get_user_or_redirect();
         $idTricount = $_GET["param1"];
-        $id_user =$_GET["param2"];
-        $tricount = tricount::get_tricount_by_id($idTricount);
-        $subscribers =$tricount::get_subscriber($idTricount);
-        $Nosubscribers=$tricount::getNOsubscriber($idTricount);
+        echo "bbb";
+
+         tricount::delete_tricount($idTricount);
 
 
 
-            (new View("editTricount"))->show(["user" => $user, "tricount" => $tricount, "id_user" => $id_user, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
-        }
+
+        (new View("editTricount"))->show(["user" => $user]);
+    }
 
 
 
