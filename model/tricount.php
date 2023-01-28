@@ -9,6 +9,9 @@ class tricount extends Model {
 
 
 
+
+
+
     public function __construct( public string $title,   public User $creator,public ?string $description = null,public ?int $id = NULL, public ?string $created_at = NULL)
     {
 
@@ -79,6 +82,10 @@ class tricount extends Model {
         }
         return $errors;
     }
+
+
+
+
 
 
 
