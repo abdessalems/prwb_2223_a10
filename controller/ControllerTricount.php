@@ -112,6 +112,22 @@ class ControllerTricount extends Controller {
 
         (new View("editTricount"))->show(["user" => $user]);
     }
+    public function deleteSubscriber():void{
+        $user = $this->get_user_or_redirect();
+        $idTricount = $_GET["param1"];
+        $nameSubscriber = $_GET["param2"];
+        $idSubscriber = user::get_user_by_name($nameSubscriber);
+        $tricount = tricount::get_tricount_by_id($idTricount);
+        $subscribers = $tricount::get_subscriber($idTricount);
+        $Nosubscribers = $tricount::getNOsubscriber($idTricount, $idSubscriber);
+        $idSubscriber = user::get_user_by_name($nameSubscriber);
+
+        tricount::delete_subscriber($idSubscriber,$idTricount);
+        (new View("editTricount"))->show(["user" => $user, "tricount" => $tricount, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
+
+
+    }
+
 
 
 

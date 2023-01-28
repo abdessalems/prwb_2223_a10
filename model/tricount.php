@@ -109,6 +109,14 @@ class tricount extends Model {
         self::execute("INSERT INTO `subscriptions` (`tricount`, `user`) VALUES (:tricount_id, :user_id)", ["tricount_id" => $idTricount, "user_id" => $idUser]);
     }
 
+    public static function delete_subscriber(int $idTricount, int $idUser) {
+        self::execute("delete from subscriptions WHERE tricount=:tricount and user =:user ", ["tricount" => $idTricount, "user" => $idUser]);
+    }
+    
+    
+
+
+
 
 
 }
