@@ -2,18 +2,17 @@
 <html>
     <head>
     <meta charset="UTF-8">
-<<<<<<< HEAD
-        <title>users</title>
-=======
+      <title>users</title>
+
         <title>Members</title>
->>>>>>> feat_UC_Singup
+
         <base href="<?= $web_root ?>"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body>
-<<<<<<< HEAD
+
         
     <div  class="title">
     <div  class="title"> <h3>Your Tricounts </h3>
@@ -46,7 +45,7 @@
         </div>
     <?php endif; ?>
 
-=======
+
         <div  class="title">
         <div  class="title"><input type="submit" value="Cancel"/> <h3>Your Tricounts <h3/> <input type="submit" value="Add"/>
         </div>
@@ -59,6 +58,6 @@
             <label >description(optional) :</label><br>
             <input type="text" id="title"><br><br>
         </div>
->>>>>>> feat_UC_Singup
+
     </body>
 </html>
