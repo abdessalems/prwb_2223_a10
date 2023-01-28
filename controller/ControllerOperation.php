@@ -50,7 +50,13 @@ class ControllerOperation extends Controller {
 
     }
 
-
+    public function add_operation():void
+    {
+        $idTricount = $_GET["param1"];
+        $tricount = tricount::get_tricount_by_id($idTricount);
+        $paidBy= 
+        (new View("add_operation"))->show(["tricount" => $tricount]);
+    }
 
 
 }
