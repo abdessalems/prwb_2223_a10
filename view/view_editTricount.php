@@ -28,35 +28,21 @@
                     <textarea name="description" rows="10" cols="20" > <?= $tricount->description ?></textarea>
                 </div>
                 <div>
-                    <?php
+                    <ul>
+                        <?php foreach ($subscribers as $subscriber): ?>
+                            <li>
+                                <?= $subscriber['full_name'] ?>
+                                <form action="tricount/deleteSubscriber/<?= $tricount->id ?>/<?= $subscriber['full_name'] ?>" method="post">
 
-                    foreach ($subscribers as $subscriber) {
-                        ?>
-                        <tr>
-
-                            <td><?= $subscriber['full_name'] ?></td><br><br>
-                        </tr>
-                        <?php
-                    }
-                    ?>
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
-<!--                <form form id="addNoSubForm" action="tricount/editsubscriber>-->
-<!--                       <label for="subscriber"></label>-->
-<!--                <select id="subscriber" name="subscriber">-->
-<!--                    <option action="tricount/"  value="">Add new subscriber</option>-->
-<!--                    --><?php
-//
-//                    foreach ($Nosubscribers as$Nosubscribers) {
-//                        ?>
-<!--                        <option name="--><?php //= $Nosubscribers['full_name']   ?><!-- " value="--><?php //= $Nosubscribers['full_name']   ?><!--">--><?php //= $Nosubscribers['full_name']  ?><!--</option>-->
-<!--                        --><?php
-//                    }
-//                    ?>
-<!--                </select>-->
-<!--                <input type="submit" value="Add" >-->
-<!--            </form>-->
-                <form id="addNoSubForm" action="tricount/editSubscriber/<?= $tricount->id ?>"  method="post">
-                    <form action="tricount/editSubscriber/<?= $tricount->id ?>/<?= $id_user ?>" method="post" >
+
+<!--                <form id="addNoSubForm" action="tricount/editSubscriber/--><?php //= $tricount->id ?><!--/--><?php //= $id_user ?><!--"  method="post">-->
+                <form action="tricount/editSubscriber/<?= $tricount->id ?>/<?= $id_user ?>" method="post" >
                     <label for="subscriber"></label>
                     <select id="subscriber" name="subscriber">
                         <option  value="">Add new subscriber</option>
