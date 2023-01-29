@@ -48,7 +48,7 @@ class ControllerSettings extends Controller
             $p = $_POST['password'];
             $np = $_POST['new_password'];
             $cp = $_POST['confirm_password'];
-            $errors = user::validate_password($mail, $p, $np, $cp);
+            $errors = user::validate_password_change_Pass($mail, $p, $np, $cp);
             $po = Tools::my_hash($np);
             if (empty($errors)) {
                 $user->update($mail, $name, $iban, $po);
@@ -68,10 +68,9 @@ class ControllerSettings extends Controller
         if (isset($_POST['mail']) && isset($_POST['password'])) {
             $mail = $_POST['mail'];
             $password = $_POST['password'];
-
             $errors = user::validate_login($mail, $password);
             if (empty($errors)) {
-                $this->log_user(user::get_user_by_mail($mail));
+                $this->log_user(user::get_user_by_mail_login($mail));
             }
         }
         (new View("login"))->show(["mail" => $mail, "password" => $password, "errors" => $errors]);

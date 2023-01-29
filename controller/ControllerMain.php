@@ -5,25 +5,26 @@ require_once 'model/User.php';
 require_once 'framework/View.php';
 require_once 'framework/Controller.php';
 
-//class ControllerMain extends Controller
-//{
-////    public function index(): void
-////    {
-////        if ($this->user_logged()) {
-////            $this->redirect("user", "tricount");
-////        } else {
-////            (new View("index"))->show();
-////        }
-
-
-class ControllerMain extends Controller {
-    public function index() : void {
-        if ($this->user_logged()) {
-            $this->redirect("user", "full_name");
-        } else {
-            (new View("signup"))->show();
+class ControllerMain extends Controller
+{
+  public function index(): void
+    {
+       if ($this->user_logged()) {
+           $this->redirect("user", "tricount");
+       } else {
+            (new View("index"))->show();
         }
+
     }
+
+//class ControllerMain extends Controller {
+//    public function index() : void {
+      //    if ($this->user_logged()) {
+      //      $this->redirect("user", "full_name");
+      //     } else {
+      //       (new View("signup"))->show();
+      //   }
+      //  }
 
     public function signup() : void {
         $mail = '';
@@ -72,7 +73,7 @@ class ControllerMain extends Controller {
 
             $errors = user::validate_login($mail, $password);
             if (empty($errors)) {
-                $this->log_user(user::get_user_by_mail($mail));
+                $this->log_user(user::get_user_by_mail_login($mail));
             }
         }
         (new View("login"))->show(["mail" => $mail, "password" => $password, "errors" => $errors]);

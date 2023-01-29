@@ -24,8 +24,6 @@ class ControllerUser extends Controller {
         return tricount::Participent_Tricount($tricount) ;
      }
 
-
-
     public function get_tricount(user $user): array
     {
         return tricount::get_tricounts($user);

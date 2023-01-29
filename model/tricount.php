@@ -6,13 +6,7 @@ class tricount extends Model {
 
 
 
-
-
-
-
-
-
-    public function __construct( public string $title,   public User $creator,public ?string $description = null,public ?int $id = NULL, public ?string $created_at = NULL)
+    public function __construct( public int $id ,public string $title, public int $creator,public ?string $description = null, public ?string $created_at = NULL,public ?int $nb_participant=NULl)
     {
 
     }
@@ -31,14 +25,14 @@ class tricount extends Model {
         $query = self::execute("select * from tricounts where creator = :id order by created_at DESC", ["id" => $user->id]);
         $data = $query->fetchAll();
         foreach ($data as $row) {
-            $tricounts[] = new Tricount($row['id'],$row['title'], $row['description'], $row['created_at'], $row['creator'],0 );
+            $tricounts[] = new Tricount($row['id'],$row['title'],$row['creator'], $row['description'], $row['created_at'],0);
         }
         foreach ($tricounts as $tricount) {
             //$nb = $this->Participent_Tricount($tricount) ;
             $query = self::execute("SELECT COUNT(*) nbr FROM subscriptions WHERE tricount= :TRICOUNT", ["TRICOUNT"=>$tricount->id] );
             $data_ = $query->fetchAll() ;
             $nbr_participents = $data_[0]['nbr'] ;
-            $tricounts_with_particepent [] = new Tricount($tricount->id,$tricount->title, $tricount->description, $tricount->created_at, $tricount->creator,$nbr_participents ) ;
+            $tricounts_with_particepent [] = new Tricount($tricount->id,$tricount->title, $tricount->creator, $tricount->description, $tricount->created_at,$nbr_participents ) ;
         }
 
         return $tricounts_with_particepent;
