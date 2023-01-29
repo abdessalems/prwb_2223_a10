@@ -6,22 +6,33 @@ require_once 'framework/Controller.php';
 require_once 'model/Tricount.php';
 
 class ControllerTricount extends Controller {
-    
-   
-    //page d'accueil. 
-    public function index() : void {
-        $this->addTricounts();
+
+    public function tricount() : void{
+        $user = $this->get_user_or_redirect();
+        $userr= user::get_user_by_mail($user->mail);
+        $tricounts = $this->get_tricount($userr);
+        //$nbr_Participent_Tricount = $this->get_nbr_Participent_Tricount($tricounts);
+        (new View('list_tricounts'))->show(['user'=> $user,"tricounts" => $tricounts] );
     }
 
-    //liste des tricounts de l'utilisateur connecté.
+    public function get_nbr_Participent_Tricount (tricount $tricount) : int {
+        return tricount::Participent_Tricount($tricount) ;
+    }
+
+    public function get_tricount(user $user): array
+    {
+        return tricount::get_tricounts($user);
+    }
+
+
+
+//liste des tricounts de l'utilisateur connecté.
     public function Tricounts() : void {
         $user = $this->get_user_or_redirect();
         $tricounts = $user->get_tricounts();
         $nbr_Participent_Tricount= $tricounts->Participent_Tricount();
-
         (new View("tricounts"))->show(["user" => $user, "tricounts" => $tricounts ]);
     }
-
     public function addTricounts () : void {
         $user = $this->get_user_or_redirect();
         $errors = [];
@@ -41,5 +52,8 @@ class ControllerTricount extends Controller {
     }
 
 
-    
+    public function index(): void
+    {
+        // TODO: Implement index() method.
+    }
 }

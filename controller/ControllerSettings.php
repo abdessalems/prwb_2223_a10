@@ -70,7 +70,7 @@ class ControllerSettings extends Controller
             $password = $_POST['password'];
             $errors = user::validate_login($mail, $password);
             if (empty($errors)) {
-                $this->log_user(user::get_user_by_mail_login($mail));
+                $this->log_user(user::get_user_by_mail($mail));
             }
         }
         (new View("login"))->show(["mail" => $mail, "password" => $password, "errors" => $errors]);

@@ -7,7 +7,7 @@ require_once 'model/Tricount.php';
 class user extends Model
 {
 
-    public function __construct(public string $mail, public string $hashed_password, public string $full_name, public ?string $iban = null)
+    public function __construct(public int $id,public string $mail, public string $hashed_password, public string $full_name, public ?string $iban )
     {
     }
 
@@ -20,7 +20,7 @@ class user extends Model
     public static function validate_password_change_Pass(string $mail, string $current_password, string $new_password, string $confirm_password): array
     {
         $errors = [];
-        $user = user::get_user_by_mail_login($mail);
+        $user = user::get_user_by_mail($mail);
         if (!self::check_password($current_password, $user->hashed_password)) {
             $errors [] = "The current password has been Wrong , please try again . ";
         }
@@ -36,7 +36,7 @@ class user extends Model
     public static function validate_login(string $mail, string $password): array
     {
         $errors = [];
-        $user = user::get_user_by_mail_login($mail);
+        $user = user::get_user_by_mail($mail);
         if ($user) {
             if (!self::check_password($password, $user->hashed_password)) {
 
@@ -51,21 +51,7 @@ class user extends Model
         }
         return $errors;
     }
-
-
-
-    public static function get_user_by_mail_login(string $mail): user|false
-    {
-        $query = self::execute("SELECT * FROM users where mail = :mail", ["mail" => $mail]);
-        $data = $query->fetch(); // un seul résultat au maximum
-        if ($query->rowCount() == 0) {
-            return false;
-        } else {
-
-            return new user($data["mail"], $data["hashed_password"], $data["full_name"], $data["role"], $data["iban"], $data["id"]);
-        }
-
-    }
+    
 
 
     public static function get_user_by_mail(string $mail): user|false
@@ -75,8 +61,7 @@ class user extends Model
         if ($query->rowCount() == 0) {
             return false;
         } else {
-
-            return new user($data["mail"], $data["full_name"], $data["iban"], $data["hashed_password"]);
+            return new user($data["id"],$data["mail"],$data["hashed_password"],$data["full_name"], $data["iban"]);
         }
 
     }

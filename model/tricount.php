@@ -8,7 +8,6 @@ class tricount extends Model {
 
     public function __construct( public int $id ,public string $title, public int $creator,public ?string $description = null, public ?string $created_at = NULL,public ?int $nb_participant=NULl)
     {
-
     }
 
     public static function get_tricount ( User $user) : tricount {
