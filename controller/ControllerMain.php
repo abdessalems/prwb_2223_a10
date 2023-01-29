@@ -10,6 +10,8 @@ class ControllerMain extends Controller
   public function index(): void
     {
        if ($this->user_logged()) {
+
+           
            $this->redirect("user", "tricount");
        } else {
             (new View("index"))->show();
