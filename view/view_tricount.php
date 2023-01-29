@@ -13,7 +13,9 @@
 <a href="tricount/tricount">Back</a>
 <div class="view_tricount">
     <h3><?= $tricount->title ?> > Expenses <h3/>
-        <a href="your link of edit here yassin ok ">Edit</a> <br>
+
+        <a href="tricount/EditTricounts/<?= $tricount->id ?>/<?= $id_user ?>">Edit</a> <br>
+
 
         <?php if (empty($operations)) : ?>
         <?php if ($tricount->nb_participant < 1) : ?>
