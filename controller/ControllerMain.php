@@ -5,8 +5,8 @@ require_once 'model/User.php';
 require_once 'framework/View.php';
 require_once 'framework/Controller.php';
 
-class ControllerMain extends Controller
-{
+class ControllerMain extends Controller {
+
   public function index(): void
     {
        if ($this->user_logged()) {
@@ -61,7 +61,7 @@ class ControllerMain extends Controller
 
     }
 
-
+    //gestion de la connexion d'un utilisateur
     public function login(): void
     {
         $mail = '';
@@ -79,7 +79,6 @@ class ControllerMain extends Controller
         (new View("login"))->show(["mail" => $mail, "password" => $password, "errors" => $errors]);
     }
 
-    
 
 
 }

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> feat_UC_edit_operation
 <head>
     <meta charset="UTF-8">
     <title>Log In</title>
@@ -13,6 +16,12 @@
 <hr/>
 <div class="title">Sing in</div>
 <hr/>
+<<<<<<< HEAD
+=======
+<div class="menu">
+
+</div>
+>>>>>>> feat_UC_edit_operation
 <div class="main">
     <form action="main/login" method="post">
         <table>

@@ -2,28 +2,65 @@
 
 require_once "framework/Model.php";
 
-class tricount extends Model {
+class tricount extends Model
+{
 
 
+<<<<<<< HEAD
+=======
+    public function __construct(public int $id, public string $title, public string $description, public string $created_at, public int $creator, public ?int $nb_participant = NULL)
+    {
+>>>>>>> feat_UC_edit_operation
 
     public function __construct( public int $id ,public string $title, public int $creator,public ?string $description = null, public ?string $created_at = NULL,public ?int $nb_participant=NULl)
     {
     }
 
+<<<<<<< HEAD
     public static function get_tricount ( User $user) : tricount {
         $query = self::execute("SELECT * FROM `tricounts` WHERE creator = :id", ["id" => $user->id]);
+=======
+    public static function get_tricount(user $user): tricount
+    {
+        $query = self::execute("SELECT * FROM tricounts WHERE creator = :id", ["id" => $user->id]);
+>>>>>>> feat_UC_edit_operation
         $data = $query->fetchAll();
-        return $data ;
-
-
+        return $data;
 
     }
+
+
+    public static function get_tricount_by_id(int $id): tricount|false
+    {
+        //echo $id;
+        $query = self::execute("SELECT * FROM tricounts where id = :id", ["id" => $id]);
+        // echo $id + 1;
+        $data = $query->fetch(); // un seul résultat au maximum
+        if ($query->rowCount() == 0) {
+            return false;
+        } else {
+            $tricount = new tricount($data["id"], $data["title"], $data["description"], $data["created_at"], $data["creator"]);
+            $query = self::execute("SELECT COUNT(*) nbr FROM subscriptions WHERE tricount= :TRICOUNT", ["TRICOUNT" => $tricount->id]);
+            $data_ = $query->fetchAll();
+            $nbr_participents = $data_[0]['nbr'];
+            return new tricount($tricount->id, $tricount->title, $tricount->description, $tricount->created_at, $tricount->creator, $nbr_participents);
+
+        }
+
+    }
+<<<<<<< HEAD
     public static function get_tricounts(User $user) : array{
+=======
+
+    public static function get_tricounts(user $user): array
+    {
+>>>>>>> feat_UC_edit_operation
         $tricounts = [];
         $tricounts_with_particepent = [];
         $query = self::execute("select * from tricounts where creator = :id order by created_at DESC", ["id" => $user->id]);
         $data = $query->fetchAll();
         foreach ($data as $row) {
+<<<<<<< HEAD
             $tricounts[] = new Tricount($row['id'],$row['title'],$row['creator'], $row['description'], $row['created_at'],0);
         }
         foreach ($tricounts as $tricount) {
@@ -32,6 +69,16 @@ class tricount extends Model {
             $data_ = $query->fetchAll() ;
             $nbr_participents = $data_[0]['nbr'] ;
             $tricounts_with_particepent [] = new Tricount($tricount->id,$tricount->title, $tricount->creator, $tricount->description, $tricount->created_at,$nbr_participents ) ;
+=======
+            $tricounts[] = new tricount($row['id'], $row['title'], $row['description'], $row['created_at'], $row['creator'], 0);
+        }
+        foreach ($tricounts as $tricount) {
+            //$nb = $this->Participent_Tricount($tricount) ;
+            $query = self::execute("SELECT COUNT(*) nbr FROM subscriptions WHERE tricount= :TRICOUNT", ["TRICOUNT" => $tricount->id]);
+            $data_ = $query->fetchAll();
+            $nbr_participents = $data_[0]['nbr'];
+            $tricounts_with_particepent [] = new tricount($tricount->id, $tricount->title, $tricount->description, $tricount->created_at, $tricount->creator, $nbr_participents);
+>>>>>>> feat_UC_edit_operation
         }
 
         return $tricounts_with_particepent;
