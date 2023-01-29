@@ -76,6 +76,13 @@ class user extends Model {
         return intval($result['id']);
     }
 
+
+    public static function get_all_user():array|false{
+        $query = self::execute("SELECT * FROM users",[]);
+        $result = $query->fetchAll();
+        return $result;
+    }
+
 }
 
 

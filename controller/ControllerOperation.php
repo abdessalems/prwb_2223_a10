@@ -53,9 +53,24 @@ class ControllerOperation extends Controller {
     public function add_operation():void
     {
         $idTricount = $_GET["param1"];
-        $tricount = tricount::get_tricount_by_id($idTricount);
-        $paidBy= 
-        (new View("add_operation"))->show(["tricount" => $tricount]);
+        print_r($idTricount);
+       $tricount = tricount::get_tricount_by_id($idTricount);
+        $paidBy= user::get_all_user();
+        $errors = [];
+//        if(isset($_POST['title']) && $_POST['amount'] && $_POST["paidBy"]) {
+//            $title = $_POST['title'];
+//            $amount = $_POST['amount'];
+//            $date = $_POST['date'];
+//            $checkbox = $_POST['checkbox'];
+//            $paiided = $_POST['paidBy'];
+//            print_r($title);         print_r($paiided);
+//            print_r($amount);      print_r($date);
+//            print_r($checkbox);
+//        }
+//        $operation = new operation("$title",$idTricount,$amount,$date,1);
+//        print_r($operation);
+
+        (new View("add_operation"))->show(["tricount" => $tricount,"paidBy" =>$paidBy]);
     }
 
 
