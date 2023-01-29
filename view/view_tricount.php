@@ -10,11 +10,10 @@
     <link href="css/styles.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<a href="user/tricount">Back</a>
+<a href="tricount/tricount">Back</a>
 <div class="view_tricount">
     <h3><?= $tricount->title ?> > Expenses <h3/>
         <a href="your link of edit here yassin ok ">Edit</a> <br>
-
 
         <?php if (empty($operations)) : ?>
         <?php if ($tricount->nb_participant < 1) : ?>

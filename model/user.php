@@ -108,7 +108,6 @@ class user extends Model
 
     }
 
-
     public function update(int $id,string $mail, string $full_name, string $iban, string $password): user
     {
         if (self::get_user_by_id($id)) {
