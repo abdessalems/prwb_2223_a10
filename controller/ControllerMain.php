@@ -44,7 +44,7 @@ class ControllerMain extends Controller
             $password = $_POST['password'];
             $password_confirm = $_POST['password_confirm'];
 
-            $user = new user ($mail, Tools::my_hash($password), $fullname);
+                $user = new user ($mail, Tools::my_hash($password), $fullname);
             $errors = user::validate_unicity($mail);
             $errors = array_merge($errors, $user->validate());
             $errors = array_merge($errors, user::validate_name($fullname));
@@ -73,7 +73,7 @@ class ControllerMain extends Controller
             $mail = $_POST['mail'];
             $password = $_POST['password'];
 
-            $errors = user::validate_login($mail, $password);
+            $errors = user::validate_login($mail,$password);
             if (empty($errors)) {
                 $this->log_user(user::get_user_by_mail($mail));
             }

@@ -7,9 +7,7 @@ class operation extends Model
 {
 
 
-    public function __construct(public string $title, public int $tricount, public string $amount
-        , public string                       $operation_date, public int $initiator, public string $created_at, public int $id
-        , public ?string                      $name_paid = NULL, public ?int $nbr_repartition = NULL)
+    public function __construct(public string $title, public int $tricount, public string $amount, public string $operation_date, public int $initiator, public string $created_at, public int $id, public ?string                      $name_paid = NULL, public ?int $nbr_repartition = NULL)
     {
     }
 

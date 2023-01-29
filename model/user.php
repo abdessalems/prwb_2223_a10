@@ -7,10 +7,12 @@ class user extends Model
 {
 
 
-//    public function __construct(public int $id, public string $mail, public string $hashed_password, public string $full_name, public ?string $iban , public ?float $amount =null, public ?int $weight = null)
+//    public function __construct(public int $id, public string $mail,
+// public string $hashed_password, public string $full_name, public ?string $iban ,
+// public ?float $amount =null, public ?int $weight = null)
 //    {}
 
-    public function __construct(public string $mail, public string $hashed_password, public string $full_name, public ?string $iban = null,public ?int $id=null) {
+    public function __construct(public string $mail, public string $hashed_password, public string $full_name, public ?string $iban = null,public ?int $id=null,public ?float $amount =null, public ?int $weight = null) {
     }
 
     private static function check_password(string $clear_password, string $hash): bool
@@ -48,7 +50,8 @@ class user extends Model
         foreach ($data as $row) {
             $amount_for_this_person = ($operation_amount / $total_weight) * ($row['weight']);
 
-            $operations_with_amount[] = new user($row['id'], $row['mail'], $row['hashed_password'], $row['full_name'],$row['iban'], $amount_for_this_person, $row['weight']);
+
+                $operations_with_amount[] = new user($row['mail'], $row['hashed_password'], $row['full_name'],$row['iban'], $row['id'], $amount_for_this_person, $row['weight']);
         }
         return $operations_with_amount;
 
@@ -61,7 +64,8 @@ class user extends Model
         $errors = [];
         $user = user::get_user_by_mail($mail);
         if ($user) {
-            if (!self::check_password($password, $user->hashed_password)) {
+            var_dump($user);
+            if (!self::check_password($password,$user->hashed_password)) {
 
                 $errors[] = "Wrong password. Please try again.";
 
@@ -96,7 +100,7 @@ class user extends Model
             return false;
         } else {
 
-            return new user($data["mail"],$data["full_name"],$data["iban"], $data["hashed_password"]);
+            return new user($data["mail"],$data["full_name"],$data["iban"], $data["hashed_password"],$data['id']);
         }
 
     }
@@ -112,12 +116,12 @@ class user extends Model
 
 
 
-            return new user($data["id"],$data["mail"],$data["hashed_password"],$data["full_name"], $data["iban"]);
+            return new user($data["mail"],$data["hashed_password"],$data["full_name"], $data["iban"],$data["id"]);
         }
 
     }
 
-    public function update(int $id,string $mail, string $full_name, string $iban, string $password): user
+    public function update(string $mail, string $full_name, string $iban, string $password,int $id): user
     {
         if (self::get_user_by_id($id)) {
             self::execute("UPDATE users SET mail= :mail,hashed_password= :password, full_name= :full_name,iban= :iban WHERE id= :id ",

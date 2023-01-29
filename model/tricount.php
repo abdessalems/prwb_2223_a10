@@ -6,12 +6,15 @@ class tricount extends Model
 {
 
 
-//    public function __construct( public string $title, public string $description, public string $created_at, public int $creator, public int $nb_participant ,public int $id)
+//    public function __construct( public string $title, public string $description, public string $created_at,
+// public int $creator, public int $nb_participant ,public int $id)
 //    {
 //    }
 
 
-    public function __construct( public string $title,   public int $creator,public ?string $description = null,public ?int $id = NULL, public ?string $created_at = NULL,public ?int $nb_participant=null )
+
+
+    public function __construct( public string $title, public int $creator, public ?string $description = null,public ?int $id = NULL, public ?string $created_at = NULL,public ?int $nb_participant=null )
     {
 
     }
@@ -35,12 +38,14 @@ class tricount extends Model
         if ($query->rowCount() == 0) {
             return false;
         } else {
-            $tricount = new tricount( $data["title"], $data["description"], $data["created_at"], $data["creator"],0,$data["id"]);
+
+            $tricount = new tricount( $data["title"],$data["creator"], $data["description"],$data["id"], $data["created_at"],0);
             $query = self::execute("SELECT COUNT(*) nbr FROM subscriptions WHERE tricount= :TRICOUNT", ["TRICOUNT" => $tricount->id]);
             $data_ = $query->fetchAll();
             $nbr_participents = $data_[0]['nbr'];
+           // ( $data["title"],$data["creator"], $data["description"],$data["id"], $data["created_at"],0);
 
-            return new tricount( $tricount->title, $tricount->description, $tricount->created_at, $tricount->creator, $nbr_participents,$tricount->id,);
+            return new tricount( $tricount->title,$tricount->creator, $tricount->description,$tricount->id, $tricount->created_at, $nbr_participents);
 
         }
 
@@ -54,14 +59,15 @@ class tricount extends Model
         $query = self::execute("select * from tricounts where creator = :id order by created_at DESC", ["id" => $user->id]);
         $data = $query->fetchAll();
         foreach ($data as $row) {
-            $tricounts[] = new tricount( $row["title"], $row["description"], $row["created_at"], $row["creator"],0,$row["id"]);;
+
+            $tricounts[] = new tricount($row["title"],$row["creator"], $row["description"],$row["id"], $row["created_at"],0);
         }
         foreach ($tricounts as $tricount) {
             //$nb = $this->Participent_Tricount($tricount) ;
             $query = self::execute("SELECT COUNT(*) nbr FROM subscriptions WHERE tricount= :TRICOUNT", ["TRICOUNT" => $tricount->id]);
             $data_ = $query->fetchAll();
             $nbr_participents = $data_[0]['nbr'];
-            $tricounts_with_particepent [] = new tricount($tricount->title, $tricount->description, $tricount->created_at, $tricount->creator, $nbr_participents,$tricount->id, );
+            $tricounts_with_particepent [] = new tricount( $tricount->title,$tricount->creator, $tricount->description,$tricount->id, $tricount->created_at, $nbr_participents);
         }
 
         return $tricounts_with_particepent;
