@@ -105,7 +105,7 @@ class tricount extends Model
             }
 
 
-   
+
 }
 
 
