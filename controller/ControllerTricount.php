@@ -54,6 +54,10 @@ class ControllerTricount extends Controller
             $title = $_POST['title'];
 
             //$n_tricount = new tricount($tit,$des,$user) ;
+            ////(public int $id, public string $title, public string $description,
+            ///  public string $created_at, public int $creator
+            /// , public ?int $nb_participant = NULL)
+
             $n_tricount = new tricount($title, $user, $des);
             $errors = tricount::validate($n_tricount, $user);
             if (empty($errors)) {
