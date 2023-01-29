@@ -77,6 +77,7 @@ class user extends Model {
     }
 
 
+
     public static function get_all_user():array|false{
         $query = self::execute("SELECT * FROM users",[]);
         $result = $query->fetchAll();
