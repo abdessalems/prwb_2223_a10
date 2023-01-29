@@ -18,8 +18,7 @@
 
         <a href="settings/edit_profile">Edite Profile</a> <br>
         <a href="settings/change_password">Change password</a><br>
-        <a href="user/logout">Logout</a>
-
+        <a href="settings/logout">Logout</a>
 
 </div>
 </body>
