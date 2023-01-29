@@ -59,13 +59,13 @@ class operation extends Model
     }
 
 
-    public function add_operation(operation $operation)
+    public  static function add_operation(operation $operation): operation|array
     {
 
         self::execute("INSERT INTO `operations`( `title`, `tricount`, `amount`, `operation_date`, `initiator`)
-                                                 VALUES (:title,:trcount,:amount,:initiator)",
+                                                 VALUES (:title,:trcount,:amount,:operation_date,:initiator)",
             ["title" => $this->title, "tricount" => $this->tricount, "amount" => $this->amount, "operation_date" => $this->operation_date, "initiator" => $this->initiator]);
-
+        return $this;
     }
 
 

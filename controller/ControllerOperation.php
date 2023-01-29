@@ -78,7 +78,8 @@ class ControllerOperation extends Controller
         $newoperation = new operation($title,$idTricount,$amount,$date,$itrator);
         print_r($newoperation);
 
-        $newoperation->insert_operation($newoperation);
+       // $newoperation->insert_operation($newoperation);
+        operation::add_operation( $newoperation);
         print_r($newoperation);
 
 
