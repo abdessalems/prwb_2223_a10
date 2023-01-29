@@ -25,21 +25,22 @@
 
 
 
-        <?php foreach ($paidBy as $person): ?>
-            <input type="checkbox" value="<?= $person['full_name'] ?>" name="checkbox" >
-            <label for="check"><?=$person['full_name']  ?></label> <input type="number" id="weight"
-                                                                          name="weight"
-                                                                          min="1"
-                                                                          max="10"><br>
 
-
+        <form action="operation/add_operation" method="post">
+        <?php foreach ($paidBy as $index => $person): ?>
+            <input type="checkbox" value="<?= $person['full_name'] ?>" name="checkbox_<?= $index ?>" >
+            <label for="check"><?=$person['full_name']  ?></label>
+            <input type="number" id="weight_<?= $index ?>" name="weight_<?= $index ?>" min="1" max="10"><br>
         <?php endforeach; ?><br>
+
+        </form>
 
         <p>Paid By</p>
 
 
-        <select id="paidBy" name="paidBy">
-            <option name="paidby" value="">Add new subscriber</option>
+        <select id="paid" name="paid">
+
+            <option name="paid" value="">Add new subscriber</option>
             <?php
             foreach ($paidBy as $paidBy) {
                 ?>
@@ -51,18 +52,8 @@
         </select>
 
 
-
-
-
-
-
-
-
-
-
-
-
     </form>
+
 
 
 </div>
