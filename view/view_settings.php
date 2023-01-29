@@ -12,7 +12,7 @@
 <div class="title">Settings</div>
 <div class="main">
 
-    <h4> Hey <?= $user->full_name ?> ! </h5>
+    <h4> Hey <?= $user->full_name ?> ! </h4>
         <p> I know your email adress is <?= $user->mail ?></p>
         <p> What can Ido for you ?</p>
 

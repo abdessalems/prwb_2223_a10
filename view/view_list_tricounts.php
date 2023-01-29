@@ -2,7 +2,6 @@
 <html>
 <style>
 </style>
-
 <head>
     <meta charset="UTF-8">
     <title>list_tricount</title>
@@ -21,7 +20,6 @@
 
         <?php foreach ($tricounts as $tricount): ?>
             <tr>
-                <th> <?= $tricount->title ?>  </th>
                 <th>
                     <a href='tricount/view_tricount/<?= $tricount->id ?>/<?= $user->id ?>'> <?= $tricount->title ?>  </a>
                 </th>
@@ -41,10 +39,6 @@
             </tr>
         <?php endforeach; ?>
     </table>
-    <a href="settings/settings">Settings</a>
-</div>
-</body>
-</html>
     <a href="tricount/logout">Logout</a>
 
 </div>
