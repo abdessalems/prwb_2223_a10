@@ -66,15 +66,30 @@ class user extends Model
 
     }
 
-    public function update(string $mail, string $full_name, string $iban, string $password): user
+
+    public function get_user_by_id(int $id): user|false
     {
-        if (self::get_user_by_id($this->id)) {
+        $query = self::execute("SELECT * FROM users where id = :id", ["id" => $id]);
+        $data = $query->fetch(); // un seul résultat au maximum
+        if ($query->rowCount() == 0) {
+            return false;
+        } else {
+
+            return new user($data["mail"], $data["hashed_password"], $data["full_name"], $data["role"], $data["iban"], $data["id"]);
+        }
+
+    }
+
+
+    public function update(int $id,string $mail, string $full_name, string $iban, string $password): user
+    {
+        if (self::get_user_by_id($id)) {
             self::execute("UPDATE users SET mail= :mail,hashed_password= :password, full_name= :full_name,iban= :iban WHERE id= :id ",
-                ["mail" => $mail, "password" => $password, "full_name" => $full_name, "iban" => $iban, "id" => $this->id]);
+                ["mail" => $mail, "password" => $password, "full_name" => $full_name, "iban" => $iban, "id" => $id]);
         } else {
             self::execute("INSERT INTO users(mail,password,full_name,role,iban,id) VALUES(:mail,:password,:full_name,:role,:iban,:id)",
                 ["mail" => $this->mail, "password" => $this->hashed_password, "full_name" => $this->full_name,
-                    "role" => $this->role, "iban" => $this->iban, "id" => $this->id]);
+                    "role" => $this->role, "iban" => $this->iban, "id" => $id]);
         }
         return $this;
     }

@@ -22,13 +22,14 @@ class ControllerSettings extends Controller
             $mail = $_POST['mail'];
             $full_name = $_POST['full_name'];
             $iban = $_POST['iban'];
+            var_dump($user);
+            $user_befor =user::get_user_by_mail($user->mail) ;
             $user->mail=$mail;
             $user->full_name=$full_name;
             $user->iban=$iban;
-            $user->update($mail, $full_name, $iban, $password);
+            $user->update($user_befor->id,$mail, $full_name, $iban, $password);
             $this->redirect("settings", "settings");
         }
-
         (new View("edit_profile"))->show(["user" => $user]);
 
     }
@@ -51,7 +52,7 @@ class ControllerSettings extends Controller
             $errors = user::validate_password_change_Pass($mail, $p, $np, $cp);
             $po = Tools::my_hash($np);
             if (empty($errors)) {
-                $user->update($mail, $name, $iban, $po);
+                $user->update($user->id,$mail, $name, $iban, $po);
                 $this->redirect("settings", "settings");
             }
         }
