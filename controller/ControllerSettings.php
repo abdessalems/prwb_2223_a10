@@ -22,9 +22,9 @@ class ControllerSettings extends Controller
             $mail = $_POST['mail'];
             $full_name = $_POST['full_name'];
             $iban = $_POST['iban'];
-            var_dump($user);
             $user_befor =user::get_user_by_mail($user->mail) ;
             $user->mail=$mail;
+            var_dump($user_befor);
             $user->full_name=$full_name;
             $user->iban=$iban;
             $user->update($user_befor->id,$mail, $full_name, $iban, $password);
