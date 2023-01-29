@@ -200,6 +200,19 @@ class user extends Model
                 ["mail"=>$this->mail, "password"=>$this->hashed_password, "full_name"=>$this->full_name, "iban"=>$this->iban]);
         return $this;
     }
+    public static function get_user_by_name(String $name): int {
+        $query = self::execute("SELECT users.id FROM users WHERE full_name =:full_name", ["full_name" => $name]);
+        $result = $query->fetch();
+        return intval($result['id']);
+    }
+
+
+
+    public static function get_all_user():array|false{
+        $query = self::execute("SELECT * FROM users",[]);
+        $result = $query->fetchAll();
+        return $result;
+    }
 
 
 

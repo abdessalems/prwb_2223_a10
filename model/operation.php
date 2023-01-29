@@ -7,7 +7,7 @@ class operation extends Model
 {
 
 
-    public function __construct(public string $title, public int $tricount, public string $amount, public string $operation_date, public int $initiator, public string $created_at, public int $id, public ?string                      $name_paid = NULL, public ?int $nbr_repartition = NULL)
+    public function __construct(public string $title, public int $tricount, public string $amount, public string $operation_date, public int $initiator, public string $created_at, public int $id, public ?string $name_paid = NULL, public ?int $nbr_repartition = NULL)
     {
     }
 
@@ -134,5 +134,25 @@ class operation extends Model
         return $operations_with_paidName_and_Nbrepartition;
     }
 
+    public function add_operation(operation $operation): operation|array
+    {
 
+        self::execute("INSERT INTO `operations`( `title`, `tricount`, `amount`, `operation_date`, `initiator`)
+                                                 VALUES (:title,:trcount,:amount,:operation_date,:initiator)",
+            ["title" => $this->title, "tricount" => $this->tricount, "amount" => $this->amount, "operation_date" => $this->operation_date, "initiator" => $this->initiator]);
+        return $this;
+    }
+
+
+    public function insert_operation(operation $operation): operation|array
+    {
+
+        self::execute("INSERT INTO `operations`( `title`, `tricount`, `amount`, `operation_date`, `initiator`)
+                                                 VALUES (:title,:trcount,:amount,:operation_date,:initiator)",
+            ["title" => $this->title, "tricount" => $this->tricount, "amount" => $this->amount, "operation_date" => $this->operation_date, "initiator" => $this->initiator]);
+
+        return $this;
+
+
+    }
 }

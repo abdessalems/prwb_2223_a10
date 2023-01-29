@@ -38,7 +38,7 @@
                     </tr>
                 </table>
                 <input type="submit" value="Sign Up">
-				<input type="submit" value="Cancel">
+                <button> <a href='main/login'>Cancel</a> </button>
             </form>
             <?php if (count($errors) != 0): ?>
                 <div class='errors'>

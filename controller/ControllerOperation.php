@@ -58,6 +58,49 @@ class ControllerOperation extends Controller
         (new View("operation"))->show(["id_next_operation" => $id_next_operation, "id_previous_operation" => $id_previous_operation, "operation" => $operation, "all_operation" => $all_operation, "id_operation" => $id_operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "cmpt" => $cmpt, "operation_amount" => $operation_amount, "nbr_operations" => $nbr_operations]);
     }
 
+    public function add_operation(): void
+    {
+        $idTricount = $_GET["param1"];
+
+        $tricount = tricount::get_tricount_by_id($idTricount);
+        if(isset($_POST['title']) && isset($_POST["amount"])&& isset($_POST["date"])  ){
+            $title = $_POST['title'];
+            $amount = $_POST['amount'];
+            $date= $_POST["date"];
+            $checkbox= $_POST["checkbox"];
+            $itr= $_POST["paidBy"];
+            $itrator=user::get_user_by_name($itr);
+
+
+            print_r($title);
+            print_r($amount);
+            print_r($date);
+            print_r($checkbox);
+            print_r($itrator);
+
+            $newoperation = new operation($title,$idTricount,$amount,$date,$itrator);
+            print_r($newoperation);
+
+            // $newoperation->insert_operation($newoperation);
+            operation::add_operation( $newoperation);
+            print_r($newoperation);
+
+
+
+
+
+
+
+        }
+        $paidBy = user::get_all_user();
+
+
+
+
+        (new View("add_operation"))->show(["tricount" => $tricount, "paidBy" => $paidBy]);
+    }
+
+
 
 
 }

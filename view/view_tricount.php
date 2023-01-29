@@ -70,7 +70,11 @@
     <h1> <?= $nbr_total_repartitions ?> </h1>
     -->
 </div>
-
+<div>
+    <a href="operation/add_operation/<?=$tricount->id?>">
+        <button>Cliquez ici</button>
+    </a>
+</div>
 
 </body>
 </html>
