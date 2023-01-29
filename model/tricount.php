@@ -73,31 +73,22 @@ class tricount extends Model
         return $tricounts_with_particepent;
     }
 
-//   public  static function titleExists( string  $title,int  $creator) :bool {
-//
-//        $query=self::execute("SELECT COUNT(*) FROM tricounts WHERE title :=title and creator=:creator " , ["title"=>$title,"creator"=>$creator]);
-//        $data_ = $query->fetchall();
-//       $nbr_title = $data_[0];
-//       $nbr_title =1;
-//       if ($nbr_title > 0) {
-//           return true;
-//       } else {
-//           return false;
-//       }
-//    }
 
+    public static function titleExists(string $title, int $creator) : bool {
+        $query = self::execute("SELECT COUNT(*) FROM tricounts WHERE title = :title AND creator = :creator", ["title" => $title, "creator" => $creator]);
+        $data = $query->fetchColumn();
+        return $data > 0;
+    }
 
-    public
-    static function validate(tricount $tricount, User $user): array
-    {
+    public static function validate(Tricount $tricount, User $user) : array {
         $errors = [];
 
-        if (!(strlen($tricount->title) > 0)) {
-            $errors[] = "title must be filled";
+        if (empty($tricount->title)) {
+            $errors[] = "Title must be filled.";
+        } else if (self::titleExists($tricount->title, $user->id)) {
+            $errors[] = "Title already exists .";
         }
-//    else if(self::titleExists($tricount->title,$user->id)){
-//            $errors[] = "title already exists in the database";
-//       }
+
         return $errors;
     }
 
