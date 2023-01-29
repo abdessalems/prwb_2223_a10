@@ -40,6 +40,7 @@
         <?php endforeach; ?>
     </table>
     <a href="tricount/logout">Logout</a>
+    
 
 </div>
 </body>
