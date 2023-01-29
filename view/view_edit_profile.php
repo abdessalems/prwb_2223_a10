@@ -14,10 +14,10 @@
     <br><br>
     <form id="edit_profile" action="settings/edit_profile" method="post">
         <table>
-            <tr>
-                <td>mail :</td>
-                <td><input id="mail" name="mail" type="text" size="16" value="<?= $user->mail ?>"></td>
-            </tr>
+
+                <h5> VOTRE MAIL : <?= $user->mail ?></h5>
+
+
             <tr>
                 <td>full_name :</td>
                 <td><input id="full_name" name="full_name" type="text" size="16" value="<?= $user->full_name ?>"></td>

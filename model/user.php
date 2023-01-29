@@ -64,7 +64,6 @@ class user extends Model
         $errors = [];
         $user = user::get_user_by_mail($mail);
         if ($user) {
-            var_dump($user);
             if (!self::check_password($password,$user->hashed_password)) {
 
                 $errors[] = "Wrong password. Please try again.";
@@ -100,7 +99,10 @@ class user extends Model
             return false;
         } else {
 
-            return new user($data["mail"],$data["full_name"],$data["iban"], $data["hashed_password"],$data['id']);
+        //(public string $mail, public string $hashed_password, public string $full_name, public ?string $iban = null,public ?int $id=null,public ?float $amount =null, public ?int $weight = null) {
+
+
+                return new user($data["mail"], $data["hashed_password"],$data["full_name"],$data["iban"], $data['id']);
         }
 
     }
