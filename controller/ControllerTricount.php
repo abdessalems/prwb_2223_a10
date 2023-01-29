@@ -48,6 +48,8 @@ class ControllerTricount extends Controller
     public function addTricounts(): void
     {
         $user = $this->get_user_or_redirect();
+        $idUser=$user->id;
+        print_r($idUser);
         $errors = [];
         if (isset($_POST['title'])) {
             $des = $_POST['description'];
@@ -58,7 +60,7 @@ class ControllerTricount extends Controller
             ///  public string $created_at, public int $creator
             /// , public ?int $nb_participant = NULL)
 
-            $n_tricount = new tricount($title, $user, $des);
+            $n_tricount = new tricount($title, $idUser, $des);
             $errors = tricount::validate($n_tricount, $user);
             if (empty($errors)) {
                 $n_tricount->insert_tricount();

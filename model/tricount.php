@@ -6,8 +6,14 @@ class tricount extends Model
 {
 
 
-    public function __construct( public string $title, public string $description, public string $created_at, public int $creator, public int $nb_participant ,public int $id)
+//    public function __construct( public string $title, public string $description, public string $created_at, public int $creator, public int $nb_participant ,public int $id)
+//    {
+//    }
+
+
+    public function __construct( public string $title,   public int $creator,public ?string $description = null,public ?int $id = NULL, public ?string $created_at = NULL,public ?int $nb_participant=null )
     {
+
     }
 
 
@@ -98,7 +104,7 @@ class tricount extends Model
             $description = $this->description !== "" ? $this->description : 'NULL';
             self::execute("INSERT INTO tricounts ( `title`, `description`, `creator`) 
                                                  VALUES (:title,:description,:creator)",
-                ["title" => $this->title, "description" => $description, "creator" => $this->creator->id]);
+                ["title" => $this->title, "description" => $description, "creator" => $this->creator]);
             return $this;
         }
         return $errors;
