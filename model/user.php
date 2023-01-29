@@ -51,7 +51,7 @@ class user extends Model
         }
         return $errors;
     }
-    
+
 
 
     public static function get_user_by_mail(string $mail): user|false
@@ -64,6 +64,19 @@ class user extends Model
             return new user($data["id"],$data["mail"],$data["hashed_password"],$data["full_name"], $data["iban"]);
         }
 
+    }
+
+    public function update(string $mail, string $full_name, string $iban, string $password): user
+    {
+        if (self::get_user_by_id($this->id)) {
+            self::execute("UPDATE users SET mail= :mail,hashed_password= :password, full_name= :full_name,iban= :iban WHERE id= :id ",
+                ["mail" => $mail, "password" => $password, "full_name" => $full_name, "iban" => $iban, "id" => $this->id]);
+        } else {
+            self::execute("INSERT INTO users(mail,password,full_name,role,iban,id) VALUES(:mail,:password,:full_name,:role,:iban,:id)",
+                ["mail" => $this->mail, "password" => $this->hashed_password, "full_name" => $this->full_name,
+                    "role" => $this->role, "iban" => $this->iban, "id" => $this->id]);
+        }
+        return $this;
     }
 
     private static function validate_password(string $password): array
