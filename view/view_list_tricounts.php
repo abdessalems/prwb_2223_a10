@@ -12,7 +12,7 @@
 <body>
 <div class="title">
     <h3>Your Tricounts <h3/>
-        <a href="your link for add tricount here yassin">Add </a>
+        <a href="tricount/addTricounts">Add </a>
 
 </div>
 <div class="main">
@@ -39,8 +39,11 @@
             </tr>
         <?php endforeach; ?>
     </table>
-    <a href="tricount/logout">Logout</a>
-    
+    <a href="tricount/logout">Logout</a> <br>
+
+    <a href="settings/settings">Settings</a>
+
+
 
 </div>
 </body>

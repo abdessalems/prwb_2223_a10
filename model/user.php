@@ -75,10 +75,6 @@ class user extends Model
 
 
 
-
-          ///($row['id'], $row['mail'], $row['hashed_password'], $row['full_name'],$row['iban']);
-
-
     public static function get_user_by_mail(string $mail): user|false
     {
         $query = self::execute("SELECT * FROM users where mail = :mail", ["mail" => $mail]);
