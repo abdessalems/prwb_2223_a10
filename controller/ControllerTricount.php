@@ -144,14 +144,23 @@ class ControllerTricount extends Controller
     public function deleteTricount () : void {
         $user = $this->get_user_or_redirect();
         $idTricount = $_GET["param1"];
-        echo "bbb";
+
+
 
         tricount::delete_tricount($idTricount);
 
 
 
 
-        (new View("editTricount"))->show(["user" => $user]);
+        (new View("delete_tricount"))->show(["user" => $user]);
+    }
+
+    public function  first_delete(): void{
+        $user = $this->get_user_or_redirect();
+        $idTricount = $_GET["param1"];
+        $tricount = tricount::get_tricount_by_id($idTricount);
+
+        (new View("delete_tricount"))->show(["user" => $user,"tricount"=>$tricount]);
     }
     public function deleteSubscriber():void{
         $user = $this->get_user_or_redirect();

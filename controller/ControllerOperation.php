@@ -56,7 +56,7 @@ class ControllerOperation extends Controller
             $initiator=operation::getInitiator($operation->id);
             foreach ($participentByOperation as $participent){
                 $weightForPartipent=operation::weightForPartipent($operation->id);
-                
+
                 if($initiator==$participent->initiator){
 
                 }

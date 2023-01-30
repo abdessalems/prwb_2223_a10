@@ -151,10 +151,29 @@ class tricount extends Model
     }
     public static  function delete_tricount(int $idTricount )
     {
+        self::execute("DELETE FROM repartition_template_items WHERE repartition_template_items.repartition_template=:id", ["id" => $idTricount ]);
+        self::execute("DELETE FROM repartitions WHERE repartitions.operation=:id", ["id" => $idTricount ]);
+        self::execute("DELETE FROM operations WHERE operations.tricount=:id", ["id" => $idTricount ]);
+        self::execute("DELETE FROM repartition_templates WHERE repartition_templates.tricount=:id", ["id" => $idTricount ]);
+        self::execute("DELETE FROM subscriptions WHERE subscriptions.tricount=:id", ["id" => $idTricount ]);
         self::execute("DELETE FROM tricounts WHERE id=:id", ["id" => $idTricount ]);
-        self::execute("DELETE FROM tricounts WHERE id=:id", ["id" => $idTricount ]);
+//        DELETE FROM repartition_template_items WHERE repartition_template_items.repartition_template=1;
+//DELETE FROM repartitions WHERE repartitions.operation=:1;
+//DELETE FROM operations WHERE operations.tricount=1;
+//DELETE FROM repartition_templates WHERE repartition_templates.tricount=1;
+//DELETE FROM subscriptions WHERE subscriptions.tricount=1;
+//DELETE FROM tricounts WHERE id=1;
+
+
 
     }
+
+//DELETE FROM repartition_template_items WHERE repartition_template_items.repartition_template=1;
+//DELETE FROM repartitions WHERE repartitions.operation=1;
+//DELETE FROM operations WHERE operations.tricount=1;
+//DELETE FROM repartition_templates WHERE repartition_templates.tricount=1;
+//DELETE FROM subscriptions WHERE subscriptions.tricount=1;
+//DELETE FROM tricounts WHERE id=1;
 
     public static function add_Subscriber(int $idTricount, int $idUser) {
         self::execute("INSERT INTO `subscriptions` (`tricount`, `user`) VALUES (:tricount_id, :user_id)", ["tricount_id" => $idTricount, "user_id" => $idUser]);

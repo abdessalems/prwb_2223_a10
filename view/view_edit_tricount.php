@@ -57,7 +57,7 @@
                 <input type="submit" value="Add" >
             </form>
 
-            <form action="tricount/deleteTricount/<?= $tricount->id ?>/<?= $id_user ?>" method="post" >
+            <form action="tricount/first_delete/<?= $tricount->id ?>/<?= $id_user ?>" method="post" >
                 <input type="submit" name="monBouton" value="delete">
             </form>
     </div>
