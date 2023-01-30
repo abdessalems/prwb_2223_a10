@@ -49,10 +49,12 @@
                                                                                      max="10"><br>
             <?php endforeach; ?><br>
 
-            <a href="">Delete this operation </a><br><br>
+
 
 
         </form>
+
+        <a href="operation/delete_opertation/<?= $operation->id ?>/<?= $id_user ?>">Delete this operation </a><br><br>
 
 
 </div>

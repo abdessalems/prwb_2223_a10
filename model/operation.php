@@ -183,6 +183,16 @@ public function add_operation() : Operation|array {
 
         return $errors;
     }
+//DELETE FROM `repartitions` WHERE repartitions.operation=1;
+//DELETE FROM `operations` WHERE operations.id=1;
+
+
+    public static function delete_operation(int $idOperation) {
+        self::execute("DELETE FROM repartitions WHERE  operation=:id", ["id" => $idOperation ]);
+        self::execute("DELETE FROM operations  WHERE id=:id", ["id" => $idOperation ]);
+
+    }
+
 
 
 

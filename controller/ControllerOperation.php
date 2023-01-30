@@ -109,8 +109,30 @@ class ControllerOperation extends Controller
 
         (new View("add_operation"))->show(["tricount" => $tricount, "paidBy" => $paidBy,"errors"=>$errors]);
     }
+    public function delete_opertation():void{
 
+        $id_operation = $_GET["param1"];
+
+        $operation = operation::get_operation_by_id($id_operation);
+
+
+        (new View("delete_operation"))->show(["operation" => $operation]);
+    }
+
+    public function delete_confirmation():void{
+        
+        $id_operation = $_GET["param1"];
+        $operation = operation::get_operation_by_id($id_operation);
+        $operation::delete_operation($id_operation);
+
+        (new View("delete_operation"))->show(["operation" => $operation]);
+    }
 
 
 
 }
+
+
+
+
+
