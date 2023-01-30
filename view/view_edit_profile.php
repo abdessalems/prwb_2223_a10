@@ -10,7 +10,7 @@
 <body>
 <a href="tricount/tricount">Back</a>
 <div class="main">
-    Edite Profile :
+    Edit Profile :
     <br><br>
     <form id="edit_profile" action="settings/edit_profile" method="post">
         <table>
