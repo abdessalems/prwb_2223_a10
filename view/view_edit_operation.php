@@ -27,25 +27,23 @@
             <input type="date" id="date" name="date" value="<?= $operation->operation_date ?>"><br><br>
 
 
-            <p>Paid By</p>
-            <?php foreach ($operation_amount as $o): ?>
 
-                <?php if ($o->id === $operation->initiator) : ?>
-                    <input type="radio" id="<?= $o->id ?>" name="paid" value="<?= $o->full_name ?>" checked="checked">
-                    <label for="<?= $o->id ?>"><?= $o->full_name ?></label><br>
-                <?php else : ?>
-                    <input type="radio" id="<?= $o->id ?>" name="paid" value="<?= $o->id ?>">
-                    <label for="<?= $o->id ?>"><?= $o->full_name ?></label><br>
-                <?php endif; ?><?php endforeach; ?><br>
+            <form action="/action_page.php">
+                <label for="Paid">Paid By</label><br>
+                <select name="Paid" id="Paid">
+                    <?php foreach ($operation_amount as $o): ?>
+                    <option value="<?= $o->id ?>"><?= $o->full_name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </form>
+
 
 
             <p>For Whom ? (select a least one ) </p>
 
             <?php foreach ($operation_amount as $o): ?>
                 <input type="checkbox" id="<?= $o->full_name ?>" name="<?= $o->full_name ?>" checked>
-                <label for="<?= $o->full_name ?>"><?= $o->full_name ?></label><input type="number" id="weight"
-                                                                                     name="weight"
-                                                                                     value="<?= $o->weight ?>" min="1"
+                <label for="<?= $o->full_name ?>"><?= $o->full_name ?></label><input type="number" id="weight" name="weight" value="<?= $o->weight ?>" min="1"
                                                                                      max="10"><br>
             <?php endforeach; ?><br>
 
