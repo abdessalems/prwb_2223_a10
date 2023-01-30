@@ -33,7 +33,12 @@
 <?php endif; ?>
 <?php else : ?>
     <div>
-        <a href="view balance ">view balance </a>
+
+
+        <a href="operation/view_balance/<?= $operation->id ?>/<?= $id_user ?>">view balance</a> <br>
+
+
+
         <table>
             <?php foreach ($operations as $operation): ?>
 

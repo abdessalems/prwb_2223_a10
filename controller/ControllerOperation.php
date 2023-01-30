@@ -39,6 +39,45 @@ class ControllerOperation extends Controller
 
 
     }
+    public function view_balance():void
+    {
+        $user = $this->get_user_or_redirect();
+        $id_operation = $_GET["param1"];
+        $operationgg = operation::get_operation_by_id($id_operation);
+        $tricount = tricount::get_tricount_by_id($operationgg->tricount);
+        $operations = operation::get_operations($tricount);
+
+        foreach ($operations as $operation){
+            $participentByOperation= operation::participentByOperation($operation->id);
+            $weightForOperation=operation::getWeightForOperation($operation->id);
+            $initiator=operation::getInitiator($operation->id);
+            $AmountOfOperation=operation::getAmountOfOperation($operation->id);
+            $partOfAmont=$AmountOfOperation/$weightForOperation;
+            $initiator=operation::getInitiator($operation->id);
+            foreach ($participentByOperation as $participent){
+                $weightForPartipent=operation::weightForPartipent($operation->id);
+                
+                if($initiator==$participent->initiator){
+
+                }
+            }
+
+
+        }
+
+
+         $participentByOperation= operation::participentByOperation($id_operation);
+         //print_r($participentByOperation);
+         $weightForOperation=operation::getWeightForOperation($id_operation);
+
+         $initiator=operation::getInitiator($id_operation);
+
+         $AmountOfOperation=operation::getAmountOfOperation($id_operation);
+         $partOfAmont=$AmountOfOperation/$weightForOperation;
+         print_r($partOfAmont);
+        (new View("balance"))->show(["operation" => $operation]);
+
+    }
 
 
     public function view_operation(): void
@@ -120,7 +159,7 @@ class ControllerOperation extends Controller
     }
 
     public function delete_confirmation():void{
-        
+
         $id_operation = $_GET["param1"];
         $operation = operation::get_operation_by_id($id_operation);
         $operation::delete_operation($id_operation);
