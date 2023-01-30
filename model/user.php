@@ -17,6 +17,7 @@ class user extends Model
 
     private static function check_password(string $clear_password, string $hash): bool
     {
+
         return $hash === Tools::my_hash($clear_password);
     }
 
@@ -33,6 +34,11 @@ class user extends Model
         if ($new_password == $current_password) {
             $errors [] = "the current password must be diffirent from the old one  . ";
         }
+        $errors = array_merge($errors, user::validate_password($current_password));
+        $errors = array_merge($errors, user::validate_password($confirm_password));
+
+
+
         return $errors;
 
     }
@@ -138,7 +144,7 @@ class user extends Model
 
 
 
-    private static function validate_password(string $password) : array {
+    public static function validate_password(string $password) : array {
         $errors = [];
         if (strlen($password) < 8 || strlen($password) > 16) {
             $errors[] = "Password length must be between 8 and 16.";
@@ -158,11 +164,13 @@ class user extends Model
     }
 
 
+
+
     public static function validate_iban(string $iban) : array{
         $errors = [];
+        echo strlen($iban) == 16;
         if (!strlen($iban) == 16) {
             $errors[] = "Iban should contain 16 caracters";}
-
         return $errors ;
     }
 

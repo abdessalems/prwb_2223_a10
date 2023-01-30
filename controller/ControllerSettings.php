@@ -18,21 +18,23 @@ class ControllerSettings extends Controller
     {
         $user = $this->get_user_or_redirect();
         $password = $user->hashed_password;
-        if (isset($_POST['mail'])) {
-            $mail = $_POST['mail'];
+        $errors=[];
+        if (isset($_POST['full_name'])) {
             $full_name = $_POST['full_name'];
             $iban = $_POST['iban'];
             $user_befor = user::get_user_by_mail($user->mail);
-            $user->mail = $mail;
+            $mail=$user->mail ;
             $user->full_name = $full_name;
             $user->iban = $iban;
-            $user->update( $mail, $full_name, $iban, $password,$user_befor->id);
-            $this->redirect("settings", "settings");
+            $errors =user::validate_name($full_name);
+            $errors = array_merge($errors, user::validate_iban($iban));
+            if (count($errors) == 0) {
+                $user->update($mail,$full_name,$iban,$password,$user_befor->id);
+                $this->redirect("settings", "settings");
+            }
         }
-        (new View("edit_profile"))->show(["user" => $user]);
-
+        (new View("edit_profile"))->show(["user" => $user,"errors" => $errors]);
     }
-
 
     public function change_password(): void
     {
