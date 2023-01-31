@@ -99,45 +99,63 @@ class ControllerOperation extends Controller
 
     public function add_operation(): void
     {
+
+
         $idTricount = $_GET["param1"];
+        $paid = "";
+        $name = "";
+        $date= "";
+        $amount="";
+
+
         $errors="";
         $paidBy = [];
-         $paidBy = user::get_all_user();
-
-
-        $tricount = tricount::get_tricount_by_id($idTricount);
+        $allName=[];
+        $allUseId=[];
+        $allWeight=[];
+        $tableau=[];
+        $paidBy = user::get_all_user();
+         $tricount = tricount::get_tricount_by_id($idTricount);
         if(isset($_POST['title']) && isset($_POST["amount"])&& isset($_POST["date"])  ){
             $title = $_POST['title'];
             $amount = $_POST['amount'];
             $date= $_POST["date"];
             $itr= $_POST["paid"];
-
-            print_r($itr);
-
-            $itr=4;
-            print_r($itr);
-
-//            if(isset($_POST['checkbox_' . $index]&& $_POST['weight_' . $index])){}
-//            foreach ($paidBy as $index => $person) {
-//                $checkbox = $_POST['checkbox_' . $index];
-//                $weight = $_POST['weight_' . $index];
-//                print_r($weight);
-//                print_r($checkbox);
-//            }
-            foreach ($paidBy as $index => $person) {
-                if (isset($_POST['checkbox_' . $index]) && isset($_POST['weight_' . $index])) {
-                    $checkbox = $_POST['checkbox_' . $index];
-                    $weight = $_POST['weight_' . $index];
-                    print_r($weight);
-                    print_r($checkbox);
-                }
-            }
             $itrator=user::get_user_by_name($itr);
             $newoperation = new operation($title,$idTricount,$amount,$date,$itrator);
+
             $errors = operation::validateOperation($newoperation);
             if (empty($errors)) {
                 $newoperation-> add_operation();
 
+
+            }
+            foreach ($paidBy as $index => $person) {
+                if (isset($_POST['checkbox_' . $index]) && isset($_POST['weight_' . $index])) {
+                    $checkbox = $_POST['checkbox_' . $index];
+                    $weight = $_POST['weight_' . $index];
+                    $userId = user::get_user_by_name($checkbox);
+
+
+//                    $allWeight=$weight;
+//                    $allUseId=$userId;
+
+
+                }
+
+            }
+                $allWeight=$weight;
+                $allUseId=$userId;
+
+
+                print_r($allUseId);
+            print_r($allWeight);
+            $tableau = array_merge($allUseId,$allWeight);
+
+
+            foreach ($tableau as $allUseId=>$allWeight ) {
+
+                operation::add_reartition($newoperation, $userId, $weight);
             }
             $paidBy = user::get_all_user();
         }

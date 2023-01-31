@@ -178,6 +178,49 @@ class ControllerTricount extends Controller
 
     }
 
+
+    public function view_balance():void
+    {
+        $user = $this->get_user_or_redirect();
+        $id_tricount = $_GET["param1"];
+        $tricount=tricount::get_tricount_by_id($id_tricount);
+
+
+        $operations = operation::get_operations($tricount);
+
+
+        foreach ($operations as $operation){
+            $participentByOperation= operation::participentByOperation($operation->id);
+            $weightForOperation=operation::getWeightForOperation($operation->id);
+            $initiator=operation::getInitiator($operation->id);
+            $AmountOfOperation=operation::getAmountOfOperation($operation->id);
+            $partOfAmont=$AmountOfOperation/$weightForOperation;
+            $initiator=operation::getInitiator($operation->id);
+            print_r($participentByOperation);
+            foreach ($participentByOperation as $participent){
+                print_r($participent);
+                $id = $participent[0];
+                print_r($id);
+                $weightForPartipent=operation::weightForPartipent($id);
+                if($initiator==$id){
+                    $somme=$weightForPartipent*$partOfAmont;
+
+                }else{
+                    $somme=$weightForPartipent*$partOfAmont;
+                }
+                print_r($somme);
+            }
+
+
+        }
+
+
+
+        (new View("balance"))->show(["operation" => $operation]);
+
+    }
+
+
     public function index(): void
     {
         // TODO: Implement index() method.

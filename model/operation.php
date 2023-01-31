@@ -248,6 +248,13 @@ public function add_operation() : Operation|array {
 
     }
 
+    public static function add_reartition(operation $operation,int $user,int $weight ){
+
+        self::execute("INSERT INTO operations (INSERT INTO `repartitions`(`operation`, `user`, `weight`) 
+                       VALUES (:id, :user, :weight)",["operation" => $operation->id,"user"=>$user,"weight"=> $weight ]);
+
+    }
+
 
 
 

@@ -33,9 +33,9 @@
 <?php endif; ?>
 <?php else : ?>
     <div>
+<!--        <a href="operation/view_balance/--><?php //= $operation->id ?><!-- ">view balance </a>-->
 
-
-        <a href="operation/view_balance/<?= $operation->id ?>/<?= $id_user ?>">view balance</a> <br>
+        <a href="tricount/view_balance/<?= $tricount->id ?>/<?= $id_user ?> ">view balance</a> <br>
 
 
 
