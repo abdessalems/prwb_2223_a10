@@ -4,25 +4,28 @@
     <meta charset="UTF-8">
     <title>add_operation</title>
     <base href="<?=$web_root?>"/>
-
-    <button> <a href='tricount/tricount/<?= $tricount->id ?>'>Cancel</a> </button>
+    <button> <a href='tricount/tri/4'>Cancel</a> </button>
 
 </head>
 <body>
 
 <form  action="operation/add_operation/<?= $tricount->id ?>" method="post">
-    <input type="submit" value="Save"> <br><br>
+    <input type="submit" value="Save">
 
 
 
-            <input id="title" name="title" type="text"  ><br><br>
+            <input id="title" name="title" type="text"  value=""><br><br>
 
 
-            <input id="amount" name="amount"   > <br><br>
-            <label for="date">Date</label><br>
-            <input type="date" id="date" name="date" value=""><br><br>
+            <input id="amount" name="amount"> <br><br>
 
-            <p> Paid  by </p>
+
+            <td>Date</td><br>
+            <td><input type="date" id="date" name="date" ></td>
+
+
+
+            <p>paid by </p>
                 <select name="paid" id="pets">
                     <?php foreach ($paidBy as $user): ?>
                         <option value="<?=$user["full_name"]?>"><?= $user["full_name"] ?></option>

@@ -121,6 +121,7 @@ class ControllerOperation extends Controller
             $amount = $_POST['amount'];
             $date= $_POST["date"];
             $itr= $_POST["paid"];
+            print_r($itr);
             $itrator=user::get_user_by_name($itr);
             $newoperation = new operation($title,$idTricount,$amount,$date,$itrator);
 
