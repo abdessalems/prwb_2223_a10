@@ -18,22 +18,22 @@ class ControllerSettings extends Controller
     {
         $user = $this->get_user_or_redirect();
         $password = $user->hashed_password;
-        $errors=[];
+        $errors = [];
         if (isset($_POST['full_name'])) {
             $full_name = $_POST['full_name'];
             $iban = $_POST['iban'];
             $user_befor = user::get_user_by_mail($user->mail);
-            $mail=$user->mail ;
+            $mail = $user->mail;
             $user->full_name = $full_name;
             $user->iban = $iban;
-            $errors =user::validate_name($full_name);
+            $errors = user::validate_name($full_name);
             $errors = array_merge($errors, user::validate_iban($iban));
             if (count($errors) == 0) {
-                $user->update($mail,$full_name,$iban,$password,$user_befor->id);
+                $user->update($mail, $full_name, $iban, $password, $user_befor->id);
                 $this->redirect("settings", "settings");
             }
         }
-        (new View("edit_profile"))->show(["user" => $user,"errors" => $errors]);
+        (new View("edit_profile"))->show(["user" => $user, "errors" => $errors]);
     }
 
     public function change_password(): void
@@ -53,7 +53,7 @@ class ControllerSettings extends Controller
             $errors = user::validate_password_change_Pass($mail, $p, $np, $cp);
             $po = Tools::my_hash($np);
             if (empty($errors)) {
-                $user->update( $mail, $name, $iban, $po,$user->id);
+                $user->update($mail, $name, $iban, $po, $user->id);
                 $this->redirect("settings", "settings");
             }
         }
@@ -71,7 +71,7 @@ class ControllerSettings extends Controller
             $mail = $_POST['mail'];
 
             $password = $_POST['password'];
-            $errors = user::validate_login($mail,$password);
+            $errors = user::validate_login($mail, $password);
             if (empty($errors)) {
                 $this->log_user(user::get_user_by_mail($mail));
             }
@@ -82,12 +82,9 @@ class ControllerSettings extends Controller
     public function settings(): void
     {
         $user = $this->get_user_or_redirect();
-
         // $mail = $_POST['mail'];
         // $user = $user::get_user_by_mail($mail);
-
         (new View("settings"))->show(["user" => $user]);
-
     }
 
 

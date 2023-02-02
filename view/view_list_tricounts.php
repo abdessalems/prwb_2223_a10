@@ -23,7 +23,6 @@
                 <th>
                     <a href='tricount/view_tricount/<?= $tricount->id ?>/<?= $user->id ?>'> <?= $tricount->title ?>  </a>
                 </th>
-
                 <th></th>
             </tr>
             <tr>
@@ -42,7 +41,6 @@
     <a href="tricount/logout">Logout</a> <br>
 
     <a href="settings/settings">Settings</a>
-
 
 
 </div>
