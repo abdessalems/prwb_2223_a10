@@ -21,6 +21,8 @@ class operation extends Model
         return $this;
     }
 
+
+
     public static function get_prev_operation(int $id_operation, array $operations): int
     {
         $array_length = count($operations) - 1;

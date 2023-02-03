@@ -95,6 +95,9 @@ class ControllerTricount extends Controller
     $subscribers = $tricount::get_subscriber($idTricount);
     $Nosubscribers = $tricount::getNOsubscriber($idTricount, $id_user);
     $ceator = tricount::get_creator($id_user);
+    $subscriber="";
+
+    ;
 
     //  $subscribers = array_merge($subscribers, $ceator);
 
@@ -112,12 +115,17 @@ class ControllerTricount extends Controller
     if(isset($_POST['title'])) {
         $title = $_POST['title'];
         $description = $_POST['description'];
+        $subscriber=$_POST['subscriber'];
+        print_r($subscriber);
+        $idSubscriber= user::get_user_by_name($subscriber);
+         tricount::add_Subscriber($idTricount, $idSubscriber);
+
 
 
         $new_tricount = new tricount($title, $id_user, $description,$idTricount);
-        print_r($new_tricount);
+
         $tricount->update_tricount($new_tricount,$idTricount );
-        print_r($tricount);
+
         (new View("edit_tricount"))->show(["user" => $user,"tricount" => $tricount,"id_user"=>$id_user,"subscribers"=>$subscribers,"Nosubscribers" =>$Nosubscribers] );
     }
     else {
@@ -138,12 +146,18 @@ class ControllerTricount extends Controller
         }
 
 
-        (new View("editTricount"))->show(["user" => $user]);
+        (new View("edit_Tricount"))->show(["user" => $user]);
     }
 
     public function deleteTricount () : void {
         $user = $this->get_user_or_redirect();
         $idTricount = $_GET["param1"];
+        $tricount=tricount::get_tricount_by_id($idTricount);
+        $Operation=operation::get_operations($tricount);
+
+        foreach ($Operation as $Operation){
+            operation::delete_operation($Operation->id);
+        }
 
 
 
@@ -167,13 +181,17 @@ class ControllerTricount extends Controller
         $idTricount = $_GET["param1"];
         $nameSubscriber = $_GET["param2"];
         $idSubscriber = user::get_user_by_name($nameSubscriber);
+        print_r($idSubscriber);
+        print_r($idTricount);
+
+        tricount::delete_subscriber($idSubscriber,$idTricount);
         $tricount = tricount::get_tricount_by_id($idTricount);
         $subscribers = $tricount::get_subscriber($idTricount);
         $Nosubscribers = $tricount::getNOsubscriber($idTricount, $idSubscriber);
         $idSubscriber = user::get_user_by_name($nameSubscriber);
 
-        tricount::delete_subscriber($idSubscriber,$idTricount);
-        (new View("editTricount"))->show(["user" => $user, "tricount" => $tricount, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
+
+        (new View("edit_Tricount"))->show(["user" => $user, "tricount" => $tricount, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
 
 
     }
@@ -189,18 +207,25 @@ class ControllerTricount extends Controller
         $operations = operation::get_operations($tricount);
 
 
+
         foreach ($operations as $operation){
             $participentByOperation= operation::participentByOperation($operation->id);
+            // print_r($participentByOperation);
+
+
             $weightForOperation=operation::getWeightForOperation($operation->id);
             $initiator=operation::getInitiator($operation->id);
             $AmountOfOperation=operation::getAmountOfOperation($operation->id);
             $partOfAmont=$AmountOfOperation/$weightForOperation;
             $initiator=operation::getInitiator($operation->id);
-            print_r($participentByOperation);
+
             foreach ($participentByOperation as $participent){
                 print_r($participent);
-                $id = $participent[0];
+                $id = $participent->id;
                 print_r($id);
+
+                $id = $participent[0];
+
                 $weightForPartipent=operation::weightForPartipent($id);
                 if($initiator==$id){
                     $somme=$weightForPartipent*$partOfAmont;
@@ -208,10 +233,11 @@ class ControllerTricount extends Controller
                 }else{
                     $somme=$weightForPartipent*$partOfAmont;
                 }
-                print_r($somme);
+
+
             }
 
-
+        print_r($somme);
         }
 
 

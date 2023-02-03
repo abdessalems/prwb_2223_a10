@@ -23,6 +23,14 @@
                 <label > title :</label><br>
                 <input type="text" id="title" name="title" value="<?= $tricount->title ?>"><br><br>
             </div>
+
+            <p>paid by </p>
+            <select name="subscriber" id="subscriber">
+                <?php foreach ($Nosubscribers as $user): ?>
+                    <option value="<?=$user["full_name"]?>"><?= $user["full_name"] ?></option>
+                <?php endforeach ;?>
+            </select>
+
             <div>
                 <label >description(optional) :</label><br>
                 <textarea name="description" rows="10" cols="20" > <?= $tricount->description ?></textarea>
@@ -41,21 +49,6 @@
                 </ul>
             </div>
 
-            <!--                <form id="addNoSubForm" action="tricount/editSubscriber/--><?php //= $tricount->id ?><!--/--><?php //= $id_user ?><!--"  method="post">-->
-            <form action="tricount/editSubscriber/<?= $tricount->id ?>/<?= $id_user ?>" method="post" >
-                <label for="subscriber"></label>
-                <select id="subscriber" name="subscriber">
-                    <option  value="">Add new subscriber</option>
-                    <?php
-                    foreach ($Nosubscribers as$Nosubscribers) {
-                        ?>
-                        <option   value="<?= $Nosubscribers['full_name']   ?>"><?= $Nosubscribers['full_name']  ?></option>
-                        <?php
-                    }
-                    ?>
-                </select>
-                <input type="submit" value="Add" >
-            </form>
 
             <form action="tricount/first_delete/<?= $tricount->id ?>/<?= $id_user ?>" method="post" >
                 <input type="submit" name="monBouton" value="delete">
