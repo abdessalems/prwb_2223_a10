@@ -14,7 +14,13 @@ class ControllerSettings extends Controller
         $this->settings();
     }
 
-    public function edit_profile(): void
+    /**
+     * This function is the alternative of the edit_profile function
+     * it is called when we put edit profile in a tab in the same setting view
+     * @return void
+     */
+
+    public function alternate_edit_profile(): void
     {
         $user = $this->get_user_or_redirect();
         $password = $user->hashed_password;
@@ -35,8 +41,35 @@ class ControllerSettings extends Controller
         }
         (new View("edit_profile"))->show(["user" => $user, "errors" => $errors]);
     }
-
     public function change_password(): void
+    {
+        $user = $this->get_user_or_redirect();
+        $p = "";
+        $np = "";
+        $cp = "";
+        $errors = [];
+        $name = $user->full_name;
+        $iban = $user->iban;
+        $mail = $user->mail;
+
+        if (isset($_POST['current_password']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
+            $p = $_POST['current_password'];
+            $np = $_POST['new_password'];
+            $cp = $_POST['confirm_password'];
+            ControllerMain::console_log($_POST['current_password']);
+            ControllerMain::console_log($_POST['new_password']);
+            ControllerMain::console_log($_POST['confirm_password']);
+            $errors = user::validate_password_change_Pass($mail, $p, $np, $cp);
+            $po = Tools::my_hash($np);
+            if (empty($errors)) {
+                $user->update($user->id, $mail, $name, $iban, $po);
+                $this->redirect("settings", "settings");
+            }
+        }
+        (new View("settings"))->show(["user" => $user, "errors" => $errors]);
+    }
+
+    public function alternate_change_password(): void
     {
         $user = $this->get_user_or_redirect();
         $p = "";
@@ -50,6 +83,9 @@ class ControllerSettings extends Controller
             $p = $_POST['password'];
             $np = $_POST['new_password'];
             $cp = $_POST['confirm_password'];
+            ControllerMain::console_log($_POST['current_password']);
+            ControllerMain::console_log($_POST['new_password']);
+            ControllerMain::console_log($_POST['confirm_password']);
             $errors = user::validate_password_change_Pass($mail, $p, $np, $cp);
             $po = Tools::my_hash($np);
             if (empty($errors)) {
@@ -57,7 +93,7 @@ class ControllerSettings extends Controller
                 $this->redirect("settings", "settings");
             }
         }
-        (new View("change_password"))->show(["user" => $user, "errors" => $errors]);
+        (new View("settings"))->show(["user" => $user, "errors" => $errors]);
 
     }
 
@@ -84,7 +120,9 @@ class ControllerSettings extends Controller
         $user = $this->get_user_or_redirect();
         // $mail = $_POST['mail'];
         // $user = $user::get_user_by_mail($mail);
-        (new View("settings"))->show(["user" => $user]);
+        $errors = [];
+
+        (new View("settings"))->show(["user" => $user, "errors"=>$errors]);
     }
 
 

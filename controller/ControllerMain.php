@@ -61,6 +61,7 @@ class ControllerMain extends Controller
         (new View("signup"))->show(["mail" => $mail, "fullname" => $fullname, "iban" => $iban, "password" => $password,
             "password_confirm" => $password_confirm, "errors" => $errors]);
 
+
     }
 
     //gestion de la connexion d'un utilisateur
@@ -80,6 +81,23 @@ class ControllerMain extends Controller
         }
         (new View("login"))->show(["mail" => $mail, "password" => $password, "errors" => $errors]);
     }
+
+    /**
+     * Console_log is used to show php logs in the browser console (js console)
+     * mainly used for inspecting the variables to help in debug
+     * @param $output
+     * @param $with_script_tags
+     * @return void
+     */
+    public static function console_log($output, $with_script_tags = true) {
+        $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+            ');';
+        if ($with_script_tags) {
+            $js_code = '<script>' . $js_code . '</script>';
+        }
+        echo $js_code;
+    }
+
 
 
 }
