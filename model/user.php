@@ -12,6 +12,8 @@ class user extends Model
 // public ?float $amount =null, public ?int $weight = null)
 //    {}
 
+
+
     public function __construct(public string $mail, public string $hashed_password, public string $full_name, public ?string $iban = null,public ?int $id=null,public ?float $amount =null, public ?int $weight = null) {
     }
 
@@ -129,6 +131,16 @@ class user extends Model
 
     }
 
+    /**
+     * Update an existing user in the database
+     * @param int $id
+     * @param string $mail
+     * @param string $full_name
+     * @param string $iban
+     * @param string $password
+     * @return $this
+     */
+
     public function update(string $mail, string $full_name, string $iban, string $password,int $id): user
     {
         if (self::get_user_by_id($id)) {
@@ -139,6 +151,22 @@ class user extends Model
                 ["mail" => $this->mail, "password" => $this->hashed_password, "full_name" => $this->full_name,
                     "role" => $this->role, "iban" => $this->iban, "id" => $id]);
         }
+        return $this;
+    }
+
+    /**
+     * Insert a new user to the database
+     * @param string $mail
+     * @param string $full_name
+     * @param string $iban
+     * @param string $hashed_password
+     * @return $this
+     */
+    public function insert(string $mail, string $full_name, string $iban, string $hashed_password): user
+    {
+        self::execute("INSERT INTO users(mail,password,full_name,role,iban) VALUES(:mail,:password,:full_name,:role,:iban)",
+            ["mail" => $mail, "password" => $hashed_password, "full_name" => $full_name,
+                "iban" => $iban]);
         return $this;
     }
 
@@ -162,8 +190,6 @@ class user extends Model
         }
         return $errors ;
     }
-
-
 
 
     public static function validate_iban(string $iban) : array{
