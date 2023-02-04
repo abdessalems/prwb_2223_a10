@@ -14,13 +14,14 @@
 </head>
 <body>
 <div style="background-color: dodgerblue; height: 20%;">
+    <button style="color:red; background-color:white;">
+        <a href='tricount/view_tricount/<?=  $tricount->id ?>/<?= $id_user ?>'> Back</a>
+    </button>
 
 </div>
 
-<button style="color:red; background-color:white;">
-    <a href='tricount/view_tricount/<?=  $tricount->id ?>/<?= $id_user ?>'> Back</a>
-</button>
-<div class="view_ operation ">
+
+<div class="Edit Tricounts ">
     <h3>Edit Tricounts</h3>
     <div class="d-flex justify-content-center mt-3">
         <div class="title">
@@ -30,7 +31,7 @@
     </div>
         <form id="addForm" action="tricount/EditTricounts/<?= $tricount->id ?>/<?= $id_user ?>" method="post">
 <!--           <input type="submit" value="Save"> <br><br><br>-->
-
+            <table class="table table-bordered">
 
                 <div class="d-flex flex-row">
                     <input class="btn btn-primary " type="submit" value="Sign Up">
@@ -75,6 +76,7 @@
                 </tbody
             </table>
             </div>
+            </table>
         </form>
 
     <footer>
@@ -86,4 +88,5 @@
 
 </div>
 </body>
+
 </html>

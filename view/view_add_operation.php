@@ -4,33 +4,50 @@
     <meta charset="UTF-8">
     <title>add_operation</title>
     <base href="<?=$web_root?>"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
     <button> <a href='tricount/tricount/<?= $tricount->id ?>'>Back</a> </button>
 
 </head>
 <body>
 
+
 <form  action="operation/add_operation/<?= $tricount->id ?>" method="post">
-    <input type="submit" value="Save">
 
 
+        <div class="d-flex flex-row">
+            <input class="btn btn-primary " type="submit" value="Save">
+        </div>
 
-            <input id="title" name="title" type="text"  value=""><br><br>
+    <div class="input-group mb-3">
+
+        <input  class="form-control" id="title" name="title" type="text"  placeholder="Title" aria-label="Amount (to the nearest dollar)">
+
+    </div>
 
 
-            <input id="amount" name="amount"> <br><br>
+    <div class="input-group mb-3">
+
+         <input  class="form-control" type="number" id="amount" name="amount" placeholder="Amount" aria-label="Amount (to the nearest dollar)">
+        <span class="input-group-text">euro</span>
+    </div>
 
 
-            <td>Date</td><br>
-            <td><input type="date" id="date" name="date" ></td>
+    <p>Date</p>
+    <div class="input-group mb-3">
 
+        <input  class="form-control" type="date" id="date" name="date"  aria-label="Amount (to the nearest dollar)">
 
+    </div>
 
-            <p>paid by </p>
-                <select name="paid" id="pets">
-                    <?php foreach ($paidBy as $user): ?>
-                        <option value="<?=$user["full_name"]?>"><?= $user["full_name"] ?></option>
-                    <?php endforeach ;?>
-                </select>
+    <p>paid by </p>
+    <div >
+        <select name="paid" id="paid"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"">
+            <?php foreach ($paidBy as $user): ?>
+                 <option value="<?=$user["full_name"]?>"><?= $user["full_name"] ?></option>
+             <?php endforeach ;?>
+        </select>
+    </div>
 
             <p>For whom? (select at least one)</p>
 
