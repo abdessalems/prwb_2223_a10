@@ -96,6 +96,9 @@ class ControllerTricount extends Controller
     $Nosubscribers = $tricount::getNOsubscriber($idTricount, $id_user);
     $ceator = tricount::get_creator($id_user);
     $subscriber="";
+    $title="";
+    $description="";
+
 
     ;
 
@@ -104,13 +107,14 @@ class ControllerTricount extends Controller
     //  $nameSubscriber = $_POST['subscriber'];
     // print_r(user::get_user_by_name($nameSubscriber));
 //        print_r($nameSubscriber);
+     $subscriber=$_POST['subscriber'];
 
 
 
-
-//        if (isset($nameSubscriber)) {
-//            tricount::add_Subscriber($idTricount, $newSubsribers['id']);
-//        }
+        if (isset($nameSubscriber)) {
+           $idSubscriber= user::get_user_by_name($subscriber);
+    tricount::add_Subscriber($idTricount, $idSubscriber);
+        }
 
     if(isset($_POST['title'])) {
         $title = $_POST['title'];
@@ -118,7 +122,7 @@ class ControllerTricount extends Controller
         $subscriber=$_POST['subscriber'];
         print_r($subscriber);
         $idSubscriber= user::get_user_by_name($subscriber);
-         tricount::add_Subscriber($idTricount, $idSubscriber);
+        tricount::add_Subscriber($idTricount, $idSubscriber);
 
 
 
@@ -138,7 +142,7 @@ class ControllerTricount extends Controller
 
     public function editSubscriber () : void {
         $user = $this->get_user_or_redirect();
-
+        echo "hhh";
         $idTricount = $_GET["param1"];
         $nameSubscriber = $_POST['subscriber'];
         $idSubscriber= user::get_user_by_name($nameSubscriber);

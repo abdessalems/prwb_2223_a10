@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>add_operation</title>
     <base href="<?=$web_root?>"/>
-    <button> <a href='tricount/tri/4'>Cancel</a> </button>
+    <button> <a href='tricount/tricount/<?= $tricount->id ?>'>Back</a> </button>
 
 </head>
 <body>
