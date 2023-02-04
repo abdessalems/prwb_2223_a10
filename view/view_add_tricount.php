@@ -25,9 +25,9 @@
 
       <form id="addForm" action="tricount/addTricounts" method="post">
           <div class="d-flex justify-content-between mt-3">
-              <input type="submit" class="btn btn-primary" value="Enregistrer"/>
+              <input type="submit" class="btn btn-primary" value="Save"/>
 
-              <button class="btn btn-danger" onclick="window.location.href='tricount/tricount'">Annuler</button>
+              <button class="btn btn-danger" onclick="window.location.href='tricount/tricount'">Cancel</button>
           </div>
 
           <div class="form-group">

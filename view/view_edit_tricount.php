@@ -14,9 +14,11 @@
 <a href='tricount/view_tricount/<?=  $tricount->id ?>/<?= $id_user ?>'> Back</a>
 <div class="view_ operation ">
     <h3><?= $tricount->title ?> > Edit </h3>
-    <div  class="title">
-        <div  class="title"> <h3>Settings </h3>
+    <div class="d-flex justify-content-center mt-3">
+        <div class="title">
+            <h3>Edit Tricounts</h3>
         </div>
+    </div>
         <form id="addForm" action="tricount/EditTricounts/<?= $tricount->id ?>/<?= $id_user ?>" method="post">
             <input type="submit" value="Save"> <br><br><br>
             <div>
