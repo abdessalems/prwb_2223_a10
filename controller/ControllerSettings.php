@@ -33,13 +33,13 @@ class ControllerSettings extends Controller
             $user->full_name = $full_name;
             $user->iban = $iban;
             $errors = user::validate_name($full_name);
-            $errors = array_merge($errors, user::validate_iban($iban));
+            $errors = array_merge($errors, user::isValidIban($iban));
             if (count($errors) == 0) {
                 $user->update($mail, $full_name, $iban, $password, $user_befor->id);
                 $this->redirect("settings", "settings");
             }
         }
-        (new View("edit_profile"))->show(["user" => $user, "errors" => $errors]);
+        (new View("settings"))->show(["user" => $user, "errors" => $errors]);
     }
 
 
