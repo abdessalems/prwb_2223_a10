@@ -31,7 +31,7 @@
 <body>
 
 
-
+<a href="tricount/view_balance/<?= $tricount->id ?>/<?= $id_user ?> ">view balance</a> <br>
 <div class="card-header">
     <div class="d-flex w-100 justify-content-between">
         <a  class="btn btn-outline-danger" href="tricount/tricount">Back</a>

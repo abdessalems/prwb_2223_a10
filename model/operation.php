@@ -235,7 +235,17 @@ public function add_operation() : Operation|array {
     return $errors;
 }
 
+    public static function validateOperationAmount(operation $operation) : array {
+        $errors = [];
 
+
+         if($operation->amount<0){
+            $errors[] = "Amount must be positive.";
+        }
+
+
+        return $errors;
+    }
 
 
     public static function validateOperation(operation $operation) : array {

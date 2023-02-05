@@ -100,27 +100,27 @@ class ControllerOperation extends Controller
                     $userId = user::get_user_by_name($checkbox);
 
 
-//                    $allWeight=$weight;
-//                    $allUseId=$userId;
+                   $allWeight=$weight;
+                    $allUseId=$userId;
 
 
-                }
-
-            }
-                $allWeight=$weight;
-                $allUseId=$userId;
-
-
-                print_r($allUseId);
-            print_r($allWeight);
-            $tableau = array_merge($allUseId,$allWeight);
-
-
-            foreach ($tableau as $allUseId=>$allWeight ) {
-
-                operation::add_reartition($newoperation, $userId, $weight);
-            }
-            $paidBy = user::get_all_user();
+              }
+//
+//}
+//               $allWeight=$weight;
+//               $allUseId=$userId;
+//
+//
+//                print_r($allUseId);
+//            print_r($allWeight);
+//            $tableau = array_merge($allUseId,$allWeight);
+//
+//
+//            foreach ($tableau as $allUseId=>$allWeight ) {
+//
+//                operation::add_reartition($newoperation, $userId, $weight);
+           }
+           $paidBy = user::get_all_user();
         }
         $paidBy = user::get_all_user();
 

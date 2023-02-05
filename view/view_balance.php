@@ -18,7 +18,7 @@
     <div class="d-flex justify-content-center mt-3">
         <div class="title" style="text-align: right;">
 
-            <h3 style="color: gray;"><?= $tricount->title ?> > Edit </h3>
+            <h3 style="color: gray;"><?= $tricount->title ?> < Balance </h3>
         </div>
     </div>
 </div>
@@ -31,7 +31,7 @@
 
 
 
-    <table style="height: 40px; width: 600px;">
+    <table style="height: 40px; width: 800px;">
         <tr>
 
         </tr>
