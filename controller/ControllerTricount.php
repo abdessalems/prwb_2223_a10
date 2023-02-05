@@ -37,6 +37,8 @@ class ControllerTricount extends Controller
 //liste des tricounts de l'utilisateur connecté.
     public function Tricounts(): void
     {
+
+
         $user = $this->get_user_or_redirect();
         $tricounts = $user->get_tricounts();
         $nbr_Participent_Tricount = $tricounts->Participent_Tricount();
@@ -44,9 +46,11 @@ class ControllerTricount extends Controller
 
     }
     public function addTricounts(): void
-    {
+     {
+
         $user = $this->get_user_or_redirect();
          $idUser=$user->id;
+
          $errors = [];
         if (isset($_POST['title'])) {
             $des = $_POST['description'];
@@ -55,6 +59,7 @@ class ControllerTricount extends Controller
             $errors = tricount::validate($n_tricount, $user);
             if (empty($errors)) {
                 $n_tricount->insert_tricount();
+                $this->redirect("tricount", "tricount");
             }
         }
         (new View("add_tricount"))->show(["user" => $user, "errors" => $errors]);
@@ -114,6 +119,7 @@ class ControllerTricount extends Controller
          $new_tricount = new tricount($title, $id_user, $description,$idTricount);
          $tricount->update_tricount($new_tricount,$idTricount );
 
+        $this->redirect("tricount", "tricount");
         (new View("edit_tricount"))->show(["user" => $user,"tricount" => $tricount,"id_user"=>$id_user,"subscribers"=>$subscribers,"Nosubscribers" =>$Nosubscribers] );
     }
     else {
@@ -145,6 +151,7 @@ class ControllerTricount extends Controller
 
         foreach ($Operation as $Operation){
             operation::delete_operation($Operation->id);
+
         }
 
 
@@ -153,6 +160,7 @@ class ControllerTricount extends Controller
 
 
 
+        $this->redirect("tricount", "tricount");
 
         (new View("delete_tricount"))->show(["user" => $user]);
     }
@@ -235,7 +243,7 @@ class ControllerTricount extends Controller
 
 
 
-        (new View("balance"))->show(["participents" => $participents,"tricount" => $tricount]);
+        (new View("balance"))->show(["participents" => $participents,"tricount" => $tricount,"user"=>$user]);
 
     }
 

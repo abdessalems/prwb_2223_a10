@@ -61,7 +61,7 @@ class ControllerOperation extends Controller
 
     public function add_operation(): void
     {
-
+        $user = $this->get_user_or_redirect();
 
         $idTricount = $_GET["param1"];
         $paid = "";
@@ -90,6 +90,7 @@ class ControllerOperation extends Controller
             $errors = operation::validateOperation($newoperation);
             if (empty($errors)) {
                 $newoperation-> add_operation();
+                $this->redirect("tricount", "view_tricount"/$idTricount);
 
 
             }
@@ -144,6 +145,7 @@ class ControllerOperation extends Controller
         $id_operation = $_GET["param1"];
         $operation = operation::get_operation_by_id($id_operation);
         $operation::delete_operation($id_operation);
+        $this->redirect("tricount", "tricount");
 
         (new View("delete_operation"))->show(["operation" => $operation]);
     }

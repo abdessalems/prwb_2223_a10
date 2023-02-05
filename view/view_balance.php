@@ -11,9 +11,10 @@
 </head>
 <body>
 <div style="background-color: lightsteelblue; padding: 10px;">
-<!--    <button> <a href='tricount/tricount/--><?php //= $tricount->id ?><!--'>Back</a> </button>-->
+
     <button style="color:red; border: 1px solid red;">
-        <a href='tricount/tricount/<?= $tricount->id ?>' style="text-decoration: none; color: red;">Back</a>
+
+        <a href='tricount/view_tricount/<?= $tricount->id ?>/<?=  $user->id ?>' style="text-decoration: none; color: red;">Back</a>
     </button>
     <div class="d-flex justify-content-center mt-3">
         <div class="title" style="text-align: right;">
@@ -31,7 +32,7 @@
 
 
 
-    <table style="height: 40px; width: 800px;">
+    <table style="height: 60px; width: 1000px;">
         <tr>
 
         </tr>
