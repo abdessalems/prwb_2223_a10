@@ -29,15 +29,11 @@
     <link href="./assets/css/styles.css" rel="stylesheet">
 </head>
 <body>
-
-
-<a href="tricount/view_balance/<?= $tricount->id ?>/<?= $id_user ?> ">view balance</a> <br>
 <div class="card-header">
     <div class="d-flex w-100 justify-content-between">
         <a  class="btn btn-outline-danger" href="tricount/tricount">Back</a>
         <h5 style="align-self: center " class="card-title" ><?= $tricount->title ?> > Expenses <h5/>
-            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit tricount"  class="btn btn-primary" href="your link of edit here yassin ok ">Edit</a>
-            <a href="tricount/EditTricounts/<?= $tricount->id ?>/<?= $id_user ?>">Edit</a> <br>
+            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit tricount"  class="btn btn-primary" href="tricount/EditTricounts/<?= $tricount->id ?>/<?= $id_user ?>">Edit </a>
     </div>
 
 </div>
@@ -55,12 +51,12 @@
         <h3> Your Tricount is empty !</h3>
         <p> Click below to add your first expense ! </p>
         <a href="link ">Add an expense</a>
-        <a href="tricount/view_balance/<?= $tricount->id ?>/<?= $id_user ?> ">view balance</a> <br>
+        <a href="tricount/view_balance/<?= $tricount->id ?>/<?= $id_user ?>">view balance </a> <br>
     </div>
     <?php endif; ?>
     <?php else : ?>
         <div class="list-group">
-            <a class="btn btn btn-success" href="view balance ">   <i class="bi bi-arrow-left-right"></i>  view balance </a>
+            <a class="btn btn btn-success" href="tricount/view_balance/<?= $tricount->id ?>/<?= $id_user ?> ">   <i class="bi bi-arrow-left-right"></i>  view balance </a>
             <?php foreach ($operations as $operation): ?>
                 <a href="operation/view_operation/<?= $operation->id ?>/<?= $id_user ?>" class="list-group-item list-group-item-action" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
@@ -86,11 +82,14 @@
             <small>My total</small>
             <h5 class="mb-1"><?= $My_total ?> €</h5>
         </div>
-        <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add new operation" type="button" href="your link for add tricount here yassin"><i class="btn btn-primary bi bi-plus-circle-fill"></i> </a>
-        <div  class="list-group-item list-group-item-action">
-            <small class="right-item">Total expenses</small>
-            <h5 class="right-item" > <?= $Total_expenses ?> €</h5>
+        <a href="operation/add_operation/<?=$tricount->id?>">
+
+        <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add new operation" type="button" href="operation/add_operation/<?=$tricount->id?>"><i class="btn btn-primary bi bi-plus-circle-fill"></i> </a>
+        <div  class="list-group-item list-group-item-action" >
+
         </div>
+            <small>Total expenses</small><br><br>
+            <h5 > <?=$Total_expenses?>€</h5>
     </div>
 </div>
 
