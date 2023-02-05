@@ -12,7 +12,7 @@ class user extends Model
 // public ?float $amount =null, public ?int $weight = null)
 //    {}
 
-    public function __construct(public string $mail, public string $hashed_password, public string $full_name, public ?string $iban = null,public ?int $id=null,public ?float $amount =null, public ?int $weight = null,public ?float $account=null) {
+    public function __construct(public string $mail, public string $hashed_password, public string $full_name, public ?string $iban = null,public ?int $id=null,public ?float $amount =null, public ?int $weight = null,public ?float $account=0) {
     }
 
     private static function check_password(string $clear_password, string $hash): bool

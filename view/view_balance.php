@@ -9,25 +9,53 @@
 </head>
 <body>
 
+
 <a href=""> Back</a>
-<div class="view_add_operation">
+<div class="view_balance">
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>Nom complet</th>-->
+<!--        <th>Compte</th>-->
+<!--    </tr>-->
+<!--    --><?php //foreach ($participents as $participent): ?>
+<!--        --><?php //if(($participents->account)>0) ?>
+<!--        <tr>-->
+<!--            <td>--><?php //echo $participent->full_name; ?><!--</td>-->
+<!--            <td>--><?php //echo $participent->account; ?><!--</td>-->
+<!--        </tr>-->
+<!--        --><?php // elseif(($participents->account)<0) ?>
+<!--            <tr>-->
+<!--            <td>--><?php //echo $participent->account; ?><!--</td>-->
+<!--            <td>--><?php //echo $participent->full_name; ?><!--</td>-->
+<!---->
+<!--        </tr>-->
+<!--        --><?php //endif; ?>
+<!--        --><?php //endif; ?>
+<!--    --><?php //endforeach; ?>
+<!--</table>-->
+
     <table>
         <tr>
-            <td></td>
-            <td></td>
 
         </tr>
-        <tr>
-            <td>Donnée 1.1</td>
-            <td>Donnée 1.2</td>
-            <td>Donnée 1.3</td>
-        </tr>
-        <tr>
-            <td>Donnée 2.1</td>
-            <td>Donnée 2.2</td>
-            <td>Donnée 2.3</td>
-        </tr>
+        <?php foreach ($participents as $participent): ?>
+            <?php if(($participent->account)>0): ?>
+                <tr>
+                    <td><?php echo $participent->full_name; ?></td>
+                    <td><?php echo $participent->account; ?></td>
+                </tr>
+            <?php  elseif(($participent->account)<0): ?>
+                <tr>
+                    <td><?php echo $participent->account; ?></td>
+                    <td><?php echo $participent->full_name; ?></td>
+
+                </tr>
+            <?php endif; ?>
+        <?php endforeach; ?>
     </table>
+
+
+
 </div>
 </body>
 </html>

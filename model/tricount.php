@@ -92,6 +92,16 @@ class tricount extends Model
         return $errors;
     }
 
+    public static function getParticipentByTricount(int $tricountId):array{
+        $query = self::execute("SELECT * FROM users WHERE id in (SELECT DISTINCT user FROM subscriptions WHERE tricount=:id) ORDER BY full_name",["id" => $tricountId]);
+        $data = $query->fetchAll();
+        $results = [];
+        foreach($data as $row){
+            $results[] = new User($row["mail"],$row["hashed_password"],$row["full_name"],$row["iban"],$row["id"]);
+        }
+        return $results;
+    }
+
 
     public
     function insert_tricount(): tricount|array

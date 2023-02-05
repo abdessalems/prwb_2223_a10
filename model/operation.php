@@ -135,7 +135,7 @@ class operation extends Model
 
     public static function getWeightForOperation(int $id): int
     {
-        $query = self::execute("SELECT SUM(weight) as weight FROM repartitions WHERE operation = :id", ["id" => $id]);
+        $query = self::execute("SELECT SUM(weight) weight FROM repartitions WHERE operation = :id", ["id" => $id]);
         $result = $query->fetch();
         return $result['weight'];
     }
@@ -153,11 +153,18 @@ class operation extends Model
         return $result['somme'];
 
     }
-    public static function weightForPartipent(int $id):int{
-        $query = self::execute("SELECT repartitions.weight as weight FROM `repartitions` WHERE operation=:id", ["id" => $id]);
+    public static function weightForPartipent(int $id,int $iduser):int{
+        $query = self::execute("SELECT repartitions.weight as weight FROM `repartitions` WHERE operation=:id and user=:iduser", ["id" => $id,"iduser"=>$iduser]);
         $result = $query->fetch();
         return $result['weight'];
 
+    }
+
+
+    public static function get_operationOfTricountId(int $idTricount):int{
+        $query = self::execute("SELECT operations.id FROM operations,tricounts where operations.tricount=tricounts.id and tricounts.id=:id;", ["id" => $idTricount]);
+        $result = $query->fetch();
+        return $result['id'];
     }
 
 
@@ -227,6 +234,9 @@ public function add_operation() : Operation|array {
 
     return $errors;
 }
+
+
+
 
     public static function validateOperation(operation $operation) : array {
         $errors = [];

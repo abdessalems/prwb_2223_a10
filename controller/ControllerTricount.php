@@ -207,46 +207,61 @@ class ControllerTricount extends Controller
         $id_tricount = $_GET["param1"];
         $tricount=tricount::get_tricount_by_id($id_tricount);
 
+        //$operations = operation::get_operationOfTricountId($id_tricount);
 
-        $operations = operation::get_operations($tricount);
+
+
+       $operations = operation::get_operations($tricount);
+
+
+
+        $participents = tricount::getParticipentByTricount($id_tricount);
 
 
 
         foreach ($operations as $operation){
-            $participentByOperation= operation::participentByOperation($operation->id);
-            // print_r($participentByOperation);
-
 
             $weightForOperation=operation::getWeightForOperation($operation->id);
+
             $initiator=operation::getInitiator($operation->id);
+
             $AmountOfOperation=operation::getAmountOfOperation($operation->id);
+
             $partOfAmont=$AmountOfOperation/$weightForOperation;
-            $initiator=operation::getInitiator($operation->id);
 
-            foreach ($participentByOperation as $participent){
-                print_r($participent);
-                $id = $participent->id;
-                print_r($id);
+            $operationPart=operation::participentByOperation($operation->id);
 
-                $id = $participent[0];
 
-                $weightForPartipent=operation::weightForPartipent($id);
-                if($initiator==$id){
-                    $somme=$weightForPartipent*$partOfAmont;
 
-                }else{
-                    $somme=$weightForPartipent*$partOfAmont;
+            foreach ($participents as $participent){
+                $participates=false;
+                foreach($operationPart as $row){
+                    if($row["user"]==$participent->id){
+                        $participates=true;
+                    }
                 }
 
+                if($participates){
 
+                    $id = $participent->id;
+
+                    $weightForPartipent=operation::weightForPartipent($operation->id,$id);
+                    if($initiator==$id){
+                        $participent->account+=$AmountOfOperation-($weightForPartipent*$partOfAmont);
+
+
+                    }else{
+                        $participent->account-=$weightForPartipent*$partOfAmont;
+                    }
+                }
             }
 
-        print_r($somme);
+        //print_r($participentByOperation);
         }
 
 
 
-        (new View("balance"))->show(["operation" => $operation]);
+        (new View("balance"))->show(["participents" => $participents]);
 
     }
 
