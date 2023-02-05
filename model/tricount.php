@@ -153,21 +153,15 @@ class tricount extends Model
 
     public   function update_tricount(tricount $tricount,int $idTricount ): tricount
     {
-
-
-
-        self::execute("UPDATE tricounts SET title =:new_title, description =:new_description WHERE tricounts.id =:idTricount", ["idTricount" => $idTricount , "new_title" => $tricount->title, "new_description" =>$tricount->description ]);
+         self::execute("UPDATE tricounts SET title =:new_title, description =:new_description WHERE tricounts.id =:idTricount", ["idTricount" => $idTricount , "new_title" => $tricount->title, "new_description" =>$tricount->description ]);
         return $this;
     }
     public static  function delete_tricount(int $idTricount )
     {
         self::execute("DELETE FROM  subscriptions where  subscriptions.tricount=:id", ["id" => $idTricount ]);
-        self::execute("DELETE FROM repartition_templates WHERE repartition_templates.tricount=:id", ["id" => $idTricount ]);
         self::execute("DELETE FROM repartition_template_items WHERE repartition_template in (select id from repartition_templates where tricount=:id )", ["id" => $idTricount ]);
-
+        self::execute("DELETE FROM repartition_templates WHERE repartition_templates.tricount=:id", ["id" => $idTricount ]);
         self::execute("DELETE FROM tricounts WHERE id=:id", ["id" => $idTricount ]);
-
-
 
     }
 

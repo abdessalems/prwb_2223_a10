@@ -34,7 +34,7 @@
             <table class="table table-bordered">
 
                 <div class="d-flex flex-row">
-                    <input class="btn btn-primary " type="submit" value="Sign Up">
+                    <input class="btn btn-primary " type="submit" value="Save">
                 </div>
 
 

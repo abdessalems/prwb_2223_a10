@@ -99,21 +99,10 @@ class ControllerTricount extends Controller
     $title="";
     $description="";
 
-
-    ;
-
-    //  $subscribers = array_merge($subscribers, $ceator);
-
-    //  $nameSubscriber = $_POST['subscriber'];
-    // print_r(user::get_user_by_name($nameSubscriber));
-//        print_r($nameSubscriber);
-     $subscriber=$_POST['subscriber'];
-
-
-
-        if (isset($nameSubscriber)) {
+      if (isset($nameSubscriber)) {
+            $subscriber=$_POST['subscriber'];
            $idSubscriber= user::get_user_by_name($subscriber);
-    tricount::add_Subscriber($idTricount, $idSubscriber);
+            tricount::add_Subscriber($idTricount, $idSubscriber);
         }
 
     if(isset($_POST['title'])) {

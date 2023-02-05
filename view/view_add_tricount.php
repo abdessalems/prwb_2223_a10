@@ -15,19 +15,24 @@
 
     <body>
 
-    <div class="d-flex justify-content-center mt-3">
-        <div class="title">
-            <h3>Your Tricounts</h3>
-        </div>
-    </div>
+
 
 
 
       <form id="addForm" action="tricount/addTricounts" method="post">
+          <div style="background-color: lightsteelblue; padding: 10px;">
           <div class="d-flex justify-content-between mt-3">
               <input type="submit" class="btn btn-primary" value="Save"/>
+              <div class="d-flex justify-content-center mt-3">
+                  <div class="title">
+                      <h3>Your Tricounts</h3>
+                  </div>
+              </div
 
-              <button class="btn btn-danger" onclick="window.location.href='tricount/tricount'">Cancel</button>
+              <button style="color:red; border: 1px solid red;">
+                  <a href='tricount/tricount/<?= $tricount->id ?>' style="text-decoration: none; color: red;">Back</a>
+              </button>
+          </div>
           </div>
 
           <div class="form-group">
