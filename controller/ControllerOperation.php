@@ -83,9 +83,10 @@ class ControllerOperation extends Controller
             $amount = $_POST['amount'];
             $date= $_POST["date"];
             $itr= $_POST["paid"];
-            print_r($itr);
+           // print_r($itr);
             $itrator=user::get_user_by_name($itr);
             $newoperation = new operation($title,$idTricount,$amount,$date,$itrator);
+
 
             $errors = operation::validateOperation($newoperation);
             if (empty($errors)) {
@@ -93,35 +94,63 @@ class ControllerOperation extends Controller
 
 
             }
-            foreach ($paidBy as $index => $person) {
-                if (isset($_POST['checkbox_' . $index]) && isset($_POST['weight_' . $index])) {
-                    $checkbox = $_POST['checkbox_' . $index];
-                    $weight = $_POST['weight_' . $index];
-                    $userId = user::get_user_by_name($checkbox);
+            $idNewOperation=operation::getIdOperatiobByTitle($newoperation->title);
 
+               }
+//            foreach ($paidBy as $index => $person) {
+//                if (isset($_POST['checkbox_' . $index]) && isset($_POST['weight_' . $index])) {
+//                    $checkbox = $_POST['checkbox_' . $index];
+//                    $weight = $_POST['weight_' . $index];
+//
+//                    array_push($allWeight, $weight);
+//
+//                    $userId = user::get_user_by_name($checkbox);
+//                    array_push($allUseId, $userId);
+//
+//                }
+//            }
+//
+//
+//               $tableau= array_combine($allUseId,$allWeight);
+//
+//
+//        foreach ($tableau as $userId => $weight) {
+//
+//            print_r($userId);
+//            print_r($weight);
+//            operation::add_reartition($newoperation, $userId, $weight);
+//        }
 
-//                    $allWeight=$weight;
-//                    $allUseId=$userId;
+        foreach ($paidBy as $index => $person) {
+            if (isset($_POST['checkbox_' . $index]) && isset($_POST['weight_' . $index])) {
+                $checkbox = $_POST['checkbox_' . $index];
+                $weight = $_POST['weight_' . $index];
 
+                array_push($allWeight, $weight);
 
-                }
-
+                $userId = user::get_user_by_name($checkbox);
+                array_push($allUseId, $userId);
             }
-                $allWeight=$weight;
-                $allUseId=$userId;
-
-
-                print_r($allUseId);
-            print_r($allWeight);
-            $tableau = array_merge($allUseId,$allWeight);
-
-
-            foreach ($tableau as $allUseId=>$allWeight ) {
-
-                operation::add_reartition($newoperation, $userId, $weight);
-            }
-            $paidBy = user::get_all_user();
         }
+
+        $tableau = array_combine($allUseId, $allWeight);
+
+
+        $count = 1;
+        foreach ($tableau as $userId => $weight) {
+
+
+            $count++;
+        }
+
+        foreach ($tableau as $userId => $weight) {
+            print_r($newoperation->id);
+            operation::add_reartition($idNewOperation, $userId, $weight);
+        }
+
+
+            $paidBy = user::get_all_user();
+
         $paidBy = user::get_all_user();
 
 

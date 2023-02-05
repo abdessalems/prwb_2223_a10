@@ -80,6 +80,8 @@ class operation extends Model
     }
 
 
+
+
     public static function get_including_operation_by_idUser_operationId(int $idUser, int $idOperation): int
     {//if the user includ in operation return >=1 si nn 0
         $query = self::execute("SELECT * FROM repartitions WHERE user= :user AND operation= :operation ;", ["user" => $idUser, "operation" => $idOperation]);
@@ -163,6 +165,12 @@ class operation extends Model
 
     public static function get_operationOfTricountId(int $idTricount):int{
         $query = self::execute("SELECT operations.id FROM operations,tricounts where operations.tricount=tricounts.id and tricounts.id=:id;", ["id" => $idTricount]);
+        $result = $query->fetch();
+        return $result['id'];
+    }
+
+    public  static function  getIdOperatiobByTitle(String $title):int{
+        $query = self::execute("SELECT operations.id FROM operations where operations.title=:title;", ["title" => $title]);
         $result = $query->fetch();
         return $result['id'];
     }
@@ -260,11 +268,21 @@ public function add_operation() : Operation|array {
 
     }
 
-    public static function add_reartition(operation $operation,int $user,int $weight ){
+//    public static function add_reartition(operation $id,int $user,int $weight ){
+//
+//        self::execute("INSERT INTO operations (INSERT INTO `repartitions`(`operation`, `user`, `weight`)
+//                       VALUES (:id, :user, :weight)",["operation" => $id,"user"=>$user,"weight"=> $weight ]);
+//
+//    }
 
-        self::execute("INSERT INTO operations (INSERT INTO `repartitions`(`operation`, `user`, `weight`) 
-                       VALUES (:id, :user, :weight)",["operation" => $operation->id,"user"=>$user,"weight"=> $weight ]);
+    public static function add_reartition(int $id, int $user, int $weight) {
 
+        self::execute("INSERT INTO `repartitions`(`operation`, `user`, `weight`) 
+                   VALUES (:operation, :user, :weight)", [
+            "operation" => $id,
+            "user" => $user,
+            "weight" => $weight
+        ]);
     }
 
 
