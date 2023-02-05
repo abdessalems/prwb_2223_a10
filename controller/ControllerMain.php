@@ -49,7 +49,7 @@ class ControllerMain extends Controller
             $errors = array_merge($errors, $user->validate());
             $errors = array_merge($errors, user::validate_name($fullname));
             $errors = array_merge($errors, user::validate_iban($iban));
-            // $errors = array_merge($errors, user::validate_passwords($password, $password_confirm));
+             $errors = array_merge($errors, user::validate_passwords($password, $password_confirm));
 
             if (count($errors) == 0) {
                 $user->persist(); //sauve l'utilisateur

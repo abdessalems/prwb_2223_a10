@@ -37,6 +37,7 @@
         <a  class="btn btn-outline-danger" href="tricount/tricount">Back</a>
         <h5 style="align-self: center " class="card-title" ><?= $tricount->title ?> > Expenses <h5/>
             <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit tricount"  class="btn btn-primary" href="your link of edit here yassin ok ">Edit</a>
+            <a href="tricount/EditTricounts/<?= $tricount->id ?>/<?= $id_user ?>">Edit</a> <br>
     </div>
 
 </div>
@@ -54,6 +55,7 @@
         <h3> Your Tricount is empty !</h3>
         <p> Click below to add your first expense ! </p>
         <a href="link ">Add an expense</a>
+        <a href="tricount/view_balance/<?= $tricount->id ?>/<?= $id_user ?> ">view balance</a> <br>
     </div>
     <?php endif; ?>
     <?php else : ?>

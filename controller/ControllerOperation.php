@@ -41,6 +41,7 @@ class ControllerOperation extends Controller
     }
 
 
+
     public function view_operation(): void
     {
         $user = $this->get_user_or_redirect();
@@ -58,5 +59,100 @@ class ControllerOperation extends Controller
         (new View("operation"))->show(["id_next_operation" => $id_next_operation, "id_previous_operation" => $id_previous_operation, "operation" => $operation, "all_operation" => $all_operation, "id_operation" => $id_operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "cmpt" => $cmpt, "operation_amount" => $operation_amount, "nbr_operations" => $nbr_operations]);
     }
 
+    public function add_operation(): void
+    {
+
+
+        $idTricount = $_GET["param1"];
+        $paid = "";
+        $name = "";
+        $date= "";
+        $amount="";
+
+
+        $errors="";
+        $paidBy = [];
+        $allName=[];
+        $allUseId=[];
+        $allWeight=[];
+        $tableau=[];
+        $paidBy = user::get_all_user();
+         $tricount = tricount::get_tricount_by_id($idTricount);
+        if(isset($_POST['title']) && isset($_POST["amount"])&& isset($_POST["date"])  ){
+            $title = $_POST['title'];
+            $amount = $_POST['amount'];
+            $date= $_POST["date"];
+            $itr= $_POST["paid"];
+            print_r($itr);
+            $itrator=user::get_user_by_name($itr);
+            $newoperation = new operation($title,$idTricount,$amount,$date,$itrator);
+
+            $errors = operation::validateOperation($newoperation);
+            if (empty($errors)) {
+                $newoperation-> add_operation();
+
+
+            }
+            foreach ($paidBy as $index => $person) {
+                if (isset($_POST['checkbox_' . $index]) && isset($_POST['weight_' . $index])) {
+                    $checkbox = $_POST['checkbox_' . $index];
+                    $weight = $_POST['weight_' . $index];
+                    $userId = user::get_user_by_name($checkbox);
+
+
+//                    $allWeight=$weight;
+//                    $allUseId=$userId;
+
+
+                }
+
+            }
+                $allWeight=$weight;
+                $allUseId=$userId;
+
+
+                print_r($allUseId);
+            print_r($allWeight);
+            $tableau = array_merge($allUseId,$allWeight);
+
+
+            foreach ($tableau as $allUseId=>$allWeight ) {
+
+                operation::add_reartition($newoperation, $userId, $weight);
+            }
+            $paidBy = user::get_all_user();
+        }
+        $paidBy = user::get_all_user();
+
+
+
+
+        (new View("add_operation"))->show(["tricount" => $tricount, "paidBy" => $paidBy,"errors"=>$errors]);
+    }
+    public function delete_opertation():void{
+
+        $id_operation = $_GET["param1"];
+
+        $operation = operation::get_operation_by_id($id_operation);
+
+
+        (new View("delete_operation"))->show(["operation" => $operation]);
+    }
+
+    public function delete_confirmation():void{
+
+        $id_operation = $_GET["param1"];
+        $operation = operation::get_operation_by_id($id_operation);
+        $operation::delete_operation($id_operation);
+
+        (new View("delete_operation"))->show(["operation" => $operation]);
+    }
+
+
 
 }
+
+
+
+
+

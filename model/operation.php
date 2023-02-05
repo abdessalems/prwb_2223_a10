@@ -7,7 +7,7 @@ class operation extends Model
 {
 
 
-    public function __construct(public string $title, public int $tricount, public string $amount, public string $operation_date, public int $initiator, public string $created_at, public int $id, public ?string                      $name_paid = NULL, public ?int $nbr_repartition = NULL)
+    public function __construct(public string $title, public int $tricount, public float $amount, public string $operation_date, public int $initiator, public ?string $created_at = null, public ?int $id = null, public ?string $name_paid = NULL, public ?int $nbr_repartition = NULL)
     {
     }
 
@@ -20,6 +20,8 @@ class operation extends Model
                     "initiator" => $id_user, "amount" => $operation->amount]);
         return $this;
     }
+
+
 
     public static function get_prev_operation(int $id_operation, array $operations): int
     {
@@ -110,6 +112,68 @@ class operation extends Model
 
     }
 
+    public static function get_operationsById(int $id): array
+    {
+        $operations = [];
+        $query = self::execute("SELECT * FROM operations WHERE id = :id", ["id" => $id]);
+        if ($query->rowCount() > 0) {
+            $operations = $query->fetchAll();;
+        }
+        return $operations;
+    }
+
+    public static function participentByOperation(int $id): array
+    {
+        $partucipent = [];
+        $query = self::execute("SELECT repartitions.user FROM `repartitions` WHERE repartitions.operation=:id ", ["id" => $id]);
+        if ($query->rowCount() > 0) {
+            $partucipent = $query->fetchAll();;
+        }
+        return $partucipent;
+
+    }
+
+    public static function getWeightForOperation(int $id): int
+    {
+        $query = self::execute("SELECT SUM(weight) weight FROM repartitions WHERE operation = :id", ["id" => $id]);
+        $result = $query->fetch();
+        return $result['weight'];
+    }
+
+    public static function getInitiator(int $id):int
+    {
+        $query = self::execute("SELECT operations.initiator init FROM `operations` WHERE id=:id;", ["id" => $id]);
+        $result = $query->fetch();
+        return $result['init'];
+    }
+
+    public static function getAmountOfOperation(int $id):float{
+        $query = self::execute("SELECT SUM(amount) as somme FROM operations WHERE operations.id=:id;", ["id" => $id]);
+        $result = $query->fetch();
+        return $result['somme'];
+
+    }
+    public static function weightForPartipent(int $id,int $iduser):int{
+        $query = self::execute("SELECT repartitions.weight as weight FROM `repartitions` WHERE operation=:id and user=:iduser", ["id" => $id,"iduser"=>$iduser]);
+        $result = $query->fetch();
+        return $result['weight'];
+
+    }
+
+
+    public static function get_operationOfTricountId(int $idTricount):int{
+        $query = self::execute("SELECT operations.id FROM operations,tricounts where operations.tricount=tricounts.id and tricounts.id=:id;", ["id" => $idTricount]);
+        $result = $query->fetch();
+        return $result['id'];
+    }
+
+
+
+
+
+
+
+
 
     public static function get_operations(tricount $tricount): array
     {
@@ -133,6 +197,77 @@ class operation extends Model
 
         return $operations_with_paidName_and_Nbrepartition;
     }
+
+
+//    public
+//    function add_operation(): operation|array
+//    {
+//
+//        if (empty($errors)) {
+//
+//            self::execute("INSERT INTO `operations`( `title`, `tricount`, `amount`, `operation_date`, `initiator`)
+//                                                 VALUES (:title,:trcount,:amount,:operation_date,:initiator)",
+//                ["title" => $this->title, "tricount" => $this->tricount, "amount" => $this->amount, "operation_date" => $this->operation_date, "initiator" => $this->initiator]);
+//            return $this;
+//        }
+//        return $errors;
+//    }
+public function add_operation() : Operation|array {
+    $errors = [];
+
+//    if (empty($this->title)) {
+//        $errors[] = "Title must be filled.";
+//    }
+
+    if (empty($errors)) {
+        self::execute("INSERT INTO operations (title, tricount, amount, operation_date, initiator) 
+                       VALUES (:title, :tricount, :amount, :operation_date, :initiator)",
+            [
+                "title" => $this->title,
+                "tricount" => $this->tricount,
+                "amount" => $this->amount,
+                "operation_date" => $this->operation_date,
+                "initiator" => $this->initiator
+            ]);
+        return $this;
+    }
+
+    return $errors;
+}
+
+
+
+
+    public static function validateOperation(operation $operation) : array {
+        $errors = [];
+
+        if (empty($operation->title)) {
+            $errors[] = "Title must be filled.";
+        }else if($operation->amount<0){
+            $errors[] = "Amount must be positive.";
+        }
+
+
+        return $errors;
+    }
+//DELETE FROM `repartitions` WHERE repartitions.operation=1;
+//DELETE FROM `operations` WHERE operations.id=1;
+
+
+    public static function delete_operation(int $idOperation) {
+        self::execute("DELETE FROM repartitions WHERE  operation=:id", ["id" => $idOperation ]);
+        self::execute("DELETE FROM operations  WHERE id=:id", ["id" => $idOperation ]);
+
+    }
+
+    public static function add_reartition(operation $operation,int $user,int $weight ){
+
+        self::execute("INSERT INTO operations (INSERT INTO `repartitions`(`operation`, `user`, `weight`) 
+                       VALUES (:id, :user, :weight)",["operation" => $operation->id,"user"=>$user,"weight"=> $weight ]);
+
+    }
+
+
 
 
 }

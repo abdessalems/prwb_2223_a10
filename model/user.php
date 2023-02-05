@@ -13,9 +13,14 @@ class user extends Model
 //    {}
 
 
-    public function __construct(public string $mail, public string $hashed_password, public string $full_name, public ?string $iban = null, public ?int $id = null, public ?float $amount = null, public ?int $weight = null)
-    {
-    }
+
+    public function __construct(public string $mail, public string $hashed_password, public string $full_name, public ?string $iban = null, public ?int $id = null, public ?float $amount = null, public ?int $weight = null,public ?float $account=0)
+    {}
+
+
+//    public function __construct(public string $mail, public string $hashed_password, public string $full_name, public ?string $iban = null,public ?int $id=null,public ?float $amount =null, public ?int $weight = null,public ?float $account=0) {
+//
+//    }
 
     private static function check_password(string $clear_password, string $hash): bool
     {
@@ -183,17 +188,18 @@ class user extends Model
         return $errors;
     }
 
-    public static function validate_name(string $full_name): array
-    {
+
+
+    public static function validate_name(string $full_name) : array{
         $errors = [];
         if (strlen($full_name) == 0) {
-            $errors[] = "Name is required";
-        }
-        if (!preg_match("/^[a-zA-Zz]*$/", $full_name)) {
+            $errors[] = "Name is required";}
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $full_name)) {
             $errors[] = "Name should contain only letters";
         }
-        return $errors;
+        return $errors ;
     }
+
 
 
     public static  function validate_ibann($input)
@@ -256,16 +262,12 @@ class user extends Model
 
     }
 
-
-
-
-public static function validate_iban(string $iban): array
-    {
+     public static function validate_iban(string $iban) : array{
         $errors = [];
-        if (user::validate_ibann($iban) === false) {
-            $errors[] = "Iban no valid";
-        }
-        return $errors;
+        if (!strlen($iban) == 16) {
+            $errors[] = "Iban should contain 16 caracters";}
+
+        return $errors ;
     }
 
     public static function validate_passwords(string $password, string $password_confirm): array
@@ -308,6 +310,19 @@ public static function validate_iban(string $iban): array
             self::execute("INSERT INTO users(mail,hashed_password,full_name,iban) VALUES(:mail,:password,:full_name,:iban)",
                 ["mail" => $this->mail, "password" => $this->hashed_password, "full_name" => $this->full_name, "iban" => $this->iban]);
         return $this;
+    }
+    public static function get_user_by_name(String $name): int {
+        $query = self::execute("SELECT users.id FROM users WHERE full_name =:full_name", ["full_name" => $name]);
+        $result = $query->fetch();
+        return intval($result['id']);
+    }
+
+
+
+    public static function get_all_user():array|false{
+        $query = self::execute("SELECT * FROM users",[]);
+        $result = $query->fetchAll();
+        return $result;
     }
 
 

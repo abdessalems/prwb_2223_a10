@@ -75,6 +75,7 @@
                 <div class="col-sm-10">
                     <p>For Whom ? (select at least one ) </p>
 
+
                     <table class="table table-borderless datatable">
                         <tbody>
                         <?php foreach ($operation_amount as $o): ?>
@@ -88,6 +89,41 @@
 
                 </div>
             </div>
+
+            <label for="date">Date</label><br>
+            <input type="date" id="date" name="date" value="<?= $operation->operation_date ?>"><br><br>
+
+
+            <p>Paid By</p>
+            <?php foreach ($operation_amount as $o): ?>
+
+                <?php if ($o->id === $operation->initiator) : ?>
+                    <input type="radio" id="<?= $o->id ?>" name="paid" value="<?= $o->full_name ?>" checked="checked">
+                    <label for="<?= $o->id ?>"><?= $o->full_name ?></label><br>
+                <?php else : ?>
+                    <input type="radio" id="<?= $o->id ?>" name="paid" value="<?= $o->id ?>">
+                    <label for="<?= $o->id ?>"><?= $o->full_name ?></label><br>
+                <?php endif; ?><?php endforeach; ?><br>
+
+
+            <p>For Whom ? (select a least one ) </p>
+
+            <?php foreach ($operation_amount as $o): ?>
+                <input type="checkbox" id="<?= $o->full_name ?>" name="<?= $o->full_name ?>" checked>
+                <label for="<?= $o->full_name ?>"><?= $o->full_name ?></label><input type="number" id="weight"
+                                                                                     name="weight"
+                                                                                     value="<?= $o->weight ?>" min="1"
+                                                                                     max="10"><br>
+            <?php endforeach; ?><br>
+
+
+
+
+        </form>
+
+        <a href="operation/delete_opertation/<?= $operation->id ?>/<?= $id_user ?>">Delete this operation </a><br><br>
+
+
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Save</button>
