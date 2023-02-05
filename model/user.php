@@ -196,12 +196,74 @@ class user extends Model
     }
 
 
-    public static function validate_iban(string $iban): array
+    public static  function validate_ibann($input)
+    {
+        $iban = strtolower($input);
+
+        // The official min length is 5. Also prevents substringing too short input.
+        if(strlen($iban) < 5) return false;
+
+        // lengths of iban per country
+        $Countries = array(
+            'al'=>28,'ad'=>24,'at'=>20,'az'=>28,'bh'=>22,'be'=>16,'ba'=>20,'br'=>29,'bg'=>22,'cr'=>21,'hr'=>21,'cy'=>28,'cz'=>24,
+            'dk'=>18,'do'=>28,'ee'=>20,'fo'=>18,'fi'=>18,'fr'=>27,'ge'=>22,'de'=>22,'gi'=>23,'gr'=>27,'gl'=>18,'gt'=>28,'hu'=>28,
+            'is'=>26,'ie'=>22,'il'=>23,'it'=>27,'jo'=>30,'kz'=>20,'kw'=>30,'lv'=>21,'lb'=>28,'li'=>21,'lt'=>20,'lu'=>20,'mk'=>19,
+            'mt'=>31,'mr'=>27,'mu'=>30,'mc'=>27,'md'=>24,'me'=>22,'nl'=>18,'no'=>15,'pk'=>24,'ps'=>29,'pl'=>28,'pt'=>25,'qa'=>29,
+            'ro'=>24,'sm'=>27,'sa'=>24,'rs'=>22,'sk'=>24,'si'=>19,'es'=>24,'se'=>24,'ch'=>21,'tn'=>24,'tr'=>26,'ae'=>23,'gb'=>22,'vg'=>24
+        );
+        // subsitution scheme for letters
+        $Chars = array(
+            'a'=>10,'b'=>11,'c'=>12,'d'=>13,'e'=>14,'f'=>15,'g'=>16,'h'=>17,'i'=>18,'j'=>19,'k'=>20,'l'=>21,'m'=>22,
+            'n'=>23,'o'=>24,'p'=>25,'q'=>26,'r'=>27,'s'=>28,'t'=>29,'u'=>30,'v'=>31,'w'=>32,'x'=>33,'y'=>34,'z'=>35
+        );
+
+        // Check input country code is known
+        if (!isset($Countries[ substr($iban,0,2) ])) return false;
+
+        // Check total length for given country code
+        if (strlen($iban) != $Countries[ substr($iban,0,2) ]) { return false; }
+
+        // Move first 4 chars to end
+        $MovedChar = substr($iban, 4) . substr($iban,0,4);
+
+        // Replace letters by their numeric variant
+        $MovedCharArray = str_split($MovedChar);
+        $NewString = "";
+        foreach ($MovedCharArray as $k => $v) {
+            if ( !is_numeric($MovedCharArray[$k]) ) {
+                // if any other cahracter then the known letters, its bogus
+                if(!isset($Chars[$MovedCharArray[$k]])) return false;
+                $MovedCharArray[$k] = $Chars[$MovedCharArray[$k]];
+            }
+            $NewString .= $MovedCharArray[$k];
+        }
+
+        // Now we just need to validate the checksum
+        // Use bcmod if available
+        if (function_exists("bcmod")) { return bcmod($NewString, '97') == 1; }
+
+        // Else use this workaround
+        // http://au2.php.net/manual/en/function.bcmod.php#38474
+        $x = $NewString; $y = "97";
+        $take = 5; $mod = "";
+        do {
+            $a = (int)$mod . substr($x, 0, $take);
+            $x = substr($x, $take);
+            $mod = $a % $y;
+        }
+        while (strlen($x));
+        return (int)$mod == 1;
+
+    }
+
+
+
+
+public static function validate_iban(string $iban): array
     {
         $errors = [];
-        echo strlen($iban) == 16;
-        if (!strlen($iban) == 16) {
-            $errors[] = "Iban should contain 16 caracters";
+        if (user::validate_ibann($iban) === false) {
+            $errors[] = "Iban no valid";
         }
         return $errors;
     }
@@ -211,79 +273,6 @@ class user extends Model
         $errors = user::validate_password($password);
         if ($password != $password_confirm) {
             $errors[] = "You have to enter twice the same password.";
-        }
-        return $errors;
-    }
-
-    public static function isValidIban(string $iban): array
-    {
-        $errors = [];
-
-        /*Régles de validation par pays*/
-        static $rules = array(
-            'AL' => '[0-9]{8}[0-9A-Z]{16}',
-            'AD' => '[0-9]{8}[0-9A-Z]{12}',
-            'AT' => '[0-9]{16}',
-            'BE' => '[0-9]{12}',
-            'BA' => '[0-9]{16}',
-            'BG' => '[A-Z]{4}[0-9]{6}[0-9A-Z]{8}',
-            'HR' => '[0-9]{17}',
-            'CY' => '[0-9]{8}[0-9A-Z]{16}',
-            'CZ' => '[0-9]{20}',
-            'DK' => '[0-9]{14}',
-            'EE' => '[0-9]{16}',
-            'FO' => '[0-9]{14}',
-            'FI' => '[0-9]{14}',
-            'FR' => '[0-9]{10}[0-9A-Z]{11}[0-9]{2}',
-            'GE' => '[0-9A-Z]{2}[0-9]{16}',
-            'DE' => '[0-9]{18}',
-            'GI' => '[A-Z]{4}[0-9A-Z]{15}',
-            'GR' => '[0-9]{7}[0-9A-Z]{16}',
-            'GL' => '[0-9]{14}',
-            'HU' => '[0-9]{24}',
-            'IS' => '[0-9]{22}',
-            'IE' => '[0-9A-Z]{4}[0-9]{14}',
-            'IL' => '[0-9]{19}',
-            'IT' => '[A-Z][0-9]{10}[0-9A-Z]{12}',
-            'KZ' => '[0-9]{3}[0-9A-Z]{3}[0-9]{10}',
-            'KW' => '[A-Z]{4}[0-9]{22}',
-            'LV' => '[A-Z]{4}[0-9A-Z]{13}',
-            'LB' => '[0-9]{4}[0-9A-Z]{20}',
-            'LI' => '[0-9]{5}[0-9A-Z]{12}',
-            'LT' => '[0-9]{16}',
-            'LU' => '[0-9]{3}[0-9A-Z]{13}',
-            'MK' => '[0-9]{3}[0-9A-Z]{10}[0-9]{2}',
-            'MT' => '[A-Z]{4}[0-9]{5}[0-9A-Z]{18}',
-            'MR' => '[0-9]{23}',
-            'MU' => '[A-Z]{4}[0-9]{19}[A-Z]{3}',
-            'MC' => '[0-9]{10}[0-9A-Z]{11}[0-9]{2}',
-            'ME' => '[0-9]{18}',
-            'NL' => '[A-Z]{4}[0-9]{10}',
-            'NO' => '[0-9]{11}',
-            'PL' => '[0-9]{24}',
-            'PT' => '[0-9]{21}',
-            'RO' => '[A-Z]{4}[0-9A-Z]{16}',
-            'SM' => '[A-Z][0-9]{10}[0-9A-Z]{12}',
-            'SA' => '[0-9]{2}[0-9A-Z]{18}',
-            'RS' => '[0-9]{18}',
-            'SK' => '[0-9]{20}',
-            'SI' => '[0-9]{15}',
-            'ES' => '[0-9]{20}',
-            'SE' => '[0-9]{20}',
-            'CH' => '[0-9]{5}[0-9A-Z]{12}',
-            'TN' => '[0-9]{20}',
-            'TR' => '[0-9]{5}[0-9A-Z]{17}',
-            'AE' => '[0-9]{19}',
-            'GB' => '[A-Z]{4}[0-9]{14}'
-        );
-        /*On vérifie la longueur minimale*/
-        if (mb_strlen($iban) < 18) {
-            $errors[] = "18 CHAR !";
-        }
-        /*On récupère le code ISO du pays*/
-        $ctr = substr($iban, 0, 2);
-        if (isset($rules[$ctr]) === false) {
-            $errors[] = "2 first char only lettre !";
         }
         return $errors;
     }

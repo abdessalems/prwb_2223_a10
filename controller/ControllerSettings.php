@@ -33,12 +33,13 @@ class ControllerSettings extends Controller
             $user->full_name = $full_name;
             $user->iban = $iban;
             $errors = user::validate_name($full_name);
-            $errors = array_merge($errors, user::isValidIban($iban));
-            if (count($errors) == 0) {
+            $errors = array_merge($errors,user::validate_iban($iban));
+            if (empty($errors)) {
                 $user->update($mail, $full_name, $iban, $password, $user_befor->id);
-                $this->redirect("settings", "settings");
+                $this->redirect("settings", "alternate_edit_profile");
             }
         }
+        $user = user::get_user_by_mail($user->mail) ;
         (new View("settings"))->show(["user" => $user, "errors" => $errors]);
     }
 
@@ -59,12 +60,12 @@ class ControllerSettings extends Controller
             $cp = $_POST['confirm_password'];
             $errors = user::validate_password_change_Pass($mail, $p, $np, $cp);
             $po = Tools::my_hash($np);
-            echo Tools::my_hash($p);
             if (empty($errors)) {
                 $user->update($mail, $name, $iban, $po, $user->id);
-                $this->redirect("settings", "settings");
+                $this->redirect("settings", "alternate_change_password");
             }
         }
+        $user = user::get_user_by_mail($mail) ;
         (new View("settings"))->show(["user" => $user, "errors" => $errors]);
 
     }
