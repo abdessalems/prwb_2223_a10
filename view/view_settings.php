@@ -23,14 +23,11 @@
     <link href="./assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="./assets/css/style.css" rel="stylesheet">
+    <link href="./assets/css/styles.css" rel="stylesheet">
 
 </head>
 <body>
-<a href="tricount/tricount">Back</a>
-<!--        <a href="settings/edit_profile">Edite Profile</a> <br>-->
-<!--        <a href="settings/change_password">Change password</a><br>-->
-<!--        <a href="settings/logout">Logout</a>-->
+<a  class="btn btn-outline-danger" href="tricount/tricount">Back</a>
 <div class="card">
 
     <div class="card-body pt-3">

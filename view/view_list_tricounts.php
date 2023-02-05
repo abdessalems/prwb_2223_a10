@@ -29,7 +29,7 @@
     <link href="./assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="./assets/css/style.css" rel="stylesheet">
+    <link href="./assets/css/styles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -37,11 +37,11 @@
     <div class ="card-body">
         <div  style="display: block ruby">
             <h5 class="card-title">Your Tricounts</h5>
-            <a class="btn btn-primary" style="float: right" type="button" href="your link for add tricount here yassin">Add </a>
+            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add new tricount" class="btn btn-primary" style="float: right" type="button" href="your link for add tricount here yassin">Add </a>
         </div>
         <div class="list-group">
             <?php foreach ($tricounts as $tricount): ?>
-                <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                <a href="tricount/view_tricount/<?=  $tricount->id ?>/<?=  $user->id ?>" class="list-group-item list-group-item-action" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1"><?=  $tricount->title ?></h5>
                         <small><?php if ($tricount->nb_participant< 2) {
@@ -58,8 +58,13 @@
             <?php endforeach; ?>
         </div>
     </div>
-    <a href="tricount/logout">Logout</a> <br>
-    <a href="settings/settings">Settings</a>
+    <div class="card-footer">
+        <div class="d-flex w-100 justify-content-between">
+            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout" class="btn btn-primary" href="tricount/logout"><i class="bi bi-box-arrow-left"></i></a>
+            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Settings" class="btn btn-primary" href="settings/settings"> <i class="btn-primary bi bi-gear"></i></a>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>  
