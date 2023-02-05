@@ -9,8 +9,6 @@
     <title>List Tricounts</title>
     <base href="<?= $web_root ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <!-- Favicons -->
     <link href="./assets/img/fav_icon.png" rel="icon">
     <link href="./assets/img/touch-icon.png" rel="apple-touch-icon">
