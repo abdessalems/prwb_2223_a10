@@ -44,7 +44,7 @@
         <table>
             <tr>
                 <th>
-                    <h3><?= $operation->amount ?> € <h3/>
+                    <h3><?= round($operation->amount,2) ?> € <h3/>
                 </th>
             </tr>
             <tr>
@@ -62,7 +62,7 @@
             <?php foreach ($operation_amount as $o): ?>
                 <div class="list-group-item list-group-item-action d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><?= $o->full_name ?></h5>
-                    <h6><?= $o->amount ?> €</h6>
+                    <h6><?= round($o->amount,2) ?> €</h6>
                 </div>
             <?php endforeach; ?>
         </div>
