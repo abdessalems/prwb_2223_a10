@@ -208,18 +208,10 @@ class ControllerTricount extends Controller
         $tricount=tricount::get_tricount_by_id($id_tricount);
 
         //$operations = operation::get_operationOfTricountId($id_tricount);
+         $operations = operation::get_operations($tricount);
 
-
-
-       $operations = operation::get_operations($tricount);
-
-
-
-        $participents = tricount::getParticipentByTricount($id_tricount);
-
-
-
-        foreach ($operations as $operation){
+         $participents = tricount::getParticipentByTricount($id_tricount);
+            foreach ($operations as $operation){
 
             $weightForOperation=operation::getWeightForOperation($operation->id);
 
@@ -242,26 +234,24 @@ class ControllerTricount extends Controller
                 }
 
                 if($participates){
-
                     $id = $participent->id;
-
                     $weightForPartipent=operation::weightForPartipent($operation->id,$id);
                     if($initiator==$id){
-                        $participent->account+=$AmountOfOperation-($weightForPartipent*$partOfAmont);
 
+                        $participent->account+= round($AmountOfOperation-($weightForPartipent*$partOfAmont),2);
 
                     }else{
-                        $participent->account-=$weightForPartipent*$partOfAmont;
+
+                        $participent->account-=round($weightForPartipent*$partOfAmont,2);
                     }
                 }
             }
 
-        //print_r($participentByOperation);
         }
 
 
 
-        (new View("balance"))->show(["participents" => $participents]);
+        (new View("balance"))->show(["participents" => $participents,"tricount" => $tricount]);
 
     }
 
