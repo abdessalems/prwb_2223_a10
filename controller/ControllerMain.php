@@ -53,6 +53,7 @@ class ControllerMain extends Controller
 
             if (count($errors) == 0) {
                 $user->persist(); //sauve l'utilisateur
+                $this->redirect("main", "login");
                 $this->log_user($user);
             }
         }
