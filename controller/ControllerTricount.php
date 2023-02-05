@@ -99,25 +99,19 @@ class ControllerTricount extends Controller
     $title="";
     $description="";
 
-      if (isset($nameSubscriber)) {
+      if (isset($_POST['subscriber'])) {
             $subscriber=$_POST['subscriber'];
            $idSubscriber= user::get_user_by_name($subscriber);
             tricount::add_Subscriber($idTricount, $idSubscriber);
+
+
         }
 
     if(isset($_POST['title'])) {
         $title = $_POST['title'];
         $description = $_POST['description'];
-        $subscriber=$_POST['subscriber'];
-        print_r($subscriber);
-        $idSubscriber= user::get_user_by_name($subscriber);
-        tricount::add_Subscriber($idTricount, $idSubscriber);
-
-
-
-        $new_tricount = new tricount($title, $id_user, $description,$idTricount);
-
-        $tricount->update_tricount($new_tricount,$idTricount );
+         $new_tricount = new tricount($title, $id_user, $description,$idTricount);
+         $tricount->update_tricount($new_tricount,$idTricount );
 
         (new View("edit_tricount"))->show(["user" => $user,"tricount" => $tricount,"id_user"=>$id_user,"subscribers"=>$subscribers,"Nosubscribers" =>$Nosubscribers] );
     }

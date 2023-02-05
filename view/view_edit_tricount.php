@@ -13,29 +13,38 @@
 
 </head>
 <body>
-<div style="background-color: dodgerblue; height: 20%;">
-    <button style="color:red; background-color:white;">
-        <a href='tricount/view_tricount/<?=  $tricount->id ?>/<?= $id_user ?>'> Back</a>
-    </button>
-
-</div>
 
 
-<div class="Edit Tricounts ">
-    <h3>Edit Tricounts</h3>
-    <div class="d-flex justify-content-center mt-3">
-        <div class="title">
 
-            <h3><?= $tricount->title ?> > Edit </h3>
-        </div>
-    </div>
+
         <form id="addForm" action="tricount/EditTricounts/<?= $tricount->id ?>/<?= $id_user ?>" method="post">
 <!--           <input type="submit" value="Save"> <br><br><br>-->
+
+            <div style="background-color: lightsteelblue; padding: 10px;">
+                <div class="d-flex justify-content-between mt-3">
+                    <button style="color:red; background-color:white;  border: 1px solid red;"">
+                    <a href="" style="text-decoration: none; color: red;"> Cancel</a>
+                    </button>
+
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <div class="title">
+                            <h3><?= $tricount->title ?> > Edit</h3>
+                        </div>
+                    </div>
+
+                    <input type="submit" class="btn btn-primary" value="Save"/>
+
+
+                </div>
+
+            </div>
+
             <table class="table table-bordered">
 
-                <div class="d-flex flex-row">
-                    <input class="btn btn-primary " type="submit" value="Save">
-                </div>
+<!--                <div class="d-flex flex-row">-->
+<!--                    <input class="btn btn-primary " type="submit" value="Save">-->
+<!--                </div>-->
 
 
 
@@ -81,7 +90,7 @@
 
     <footer>
         <form action="tricount/first_delete/<?= $tricount->id ?>/<?= $id_user ?>" method="post" >
-            <input type="submit" style="background-color:red; color:white;" name="monBouton" value="delete this tricount">
+            <input  class="btn btn-danger w-100" type="submit" style="background-color:red; color:white;" name="monBouton" value="delete this tricount">
         </form>
     </footer>
     </div>

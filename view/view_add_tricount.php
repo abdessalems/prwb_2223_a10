@@ -11,6 +11,7 @@
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" >
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
     </head>
 
     <body>
@@ -22,17 +23,22 @@
       <form id="addForm" action="tricount/addTricounts" method="post">
           <div style="background-color: lightsteelblue; padding: 10px;">
           <div class="d-flex justify-content-between mt-3">
-              <input type="submit" class="btn btn-primary" value="Save"/>
+              <button style="color:red; background-color:white;  border: 1px solid red;"">
+                  <a href="" style="text-decoration: none; color: red;"> Cancel</a>
+              </button>
+
+
               <div class="d-flex justify-content-center mt-3">
                   <div class="title">
                       <h3>Your Tricounts</h3>
                   </div>
-              </div
+              </div>
 
-              <button style="color:red; border: 1px solid red;">
-                  <a href='tricount/tricount/<?= $tricount->id ?>' style="text-decoration: none; color: red;">Back</a>
-              </button>
+              <input type="submit" class="btn btn-primary" value="Save"/>
+
+
           </div>
+
           </div>
 
           <div class="form-group">
