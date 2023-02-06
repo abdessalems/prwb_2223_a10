@@ -56,11 +56,7 @@
                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock" aria-hidden="true"></i></span>
                         <input  <input id="password_confirm" name="password_confirm" type="password" size="16" placeholder="Confirm Your Password"   class="form-control"  aria-label="Username" aria-describedby="basic-addon1">
                     </div>
-<!--                    <div class="d-grid gap-2">-->
-<!--                        <input class="btn btn-primary" type="button" type="submit" value="Sign Up">-->
-<!--                        <button class="btn btn-danger" style="color:white; background-color:red;">-->
-<!--                            <a href='main/login' style="color:white;">Cancel</a> </button>-->
-<!--                    </div>-->
+<
 
                     <div class="d-flex flex-column align-items-center">
                         <div class="d-flex flex-row">

@@ -147,6 +147,13 @@ class operation extends Model
         return $result['init'];
     }
 
+    public static function getIdOperatiobByTitle (String $title):int
+    {
+        $query = self::execute("SELECT operations.id as id FROM `operations` WHERE title=:title;", ["title" => $title]);
+        $result = $query->fetch();
+        return $result['id'];
+    }
+
     public static function getAmountOfOperation(int $id):float{
         $query = self::execute("SELECT SUM(amount) as somme FROM operations WHERE operations.id=:id;", ["id" => $id]);
         $result = $query->fetch();
@@ -270,14 +277,25 @@ public function add_operation() : Operation|array {
 
     }
 
-    public static function add_reartition(operation $operation,int $user,int $weight ){
+//    public static function add_reartition(operation $operation,int $user,int $weight ){
+//
+//        self::execute("INSERT INTO operations (INSERT INTO `repartitions`(`operation`, `user`, `weight`)
+//                       VALUES (:id, :user, :weight)",["operation" => $operation->id,"user"=>$user,"weight"=> $weight ]);
+//
+//    }
 
-        self::execute("INSERT INTO operations (INSERT INTO `repartitions`(`operation`, `user`, `weight`) 
-                       VALUES (:id, :user, :weight)",["operation" => $operation->id,"user"=>$user,"weight"=> $weight ]);
+    public static function add_reartition(int $id, int $user, int $weight)
+    {
 
+        self::execute("INSERT INTO `repartitions`(`operation`, `user`, `weight`) 
+                   VALUES (:operation, :user, :weight)", [
+            "operation" => $id,
+            "user" => $user,
+            "weight" => $weight
+        ]);
     }
 
 
 
 
-}
+    }
