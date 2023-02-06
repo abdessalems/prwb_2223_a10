@@ -35,12 +35,13 @@ class Router
             $controller_name = $_GET['controller'];
         }
         $controller_class_name = "Controller" . ucfirst(strtolower($controller_name));
-
+        
         $filename = "controller/$controller_class_name.php";
         if (file_exists($filename)) {
             require_once "controller/$controller_class_name.php";
+            
             if (class_exists($controller_class_name)) {
-                return new $controller_class_name();
+                return new $controller_class_name();   
             }
         } else {
             throw new Exception("Controller '$controller_name' does'nt exist");
