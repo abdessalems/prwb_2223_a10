@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <h1>Error</h1>
-    <div class="main">
-        <?= $error ?>
-    </div>
+<h1>Error</h1>
+<div class="main">
+    <?= $error ?>
+</div>
 </body>
 
 </html>
