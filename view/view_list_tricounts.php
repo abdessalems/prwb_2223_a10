@@ -9,6 +9,8 @@
     <title>List Tricounts</title>
     <base href="<?= $web_root ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
     <!-- Favicons -->
     <link href="./assets/img/fav_icon.png" rel="icon">
     <link href="./assets/img/touch-icon.png" rel="apple-touch-icon">
@@ -35,7 +37,7 @@
     <div class ="card-body">
         <div  style="display: block ruby">
             <h5 class="card-title">Your Tricounts</h5>
-            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add new tricount" class="btn btn-primary" style="float: right" type="button" href="tricount/addTricounts">Add </a>
+            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add new tricount" class="btn btn-primary" style="float: right" type="button" href="your link for add tricount here yassin">Add </a>
         </div>
         <div class="list-group">
             <?php foreach ($tricounts as $tricount): ?>
@@ -47,7 +49,8 @@
                             }else if ($tricount->nb_participant== 2) {
                                 echo  " with " , $tricount->nb_participant -1, "  Friend"   ;
                             } else {
-                                echo  "  with " , $tricount->nb_participant -1, "  Friends"   ;                         }
+                                echo  "  with " , $tricount->nb_participant -1, "  Friends"   ;
+                            }
                             ?></small>
                     </div>
                     <p class="mb-1"><?= $tricount->description ?></p>

@@ -13,10 +13,9 @@ class operation extends Model
 
     public function update_operation(operation $operation, int $id_user): operation
     {
-
-        if (self::get_operation_by_id($operation->id))
+        if (self::get_operation_by_id($this->id))
             self::execute("UPDATE operations SET title=:title,amount=:amount,operation_date=:date,initiator=:initiator WHERE id= :id",
-                ["id" => $operation->id, "title" => $operation->title, "amount" => $operation->amount, "date" => $operation->operation_date,
+                ["id" =>$this->id, "title" => $operation->title, "amount" => $operation->amount, "date" => $operation->operation_date,
                     "initiator" => $id_user, "amount" => $operation->amount]);
         return $this;
     }
