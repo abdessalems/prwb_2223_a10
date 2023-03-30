@@ -54,7 +54,7 @@ class ControllerMain extends Controller
             if (count($errors) == 0) {
                 $user->persist(); //sauve l'utilisateur
                 $this->log_user($user);
-                $this->redirect("main", "login");
+                $this->redirect("tricount", "tricount");
             }
         }
 

@@ -132,7 +132,7 @@ class ControllerTricount extends Controller
     public function editSubscriber(): void
     {
         $user = $this->get_user_or_redirect();
-        echo "hhh";
+
         $idTricount = $_GET["param1"];
         $nameSubscriber = $_POST['subscriber'];
         $idSubscriber = user::get_user_by_name($nameSubscriber);

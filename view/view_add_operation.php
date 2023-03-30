@@ -17,7 +17,7 @@
 
     <div style="background-color: lightsteelblue; padding: 10px;">
         <div class="d-flex justify-content-between mt-3">
-            <a  class="btn btn-outline-danger" href="tricount/tricount">Back</a>
+            <a  class="btn btn-outline-danger" href="tricount/view_tricount/<?= $tricount->id ?>/<?= $idUser?>">Back</a>
             <div class="d-flex justify-content-center mt-3">
                 <div class="title">
                     <h3 style="color: gray;"><?= $tricount->title ?> > new Expense </h3>
@@ -71,23 +71,7 @@
                 </select>
         </div>
     </div>
-<!--    <div class="row mb-3">-->
-<!--        <div class="col-sm-10">-->
-<!--            <p>For Whom ? (select at least one ) </p>-->
-<!--            <table class="table table-borderless datatable">-->
-<!--             <form action="operation/add_operation" method="post">-->
-<!--             --><?php //foreach ($paidBy as $index => $person): ?>
-<!--                <tr>-->
-<!--                 <td></td></T> <input type="checkbox" value="--><?php //= $person['full_name'] ?><!--" name="checkbox_--><?php //= $index ?><!--" ></td>-->
-<!--                <td></td>  <label for="check">--><?php //=$person['full_name']  ?><!--</label></td>-->
-<!--                 <td></td> <input type="number" id="weight_--><?php //= $index ?><!--" name="weight_--><?php //= $index ?><!--" min="1" max="10"></td>-->
-<!--                </tr>-->
-<!--              --><?php //endforeach; ?><!--<br>-->
-<!--            </table>-->
-<!---->
-<!--             </form>-->
-<!--        </div>-->
-<!--    </div>-->
+
 
 
 <div class="row mb-3">
@@ -118,6 +102,18 @@
 
 
 </form>
+<?php if (count($errors) != 0): ?>
+    <div class='alert alert-danger'>
+        <p><strong>Please correct the following error(s) :</strong></p>
+        <ul>
+            <?php foreach ($errors as $error): ?>
+                <li><?= $error ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
+
 
 </body>
 </html>

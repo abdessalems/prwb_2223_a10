@@ -33,18 +33,18 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">@</span>
-                        <input id="mail" name="mail" type="mail" size="16" placeholder="Email" class="form-control"  aria-label="Username" aria-describedby="basic-addon1">
+                        <input id="mail" name="mail" type="mail" size="16" placeholder="Email" value="<?php if(isset($mail)) { echo $mail; } ?>" class="form-control"  aria-label="Username" aria-describedby="basic-addon1">
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-user" aria-hidden="true"></i></span>
-                        <input id="fullname" name="fullname" type="text" size="16" placeholder="Full Name" class="form-control"  aria-label="Username" aria-describedby="basic-addon1">
+                        <input id="fullname" name="fullname" type="text" size="16" placeholder="Full Name" value="<?php if(isset($fullname)) { echo $fullname; } ?>"  class="form-control"  aria-label="Username" aria-describedby="basic-addon1">
                     </div>
 
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1"><i class="fa-credit-card" aria-hidden="true"></i></span>
-                        <input id="iban" name="iban" type="text" size="16" placeholder="IBAN"  class="form-control" p aria-label="Username" aria-describedby="basic-addon1">
+                        <input id="iban" name="iban" type="text" size="16" placeholder="IBAN" value="<?php if(isset($iban)) { echo $iban; } ?>"   class="form-control" p aria-label="Username" aria-describedby="basic-addon1">
                     </div>
 
                     <div class="input-group mb-3">
@@ -56,11 +56,7 @@
                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock" aria-hidden="true"></i></span>
                         <input  <input id="password_confirm" name="password_confirm" type="password" size="16" placeholder="Confirm Your Password"   class="form-control"  aria-label="Username" aria-describedby="basic-addon1">
                     </div>
-<!--                    <div class="d-grid gap-2">-->
-<!--                        <input class="btn btn-primary" type="button" type="submit" value="Sign Up">-->
-<!--                        <button class="btn btn-danger" style="color:white; background-color:red;">-->
-<!--                            <a href='main/login' style="color:white;">Cancel</a> </button>-->
-<!--                    </div>-->
+<
 
                     <div class="d-flex flex-column align-items-center">
                         <div class="d-flex flex-row">
