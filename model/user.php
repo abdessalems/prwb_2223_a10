@@ -263,11 +263,18 @@ class user extends Model
     }
 
      public static function validate_iban(string $iban) : array{
-        $errors = [];
-        if (!strlen($iban) == 16) {
-            $errors[] = "Iban should contain 16 caracters";}
+         $errors = [];
+         $ibanRegex = '/^[A-Z]{2}\d{2}[A-Z0-9]{4}\d{7}([A-Z0-9]?){0,16}$/';
+         if (strlen($iban) < 16) {
+             $errors[] = "Iban should contain 16 caracters";
+         }
+         else if(!preg_match($ibanRegex,$iban)){
+             $errors[] = "Invalid iban";
 
-        return $errors ;
+         }
+         return $errors;
+
+
     }
 
     public static function validate_passwords(string $password, string $password_confirm): array
@@ -276,6 +283,7 @@ class user extends Model
         if ($password != $password_confirm) {
             $errors[] = "You have to enter twice the same password.";
         }
+
         return $errors;
     }
 
