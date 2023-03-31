@@ -14,27 +14,37 @@ class ControllerSettings extends Controller
         $this->settings();
     }
 
-    public function edit_profile(): void
+    /**
+     * This function is the alternative of the edit_profile function
+     * it is called when we put edit profile in a tab in the same setting view
+     * @return void
+     */
+
+    public function alternate_edit_profile(): void
     {
         $user = $this->get_user_or_redirect();
         $password = $user->hashed_password;
-        if (isset($_POST['mail'])) {
-            $mail = $_POST['mail'];
+        $errors = [];
+        if (isset($_POST['full_name'])) {
             $full_name = $_POST['full_name'];
             $iban = $_POST['iban'];
             $user_befor = user::get_user_by_mail($user->mail);
-            $user->mail = $mail;
+            $mail = $user->mail;
             $user->full_name = $full_name;
             $user->iban = $iban;
-            $user->update( $mail, $full_name, $iban, $password,$user_befor->id);
-            $this->redirect("settings", "settings");
+            $errors = user::validate_name($full_name);
+            $errors = array_merge($errors,user::validate_iban($iban));
+            if (empty($errors)) {
+                $user->update($mail, $full_name, $iban, $password, $user_befor->id);
+                $this->redirect("settings", "alternate_edit_profile");
+            }
         }
-        (new View("edit_profile"))->show(["user" => $user]);
-
+        $user = user::get_user_by_mail($user->mail) ;
+        (new View("settings"))->show(["user" => $user, "errors" => $errors]);
     }
 
 
-    public function change_password(): void
+    public function alternate_change_password(): void
     {
         $user = $this->get_user_or_redirect();
         $p = "";
@@ -44,18 +54,19 @@ class ControllerSettings extends Controller
         $name = $user->full_name;
         $iban = $user->iban;
         $mail = $user->mail;
-        if (isset($_POST['password']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
-            $p = $_POST['password'];
+        if (isset($_POST['current_password']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
+            $p = $_POST['current_password'];
             $np = $_POST['new_password'];
             $cp = $_POST['confirm_password'];
             $errors = user::validate_password_change_Pass($mail, $p, $np, $cp);
             $po = Tools::my_hash($np);
             if (empty($errors)) {
-                $user->update( $mail, $name, $iban, $po,$user->id);
-                $this->redirect("settings", "settings");
+                $user->update($mail, $name, $iban, $po, $user->id);
+                $this->redirect("settings", "alternate_change_password");
             }
         }
-        (new View("change_password"))->show(["user" => $user, "errors" => $errors]);
+        $user = user::get_user_by_mail($mail) ;
+        (new View("settings"))->show(["user" => $user, "errors" => $errors]);
 
     }
 
@@ -69,7 +80,7 @@ class ControllerSettings extends Controller
             $mail = $_POST['mail'];
 
             $password = $_POST['password'];
-            $errors = user::validate_login($mail,$password);
+            $errors = user::validate_login($mail, $password);
             if (empty($errors)) {
                 $this->log_user(user::get_user_by_mail($mail));
             }
@@ -80,12 +91,11 @@ class ControllerSettings extends Controller
     public function settings(): void
     {
         $user = $this->get_user_or_redirect();
-
         // $mail = $_POST['mail'];
         // $user = $user::get_user_by_mail($mail);
+        $errors = [];
 
-        (new View("settings"))->show(["user" => $user]);
-
+        (new View("settings"))->show(["user" => $user, "errors"=>$errors]);
     }
 
 

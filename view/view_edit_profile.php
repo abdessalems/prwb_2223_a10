@@ -10,7 +10,7 @@
 <body>
 <a href="tricount/tricount">Back</a>
 <div class="main">
-    Edite Profile :
+    Edit Profile :
     <br><br>
     <form id="edit_profile" action="settings/edit_profile" method="post">
         <table>
@@ -29,6 +29,16 @@
         </table>
         <input type="submit" value="save" act>
     </form>
+    <?php if (count($errors) != 0): ?>
+        <div class='errors'>
+            <br><br><p>Please correct the following error(s) :</p>
+            <ul>
+                <?php foreach ($errors as $error): ?>
+                    <li><?= $error ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 </div>
 </body>
 </html>

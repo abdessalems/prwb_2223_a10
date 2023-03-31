@@ -49,18 +49,20 @@ class ControllerMain extends Controller
             $errors = array_merge($errors, $user->validate());
             $errors = array_merge($errors, user::validate_name($fullname));
             $errors = array_merge($errors, user::validate_iban($iban));
-            // $errors = array_merge($errors, user::validate_passwords($password, $password_confirm));
+             $errors = array_merge($errors, user::validate_passwords($password, $password_confirm));
 
             if (count($errors) == 0) {
                 $user->persist(); //sauve l'utilisateur
                 $this->redirect("main", "login");
                 $this->log_user($user);
+                $this->redirect("tricount", "tricount");
             }
         }
 
 
         (new View("signup"))->show(["mail" => $mail, "fullname" => $fullname, "iban" => $iban, "password" => $password,
             "password_confirm" => $password_confirm, "errors" => $errors]);
+
 
     }
 
@@ -81,6 +83,23 @@ class ControllerMain extends Controller
         }
         (new View("login"))->show(["mail" => $mail, "password" => $password, "errors" => $errors]);
     }
+
+    /**
+     * Console_log is used to show php logs in the browser console (js console)
+     * mainly used for inspecting the variables to help in debug
+     * @param $output
+     * @param $with_script_tags
+     * @return void
+     */
+    public static function console_log($output, $with_script_tags = true) {
+        $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+            ');';
+        if ($with_script_tags) {
+            $js_code = '<script>' . $js_code . '</script>';
+        }
+        echo $js_code;
+    }
+
 
 
 }

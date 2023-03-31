@@ -12,12 +12,15 @@ class tricount extends Model
 //    }
 
 
-
-
     public function __construct( public string $title, public int $creator, public ?string $description = null,public ?int $id = NULL, public ?string $created_at = NULL,public ?int $nb_participant=null )
     {
 
     }
+
+//    public function __construct( public string $title, public int $creator, public ?string $description = null,public ?int $id = NULL, public ?string $created_at = NULL,public ?int $nb_participant=null )
+//    {
+//
+//    }
 
 
     public static function get_tricount(user $user): tricount

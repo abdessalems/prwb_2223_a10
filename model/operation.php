@@ -80,8 +80,6 @@ class operation extends Model
     }
 
 
-
-
     public static function get_including_operation_by_idUser_operationId(int $idUser, int $idOperation): int
     {//if the user includ in operation return >=1 si nn 0
         $query = self::execute("SELECT * FROM repartitions WHERE user= :user AND operation= :operation ;", ["user" => $idUser, "operation" => $idOperation]);
@@ -149,6 +147,13 @@ class operation extends Model
         return $result['init'];
     }
 
+    public static function getIdOperatiobByTitle (String $title):int
+    {
+        $query = self::execute("SELECT operations.id as id FROM `operations` WHERE title=:title;", ["title" => $title]);
+        $result = $query->fetch();
+        return $result['id'];
+    }
+
     public static function getAmountOfOperation(int $id):float{
         $query = self::execute("SELECT SUM(amount) as somme FROM operations WHERE operations.id=:id;", ["id" => $id]);
         $result = $query->fetch();
@@ -165,12 +170,6 @@ class operation extends Model
 
     public static function get_operationOfTricountId(int $idTricount):int{
         $query = self::execute("SELECT operations.id FROM operations,tricounts where operations.tricount=tricounts.id and tricounts.id=:id;", ["id" => $idTricount]);
-        $result = $query->fetch();
-        return $result['id'];
-    }
-
-    public  static function  getIdOperatiobByTitle(String $title):int{
-        $query = self::execute("SELECT operations.id FROM operations where operations.title=:title;", ["title" => $title]);
         $result = $query->fetch();
         return $result['id'];
     }
@@ -220,30 +219,40 @@ class operation extends Model
 //        }
 //        return $errors;
 //    }
-public function add_operation() : Operation|array {
-    $errors = [];
+    public function add_operation() : Operation|array {
+        $errors = [];
 
 //    if (empty($this->title)) {
 //        $errors[] = "Title must be filled.";
 //    }
 
-    if (empty($errors)) {
-        self::execute("INSERT INTO operations (title, tricount, amount, operation_date, initiator) 
+        if (empty($errors)) {
+            self::execute("INSERT INTO operations (title, tricount, amount, operation_date, initiator) 
                        VALUES (:title, :tricount, :amount, :operation_date, :initiator)",
-            [
-                "title" => $this->title,
-                "tricount" => $this->tricount,
-                "amount" => $this->amount,
-                "operation_date" => $this->operation_date,
-                "initiator" => $this->initiator
-            ]);
-        return $this;
+                [
+                    "title" => $this->title,
+                    "tricount" => $this->tricount,
+                    "amount" => $this->amount,
+                    "operation_date" => $this->operation_date,
+                    "initiator" => $this->initiator
+                ]);
+            return $this;
+        }
+
+        return $errors;
     }
 
-    return $errors;
-}
+    public static function validateOperationAmount(operation $operation) : array {
+        $errors = [];
 
 
+        if($operation->amount<0){
+            $errors[] = "Amount must be positive.";
+        }
+
+
+        return $errors;
+    }
 
 
     public static function validateOperation(operation $operation) : array {
@@ -268,14 +277,15 @@ public function add_operation() : Operation|array {
 
     }
 
-//    public static function add_reartition(operation $id,int $user,int $weight ){
+//    public static function add_reartition(operation $operation,int $user,int $weight ){
 //
 //        self::execute("INSERT INTO operations (INSERT INTO `repartitions`(`operation`, `user`, `weight`)
-//                       VALUES (:id, :user, :weight)",["operation" => $id,"user"=>$user,"weight"=> $weight ]);
+//                       VALUES (:id, :user, :weight)",["operation" => $operation->id,"user"=>$user,"weight"=> $weight ]);
 //
 //    }
 
-    public static function add_reartition(int $id, int $user, int $weight) {
+    public static function add_reartition(int $id, int $user, int $weight)
+    {
 
         self::execute("INSERT INTO `repartitions`(`operation`, `user`, `weight`) 
                    VALUES (:operation, :user, :weight)", [
