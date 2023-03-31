@@ -43,8 +43,6 @@ class user extends Model
             $errors [] = "the current password must be diffirent from the old one  . ";
         }
         $errors = array_merge($errors, user::validate_password($current_password));
-        $errors = array_merge($errors, user::validate_password($confirm_password));
-
 
         return $errors;
 

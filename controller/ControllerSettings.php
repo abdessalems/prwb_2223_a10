@@ -75,7 +75,6 @@ class ControllerSettings extends Controller
         $errors = [];
         if (isset($_POST['mail']) && isset($_POST['password'])) {
             $mail = $_POST['mail'];
-
             $password = $_POST['password'];
             $errors = user::validate_login($mail, $password);
             if (empty($errors)) {
