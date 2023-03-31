@@ -11,7 +11,8 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,22 +30,23 @@
 
 <div class="main">
     <div class="card-header">
-        <div >
-            <a  class="btn btn-outline-danger" href="settings/settings">Back</a>
+        <div>
+            <a class="btn btn-outline-danger" href="settings/settings">Back</a>
 
-            <h5 class="card-title"  style="float:right;">Change password <h5/>
+            <h5 class="card-title" style="float:right;">Change password <h5/>
         </div>
     </div>
     <div class="card" style="display: block">
 
-        <div class ="card-body ">
+        <div class="card-body ">
             <!-- Change Password Form -->
             <form action="settings/change_password" method="post">
 
                 <div class="row mb-3">
                     <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                     <div class="col-md-8 col-lg-9">
-                        <input name="current_password" type="password" class="form-control" id="current_password" value="">
+                        <input name="current_password" type="password" class="form-control" id="current_password"
+                               value="">
                     </div>
                 </div>
 
@@ -58,30 +60,43 @@
                 <div class="row mb-3">
                     <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                     <div class="col-md-8 col-lg-9">
-                        <input name="confirm_password" type="password" class="form-control" id="confirm_password" value="">
+                        <input name="confirm_password" type="password" class="form-control" id="confirm_password"
+                               value="">
                     </div>
+                    <?php if (count($errors) != 0): ?>
+
+                        <div class='errors'>
+                            <br><br>
+                            <p>Please correct the following error(s) :</p>
+                            <ul>
+                                <?php foreach ($errors as $error): ?>
+                                    <li><?= $error ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Change Password</button>
+                    <button type="submit" class="btn btn-primary" >Change Password</button>
                 </div>
             </form>
         </div>
+        <?php if (count($errors) != 0): ?>
+
+            <div class='errors'>
+                <br><br>
+                <p>Please correct the following error(s) :</p>
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?= $error ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
     </div>
 
 
-    <?php if (count($errors) != 0): ?>
-
-        <div class='errors'>
-            <br><br>
-            <p>Please correct the following error(s) :</p>
-            <ul>
-                <?php foreach ($errors as $error): ?>
-                    <li><?= $error ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
 
 </div>
 

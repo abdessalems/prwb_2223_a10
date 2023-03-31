@@ -17,20 +17,23 @@ class ControllerSettings extends Controller
 
     public function edit_profile(): void
     {
-        $user = $this->get_user_or_redirect();
+
+        $user_b = $this->get_user_or_redirect();
+        $user = user::get_user_by_mail($user_b->mail) ;
         $password = $user->hashed_password;
         $errors = [];
         if (isset($_POST['full_name'])) {
+            var_dump("aaa");
             $full_name = $_POST['full_name'];
             $iban = $_POST['iban'];
+            $mail= $_POST['mail'];
             $user_befor = user::get_user_by_mail($user->mail);
-            $mail = $user->mail;
-            $user->full_name = $full_name;
-            $user->iban = $iban;
             $errors = user::validate_name($full_name);
-            $errors = array_merge($errors, user::validate_iban($iban));
+            if (!empty($iban)){
+                $errors = array_merge($errors, user::validate_iban($iban));
+            }
             if (count($errors) == 0) {
-                $user->update($mail, $full_name, $iban, $password, $user_befor->id);
+                $user->update($mail, $full_name,$iban, $password, $user_befor->id);
                 $this->redirect("settings", "settings");
             }
         }
@@ -48,8 +51,8 @@ class ControllerSettings extends Controller
         $name = $user->full_name;
         $iban = $user->iban;
         $mail = $user->mail;
-        if (isset($_POST['password']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
-            $p = $_POST['password'];
+        if (isset($_POST['current_password']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
+            $p = $_POST['current_password'];
             $np = $_POST['new_password'];
             $cp = $_POST['confirm_password'];
             $errors = user::validate_password_change_Pass($mail, $p, $np, $cp);
@@ -57,6 +60,7 @@ class ControllerSettings extends Controller
             if (empty($errors)) {
                 $user->update($mail, $name, $iban, $po, $user->id);
                 $this->redirect("settings", "settings");
+
             }
         }
         (new View("change_password"))->show(["user" => $user, "errors" => $errors]);
