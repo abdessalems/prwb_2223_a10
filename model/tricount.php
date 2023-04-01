@@ -59,7 +59,7 @@ class tricount extends Model
     {
         $tricounts = [];
         $tricounts_with_particepent = [];
-        $query = self::execute("select * from tricounts where creator = :id order by created_at DESC", ["id" => $user->id]);
+        $query = self::execute("SELECT * FROM tricounts WHERE creator= :id or id in (SELECT tricount FROM subscriptions WHERE user= :id )  order by created_at DESC", ["id" => $user->id]);
         $data = $query->fetchAll();
         foreach ($data as $row) {
 
