@@ -72,8 +72,16 @@
 
 <div class="card-footer">
     <div class="d-flex w-100 justify-content-between">
-        <a class="btn btn-primary" href='operation/view_operation/<?= $id_previous_operation ?>/<?= $id_user ?>'>Previous</a>
-        <a  class="btn btn-primary" href='operation/view_operation/<?= $id_next_operation ?>/<?= $id_user ?>'>Next</a>
+
+        <?php if (!($id_previous_operation == $id_first_operation) ) : ?>
+            <a class="btn btn-primary" href='operation/view_operation/<?= $id_previous_operation ?>/<?= $id_user ?>'>Previous</a>
+        <?php endif; ?>
+
+        <?php if (!($id_next_operation == $id_last_operation) ) : ?>
+            <a  class="btn btn-primary" href='operation/view_operation/<?= $id_next_operation ?>/<?= $id_user ?>'>Next</a>
+        <?php endif; ?>
+
+
     </div>
 </div>
 </body>

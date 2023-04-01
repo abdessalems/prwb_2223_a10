@@ -199,8 +199,6 @@ class operation extends Model
             $operations_with_paidName_and_Nbrepartition [] = new operation($operation->title, $operation->tricount, $operation->amount, $operation->operation_date,
                 $operation->initiator, $operation->created_at, $operation->id, $name, $nbr_repartitions_By_operationt);
         }
-
-
         return $operations_with_paidName_and_Nbrepartition;
     }
 

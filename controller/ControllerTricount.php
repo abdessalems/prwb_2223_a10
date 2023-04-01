@@ -91,7 +91,6 @@ class ControllerTricount extends Controller
         }
         (new View("tricount"))->show(["operations" => $operations, "tricount" => $tricount,
             "nbr_total_repartitions" => $nbr_total_repartitions, "My_total" => $My_total, "Total_expenses" => $Total_expenses, "trcount" => $tricount, "id_user" => $id_user]);
-
     }
 
     public function EditTricounts(): void

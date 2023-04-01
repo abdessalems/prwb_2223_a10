@@ -52,8 +52,12 @@ class ControllerOperation extends Controller
         $all_operation = $operation::get_operations($tricount);
         $id_next_operation = operation::get_next_operation($id_operation, $all_operation);
         $id_previous_operation = operation::get_prev_operation($id_operation, $all_operation);
+        $id_first_operation = $all_operation[0]->id ;
+        $id_last_operation = $all_operation[count($all_operation)-1]->id ;
+
+
         $cmpt = $operation::get_including_operation_by_idUser_operationId($id_user, $operation->id); ////if the user includ in operation return >=1 si nn 0
-        (new View("operation"))->show(["id_next_operation" => $id_next_operation, "id_previous_operation" => $id_previous_operation, "operation" => $operation, "all_operation" => $all_operation, "id_operation" => $id_operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "cmpt" => $cmpt, "operation_amount" => $operation_amount, "nbr_operations" => $nbr_operations]);
+        (new View("operation"))->show(["id_next_operation" => $id_next_operation, "id_previous_operation" => $id_previous_operation, "operation" => $operation, "all_operation" => $all_operation, "id_operation" => $id_operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "cmpt" => $cmpt, "operation_amount" => $operation_amount, "nbr_operations" => $nbr_operations,'id_first_operation'=>$id_first_operation , "id_last_operation"=>$id_last_operation]);
     }
 
 
