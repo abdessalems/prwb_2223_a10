@@ -200,17 +200,19 @@ class user extends Model
             $errors[] = "Minimum 3 char for the Name ";
         }
 
-     
+
         return $errors;
     }
 
 
-    public static function validate_ibann($input)
+    public static function validate_ibann($input): array
     {
+        $errors = [];
         $iban = strtolower($input);
 
         // The official min length is 5. Also prevents substringing too short input.
-        if (strlen($iban) < 5) return false;
+        if (strlen($iban) < 5)
+            $errors[] = "iban more then 5 Chars please";
 
         // lengths of iban per country
         $Countries = array(
@@ -227,11 +229,13 @@ class user extends Model
         );
 
         // Check input country code is known
-        if (!isset($Countries[substr($iban, 0, 2)])) return false;
+        if (!isset($Countries[substr($iban, 0, 2)]))
+            $errors[] = "country code correct please";
+
 
         // Check total length for given country code
         if (strlen($iban) != $Countries[substr($iban, 0, 2)]) {
-            return false;
+            $errors[] = "country code 2 char please";
         }
 
         // Move first 4 chars to end
@@ -243,31 +247,14 @@ class user extends Model
         foreach ($MovedCharArray as $k => $v) {
             if (!is_numeric($MovedCharArray[$k])) {
                 // if any other cahracter then the known letters, its bogus
-                if (!isset($Chars[$MovedCharArray[$k]])) return false;
+                if (!isset($Chars[$MovedCharArray[$k]]))    $errors[] = " correct please ! u have cahracter then the known letters";
+
                 $MovedCharArray[$k] = $Chars[$MovedCharArray[$k]];
             }
             $NewString .= $MovedCharArray[$k];
         }
 
-        // Now we just need to validate the checksum
-        // Use bcmod if available
-        if (function_exists("bcmod")) {
-            return bcmod($NewString, '97') == 1;
-        }
-
-        // Else use this workaround
-        // http://au2.php.net/manual/en/function.bcmod.php#38474
-        $x = $NewString;
-        $y = "97";
-        $take = 5;
-        $mod = "";
-        do {
-            $a = (int)$mod . substr($x, 0, $take);
-            $x = substr($x, $take);
-            $mod = $a % $y;
-        } while (strlen($x));
-        return (int)$mod == 1;
-
+        return $errors;
     }
 
     public static function validate_iban(string $iban): array
@@ -280,6 +267,8 @@ class user extends Model
             $errors[] = "Invalid iban";
 
         }
+        $errors = array_merge($errors, self::validate_ibann($iban));
+
         return $errors;
 
 
