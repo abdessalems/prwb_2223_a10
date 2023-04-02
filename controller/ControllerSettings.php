@@ -22,21 +22,26 @@ class ControllerSettings extends Controller
         $user = user::get_user_by_mail($user_b->mail) ;
         $password = $user->hashed_password;
         $errors = [];
+        $user_name = $user->full_name ;
+        $user_mail= $user->mail ;
+        $user_iban = $user->iban ;
         if (isset($_POST['full_name'])) {
-            $full_name = $_POST['full_name'];
-            $iban = $_POST['iban'];
-            $mail= $_POST['mail'];
+            $user_name = $_POST['full_name'];
+            $user_mail=  $_POST['mail'];
+            $user_iban = $_POST['iban'];
             $user_befor = user::get_user_by_mail($user->mail);
-            $errors = user::validate_name($full_name);
-            if (!empty($iban)){
-                $errors = array_merge($errors, user::validate_iban($iban));
+            $errors = user::validate_name($user_name);
+            if (!empty($user_iban)){
+                $errors = array_merge($errors, user::validate_iban($user_iban));
             }
             if (count($errors) == 0) {
-                $user->update($mail, $full_name,$iban, $password, $user_befor->id);
+                $user->update($user_mail, $user_name,$user_iban, $password, $user_befor->id);
                 $this->redirect("settings", "settings");
             }
+
         }
-        (new View("edit_profile"))->show(["user" => $user, "errors" => $errors]);
+        (new View("edit_profile"))->show(["user" => $user, "errors" => $errors,"user_name" => $user_name
+            ,"user_mail" => $user_mail,"user_iban" => $user_iban]);
     }
 
 
@@ -90,7 +95,9 @@ class ControllerSettings extends Controller
         // $user = $user::get_user_by_mail($mail);
         $errors = [];
 
-        (new View("settings"))->show(["user" => $user, "errors"=>$errors]);
+        $a = "aaaaa" ;
+
+        (new View("settings"))->show(["user" => $user,"a"=>$a , "errors"=>$errors]);
     }
 
 

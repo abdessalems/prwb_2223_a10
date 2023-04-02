@@ -54,20 +54,20 @@
                 <div class="row mb-3">
                     <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                     <div class="col-md-8 col-lg-9">
-                        <input name="full_name" type="text" class="form-control" id="fullName" value="<?= $user->full_name ?>">
+                        <input name="full_name" type="text" class="form-control" id="fullName" value="<?= $user_name ?>">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                     <div class="col-md-8 col-lg-9">
-                        <input name="mail" type="email" class="form-control" id="Email" value="<?= $user->mail ?>">
+                        <input name="mail" type="email" class="form-control" id="Email" value="<?= $user_mail ?>" >
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="Iban" class="col-md-4 col-lg-3 col-form-label">IBAN</label>
                     <div class="col-md-8 col-lg-9">
-                        <input name="iban" type="text" class="form-control" id="Iban" value="<?= $user->iban ?>">
+                        <input name="iban" type="text" class="form-control" id="Iban" value="<?= $user_iban ?>">
                     </div>
                 </div>
 
