@@ -235,7 +235,7 @@ class user extends Model
 
         // Check total length for given country code
         if (strlen($iban) != $Countries[substr($iban, 0, 2)]) {
-            $errors[] = "country code correct please ! ";
+            $errors[] = "length for given country code please ! ";
         }
 
         // Move first 4 chars to end
