@@ -23,7 +23,6 @@ class ControllerSettings extends Controller
         $password = $user->hashed_password;
         $errors = [];
         if (isset($_POST['full_name'])) {
-            var_dump("aaa");
             $full_name = $_POST['full_name'];
             $iban = $_POST['iban'];
             $mail= $_POST['mail'];
