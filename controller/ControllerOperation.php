@@ -88,86 +88,18 @@ class ControllerOperation extends Controller
             $amount = $_POST['amount'];
             $date= $_POST["date"];
             $itr= $_POST["paid"];
-<<<<<<< HEAD
-           // print_r($itr);
-=======
 
->>>>>>> develop
             $itrator=user::get_user_by_name($itr);
             $newoperation = new operation($title,$idTricount,$amount,$date,$itrator);
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> develop
             $errors = operation::validateOperation($newoperation);
             if (empty($errors)) {
                 $newoperation->add_operation();
-                $this->redirect("tricount","view_tricount/$idTricount/$idUser");
 
 
-<<<<<<< HEAD
-            }
-            $idNewOperation=operation::getIdOperatiobByTitle($newoperation->title);
 
-               }
-//            foreach ($paidBy as $index => $person) {
-//                if (isset($_POST['checkbox_' . $index]) && isset($_POST['weight_' . $index])) {
-//                    $checkbox = $_POST['checkbox_' . $index];
-//                    $weight = $_POST['weight_' . $index];
-//
-//                    array_push($allWeight, $weight);
-//
-//                    $userId = user::get_user_by_name($checkbox);
-//                    array_push($allUseId, $userId);
-//
-//                }
-//            }
-//
-//
-//               $tableau= array_combine($allUseId,$allWeight);
-//
-//
-//        foreach ($tableau as $userId => $weight) {
-//
-//            print_r($userId);
-//            print_r($weight);
-//            operation::add_reartition($newoperation, $userId, $weight);
-//        }
-
-        foreach ($paidBy as $index => $person) {
-            if (isset($_POST['checkbox_' . $index]) && isset($_POST['weight_' . $index])) {
-                $checkbox = $_POST['checkbox_' . $index];
-                $weight = $_POST['weight_' . $index];
-
-                array_push($allWeight, $weight);
-
-                $userId = user::get_user_by_name($checkbox);
-                array_push($allUseId, $userId);
-            }
-        }
-
-        $tableau = array_combine($allUseId, $allWeight);
-
-
-        $count = 1;
-        foreach ($tableau as $userId => $weight) {
-
-
-            $count++;
-        }
-
-        foreach ($tableau as $userId => $weight) {
-            print_r($newoperation->id);
-            operation::add_reartition($idNewOperation, $userId, $weight);
-        }
-
-
-            $paidBy = user::get_all_user();
-
-        $paidBy = user::get_all_user();
-=======
                 $idNewOperation = operation::getIdOperatiobByTitle($newoperation->title);
                 foreach ($paidBy as $index => $person) {
                     if (isset($_POST['checkbox_' . $index]) && isset($_POST['weight_' . $index])) {
@@ -186,16 +118,20 @@ class ControllerOperation extends Controller
 
 
             foreach ($tableau as $userId => $weight) {
+                var_dump($weight);
+                if($weight=0){
+                    $weight=1;
+                }
 
                 operation::add_reartition($idNewOperation, $userId, $weight);
             }
+            $this->redirect("tricount","view_tricount/$idTricount/$idUser");
 
 
         }
->>>>>>> develop
 
-          $paidBy = user::get_all_user();
-       (new View("add_operation"))->show(["tricount" => $tricount, "paidBy" => $paidBy,"errors" => $errors,"idUser"=>$idUser]);
+        $paidBy = user::get_all_user();
+        (new View("add_operation"))->show(["tricount" => $tricount, "paidBy" => $paidBy,"errors" => $errors,"idUser"=>$idUser]);
     }
     public function delete_opertation():void{
 
@@ -221,6 +157,7 @@ class ControllerOperation extends Controller
 
 
 }
+
 
 
 
