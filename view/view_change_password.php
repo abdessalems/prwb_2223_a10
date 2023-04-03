@@ -45,23 +45,21 @@
                 <div class="row mb-3">
                     <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                     <div class="col-md-8 col-lg-9">
-                        <input name="current_password" type="password" class="form-control" id="current_password"
-                               value="">
+                        <input name="current_password" type="password" class="form-control" id="current_password" value="<?= $p ?>">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="new_password" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                     <div class="col-md-8 col-lg-9">
-                        <input name="new_password" type="password" class="form-control" id="new_password" value="">
+                        <input name="new_password" type="password" class="form-control" id="new_password" value="<?= $np ?>">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                     <div class="col-md-8 col-lg-9">
-                        <input name="confirm_password" type="password" class="form-control" id="confirm_password"
-                               value="">
+                        <input name="confirm_password" type="password" class="form-control" id="confirm_password" value="<?= $cp ?>">
                     </div>
                     <?php if (count($errors) != 0): ?>
 

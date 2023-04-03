@@ -48,7 +48,7 @@ class ControllerSettings extends Controller
     public function change_password(): void
     {
         $user = $this->get_user_or_redirect();
-        $p = "";
+        $p="";
         $np = "";
         $cp = "";
         $errors = [];
@@ -67,7 +67,7 @@ class ControllerSettings extends Controller
 
             }
         }
-        (new View("change_password"))->show(["user" => $user, "errors" => $errors]);
+        (new View("change_password"))->show(["user" => $user, "errors" => $errors,"p"=>$p,"np"=>$np,"cp"=> $cp]);
 
     }
 
