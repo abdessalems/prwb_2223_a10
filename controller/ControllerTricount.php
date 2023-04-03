@@ -50,8 +50,8 @@ class ControllerTricount extends Controller
     {
 
         $user = $this->get_user_or_redirect();
-        $idUser = $user->id;
-
+        $idUser="10";
+        $title="";
         $errors = [];
         if (isset($_POST['title'])) {
             $des = $_POST['description'];
@@ -63,7 +63,7 @@ class ControllerTricount extends Controller
                 $this->redirect("tricount", "tricount");
             }
         }
-        (new View("add_tricount"))->show(["user" => $user, "errors" => $errors]);
+        (new View("add_tricount"))->show(["user" => $user,"description"=>$des,"title"=>$title, "errors" => $errors]);
     }
 
 

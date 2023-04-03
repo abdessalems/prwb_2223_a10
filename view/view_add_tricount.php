@@ -45,13 +45,12 @@
               <label class="form-control-label">Titre :</label><br>
           <div class="input-group mb-3">
 
-              <input type="text" class="form-control" name="title"  aria-label="title" aria-describedby="basic-addon1">
+              <input type="text" class="form-control" name="title"  aria-label="title" aria-describedby="basic-addon1" value="<?= $title?> "">
               </div>
 
-    </div>
-          <div>
+    </div><div>
               <label class="form-control-label">Description (optionnelle) :</label><br>
-              <textarea name="description" rows="10" cols="30" style="width: 100%; height: 100px;"></textarea>
+              <textarea name="description" rows="10" cols="30" style="width: 100%; height: 100px;"><?php echo isset($des) ? $des : ''; ?></textarea>
           </div>
 
       </form>
