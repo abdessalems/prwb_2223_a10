@@ -62,7 +62,6 @@ class ControllerMain extends Controller
         (new View("signup"))->show(["mail" => $mail, "fullname" => $fullname, "iban" => $iban, "password" => $password,
             "password_confirm" => $password_confirm, "errors" => $errors]);
 
-
     }
 
     //gestion de la connexion d'un utilisateur

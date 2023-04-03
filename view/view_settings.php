@@ -11,7 +11,8 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,10 +29,10 @@
 </head>
 <body>
 <div class="card-header">
-    <div >
-        <a  class="btn btn-outline-danger" href="tricount/tricount">Back</a>
+    <div>
+        <a class="btn btn-outline-danger" href="tricount/tricount">Back</a>
 
-        <h5 class="card-title"  style="float:right;">Settings <h5/>
+        <h5 class="card-title" style="float:right;">Settings <h5/>
     </div>
 </div>
 <div class="card" style="display: block">
@@ -43,9 +44,10 @@
 
         <div class="bottom">
             <div class="list-group">
-                <a  title="edit_profile" class="btn btn-outline-primary" href="settings/edit_profile">     Edit profile </a>
-                <a  title="change_password" class="btn btn-outline-primary" href="settings/change_password" style="margin-bottom: 5px ; margin-top: 5px">    Change password </a>
-                <a  title="Logout" class="btn btn-danger" href="tricount/logout">Logout</a>
+                <a title="edit_profile" class="btn btn-outline-primary" href="settings/edit_profile"> Edit profile </a>
+                <a title="change_password" class="btn btn-outline-primary" href="settings/change_password"
+                   style="margin-bottom: 5px ; margin-top: 5px"> Change password </a>
+                <a title="Logout" class="btn btn-danger" href="tricount/logout">Logout</a>
             </div>
 
         </div>

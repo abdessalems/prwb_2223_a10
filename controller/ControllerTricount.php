@@ -216,8 +216,6 @@ class ControllerTricount extends Controller
             $partOfAmont = $AmountOfOperation / $weightForOperation;
 
             $operationPart = operation::participentByOperation($operation->id);
-
-
             foreach ($participents as $participent) {
                 $participates = false;
                 foreach ($operationPart as $row) {
@@ -239,12 +237,8 @@ class ControllerTricount extends Controller
                     }
                 }
             }
-
         }
-
-
         (new View("balance"))->show(["participents" => $participents, "tricount" => $tricount, "user" => $user]);
-
     }
 
 

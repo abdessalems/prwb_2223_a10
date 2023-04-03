@@ -11,7 +11,8 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,15 +30,15 @@
 
 <div class="main">
     <div class="card-header">
-        <div >
-            <a  class="btn btn-outline-danger" href="settings/settings">Back</a>
+        <div>
+            <a class="btn btn-outline-danger" href="settings/settings">Back</a>
 
-            <h5 class="card-title"  style="float:right;">Edit profile <h5/>
+            <h5 class="card-title" style="float:right;">Edit profile <h5/>
         </div>
     </div>
     <div class="card" style="display: block">
 
-        <div class ="card-body ">
+        <div class="card-body ">
             <!-- Profile Edit Form -->
             <form action="settings/edit_profile" method="post">
                 <div class="row mb-3">
@@ -45,8 +46,10 @@
                     <div class="col-md-8 col-lg-9">
                         <img src="./assets/img/profile-img.jpg" alt="Profile">
                         <div class="pt-2">
-                            <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                            <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i
+                                        class="bi bi-upload"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i
+                                        class="bi bi-trash"></i></a>
                         </div>
                     </div>
                 </div>
@@ -54,14 +57,15 @@
                 <div class="row mb-3">
                     <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                     <div class="col-md-8 col-lg-9">
-                        <input name="full_name" type="text" class="form-control" id="fullName" value="<?= $user_name ?>">
+                        <input name="full_name" type="text" class="form-control" id="fullName"
+                               value="<?= $user_name ?>">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                     <div class="col-md-8 col-lg-9">
-                        <input name="mail" type="email" class="form-control" id="Email" value="<?= $user_mail ?>" >
+                        <input name="mail" type="email" class="form-control" id="Email" value="<?= $user_mail ?>">
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -81,7 +85,8 @@
 
     <?php if (count($errors) != 0): ?>
         <div class='errors'>
-            <br><br><p>Please correct the following error(s) :</p>
+            <br><br>
+            <p>Please correct the following error(s) :</p>
             <ul>
                 <?php foreach ($errors as $error): ?>
                     <li><?= $error ?></li>

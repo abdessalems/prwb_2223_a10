@@ -80,7 +80,7 @@
                         <tbody>
                         <?php foreach ($operation_amount as $o): ?>
                             <tr>
-                                <td> <input type="checkbox" id="<?= $o->full_name ?>" name="<?= $o->full_name ?>"checked> </td>
+                            <td> <input type="checkbox" id="<?= $o->full_name ?>" name="<?= $o->full_name ?>"checked> </td>
                                 <td> <label class="form-label" for="<?= $o->full_name ?>"><?= $o->full_name ?></label>
                                 </td>
                                 <td> <input type="number" class="form-control" id="weight" name="weight"
