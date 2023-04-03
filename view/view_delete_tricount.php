@@ -39,7 +39,7 @@
 
 <div style="display: flex; justify-content: center; width: 100%; padding: 10px;">
     <button class="btn btn-primary w-100" style="background-color: grey; color: white; margin: auto;">
-        <a href='tricount/tricount'  style="color:white;">Cancel</a>
+        <a href='tricount/EditTricounts/<?= $tricount->id ?>/<?= $user->id ?> '  style="color:white;">Cancel</a>
     </button>
     <button class="btn btn-primary w-100"  style="background-color: red; color: white; margin: auto;">
         <a href='tricount/deleteTricount/<?= $tricount->id ?>' style="color:white;">Delete</a>

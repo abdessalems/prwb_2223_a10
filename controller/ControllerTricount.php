@@ -117,17 +117,17 @@ class ControllerTricount extends Controller
         $title = $_POST['title'];
         $description = $_POST['description'];
          $new_tricount = new tricount($title, $id_user, $description,$idTricount);
-         var_dump( '1');
+
         $errors = tricount::validatetitle($new_tricount, $user);
-        echo '2';
+
         if (empty($errors)) {
-            echo 'test';
+
             $tricount->update_tricount($new_tricount,$idTricount );
 
         }
         // $tricount->update_tricount($new_tricount,$idTricount );
 
-//        $this->redirect("tricount", "tricount");
+        $this->redirect("tricount", "tricount");
         (new View("edit_tricount"))->show(["user" => $user,"tricount" => $tricount,"id_user"=>$id_user,"subscribers"=>$subscribers,"Nosubscribers" =>$Nosubscribers] );
     }
     else {
