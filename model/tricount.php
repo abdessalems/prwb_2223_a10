@@ -95,6 +95,17 @@ class tricount extends Model
         return $errors;
     }
 
+    public static function validatetitle(Tricount $tricount, User $user) : array {
+        $errors = [];
+
+
+        if (self::titleExists($tricount->title, $user->id)) {
+            $errors[] = "Title already exists .";
+        }
+
+        return $errors;
+    }
+
     public static function getParticipentByTricount(int $tricountId):array{
         $query = self::execute("SELECT * FROM users WHERE id in (SELECT DISTINCT user FROM subscriptions WHERE tricount=:id) ORDER BY full_name",["id" => $tricountId]);
         $data = $query->fetchAll();
