@@ -119,6 +119,7 @@ class ControllerTricount extends Controller
          $new_tricount = new tricount($title, $id_user, $description,$idTricount);
 
         $errors = tricount::validatetitle($new_tricount, $user);
+        var_dump($errors);
 
         if (empty($errors)) {
 
@@ -127,7 +128,7 @@ class ControllerTricount extends Controller
         }
         // $tricount->update_tricount($new_tricount,$idTricount );
 
-        $this->redirect("tricount", "tricount");
+       // $this->redirect("tricount", "tricount");
         (new View("edit_tricount"))->show(["user" => $user,"tricount" => $tricount,"id_user"=>$id_user,"subscribers"=>$subscribers,"Nosubscribers" =>$Nosubscribers] );
     }
     else {
