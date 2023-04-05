@@ -50,6 +50,7 @@ class ControllerTricount extends Controller
 
         $user = $this->get_user_or_redirect();
          $idUser=$user->id;
+         var_dump("ocs");
 
          $errors = [];
         if (isset($_POST['title'])) {

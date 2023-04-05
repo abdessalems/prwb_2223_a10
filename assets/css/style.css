@@ -12098,5 +12098,8 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+  .text-success {
+    color: green;
+  }
 }
 /*# sourceMappingURL=bootstrap.rtl.css.map */
