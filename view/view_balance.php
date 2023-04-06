@@ -12,10 +12,10 @@
 <body>
 <div style="background-color: lightsteelblue; padding: 10px;">
 
-    <button style="color:red; border: 1px solid red;">
 
-        <a href='tricount/view_tricount/<?= $tricount->id ?>/<?=  $user->id ?>' style="text-decoration: none; color: red;">Back</a>
-    </button>
+
+        <a class="btn btn-outline-danger" href='tricount/view_tricount/<?= $tricount->id ?>/<?=  $user->id ?>' style="text-decoration: none; color: red;">Back</a>
+
     <div class="d-flex justify-content-center mt-3">
         <div class="title" style="text-align: right;">
 
