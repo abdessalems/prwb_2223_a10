@@ -49,7 +49,7 @@ class ControllerTricount extends Controller
      {
 
         $user = $this->get_user_or_redirect();
-         $idUser=$user->id;
+         //$idUser=$user->id;
          var_dump("ocs");
 
          $errors = [];
@@ -142,13 +142,12 @@ class ControllerTricount extends Controller
 
     public function editSubscriber () : void {
         $user = $this->get_user_or_redirect();
-        $idUser=$user->id;
-        var_dump($idUser);
+
         $idTricount = $_GET["param1"];
         $nameSubscriber = $_POST['subscriber'];
         $idSubscriber= user::get_user_by_name($nameSubscriber);
         if (isset($nameSubscriber)) {tricount::add_Subscriber($idTricount, $idSubscriber);
-            $this->redirect("tricount", "EditTricounts/$idTricount/$idUser");
+            $this->redirect("tricount", "EditTricounts/$idTricount");
         }
 
 
