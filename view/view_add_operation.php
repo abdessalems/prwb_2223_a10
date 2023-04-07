@@ -38,7 +38,7 @@
 
     <div class="input-group mb-3">
 
-        <input  class="form-control" id="title" name="title" type="text"  placeholder="Title" aria-label="Amount (to the nearest dollar)">
+        <input  class="form-control" id="title" name="title" type="text"  placeholder="Title" value="<?php if(isset($title)) { echo $title; } ?>"  aria-label="Amount (to the nearest dollar)">
 
     </div>
 
@@ -47,7 +47,7 @@
 
     <div class="input-group mb-3">
 
-         <input  class="form-control" type="number" id="amount" name="amount" placeholder="Amount" aria-label="Amount (to the nearest dollar)">
+         <input  class="form-control" type="number" id="amount" name="amount" placeholder="Amount" value="<?php if(isset($amount)) { echo $amount; } ?>" aria-label="Amount (to the nearest dollar)">
         <span class="input-group-text">euro</span>
     </div>
 
@@ -56,7 +56,7 @@
     <p>Date</p>
     <div class="input-group mb-3">
 
-        <input  class="form-control" type="date" id="date" name="date"  aria-label="Amount (to the nearest dollar)">
+        <input  class="form-control" type="date" id="date" name="date" value="<?= $date ?>" aria-label="Amount (to the nearest dollar)">
 
     </div>
 
@@ -64,7 +64,7 @@
     <div class="row mb-3" >
         <div class="col-sm-10">
             <label class="form-label" for="Paid">Paid By</label>
-            <select name="paid" id="paid"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"">
+            <select name="paid" id="paid" value="<?= $itr ?>" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"">
                 <?php foreach ($paidBy as $user): ?>
                      <option value="<?=$user["full_name"]?>"><?= $user["full_name"] ?></option>
                 <?php endforeach ;?>
@@ -81,13 +81,13 @@
             <form action="operation/add_operation" method="post">
                 <?php foreach ($paidBy as $index => $person): ?>
                     <tr style="display:flex; flex-direction:row;">
-                        <td style="margin-right:1em;">
+                        <td class="border p-4 rounded-start-1">
                             <input type="checkbox" value="<?= $person['full_name'] ?>" name="checkbox_<?= $index ?>">
                         </td>
-                        <td style="margin-right:1em;">
+                        <td class="border p-4 flex-grow-1">
                             <label for="check"><?=$person['full_name']  ?></label>
                         </td>
-                        <td>
+                        <td class="form-control bg-transparent w-50">
                             <input type="number" id="weight_<?= $index ?>" name="weight_<?= $index ?>" min="1" max="10">
                         </td>
                     </tr>

@@ -72,6 +72,8 @@ class ControllerOperation extends Controller
         $name = "";
         $date= "";
         $amount="";
+        $title="";
+        $itr="";
 
 
         $errors="";
@@ -118,10 +120,12 @@ class ControllerOperation extends Controller
 
 
             foreach ($tableau as $userId => $weight) {
-                var_dump($weight);
-                if($weight=0){
-                    $weight=1;
+                $weight = intval($weight);
+                if ($weight=== 0) {
+                    $weight = 1;
                 }
+
+
 
                 operation::add_reartition($idNewOperation, $userId, $weight);
             }
@@ -131,7 +135,7 @@ class ControllerOperation extends Controller
         }
 
         $paidBy = user::get_all_user();
-        (new View("add_operation"))->show(["tricount" => $tricount, "paidBy" => $paidBy,"errors" => $errors,"idUser"=>$idUser]);
+        (new View("add_operation"))->show(["tricount" => $tricount,"title" =>$title,"amount" => $amount,"date" => $date,"paid" => $itr, "paidBy" => $paidBy,"errors" => $errors,"idUser"=>$idUser]);
     }
     public function delete_opertation():void{
 
