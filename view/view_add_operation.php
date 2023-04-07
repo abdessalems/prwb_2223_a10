@@ -13,9 +13,9 @@
 
 
 
-<form  action="operation/add_operation/<?= $tricount->id ?>" method="post">
+<form class="col-7 mx-auto my-2" action="operation/add_operation/<?= $tricount->id ?>" method="post">
 
-    <div style="background-color: lightsteelblue; padding: 10px;">
+    <div class="card-header" style="background-color: #00b3ff; padding: 10px;">
         <div class="d-flex justify-content-between mt-3">
             <a  class="btn btn-outline-danger" href="tricount/view_tricount/<?= $tricount->id ?>/<?= $idUser?>">Back</a>
             <div class="d-flex justify-content-center mt-3">

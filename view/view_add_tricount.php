@@ -86,24 +86,24 @@
             var title = $.trim($("input[name='title']").val());
             var description = $.trim($("textarea[name='description']").val());
 
-            
+
             if (title == "") {
-                $('#title-error').html('Le titre est obligatoire.');
+                $('#title-error').html('The titre is obligatory.');
             } else if (title.length < 3) {
-                $('#title-error').html('Le titre doit avoir au minimum 3 caractères (hors espaces au début et à la fin).');
+                $('#title-error').html('The title must have at least 3 characters');
             } else {
                 $('#title-error').html('It looks good!').removeClass('text-danger').addClass('text-success');
             }
 
 
-            if (description.length > 0) {
+            if ($.trim(description).length > 0) {
                 if (description.length < 3) {
-                    $('#description-error').html('La description doit avoir au minimum 3 caractères (hors espaces au début et à la fin).').removeClass('text-success').addClass('text-danger');
+                    $('#description-error').html('If description is not empty, it must contain at least 3 characters').removeClass('text-success').addClass('text-danger');
                 } else {
                     $('#description-error').html('It looks good!').removeClass('text-danger').addClass('text-success');
                 }
             } else {
-                $('#description-error').html('').removeClass('text-success').removeClass('text-danger');
+                $('#description-error').html('').removeClass('text-danger').addClass('text-success');
             }
         }
 
@@ -114,9 +114,10 @@
             if ($('#title-error').hasClass('text-success') && $('#description-error').hasClass('text-success')) {
                 this.submit();
             }
+
         });
     });
 </script>
 
-</script>
+
 
