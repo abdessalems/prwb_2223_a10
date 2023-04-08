@@ -50,7 +50,6 @@ class ControllerMain extends Controller
             $errors = array_merge($errors, user::validate_name($fullname));
             $errors = array_merge($errors, user::validate_iban($iban));
              $errors = array_merge($errors, user::validate_passwords($password, $password_confirm));
-
             if (count($errors) == 0) {
                 $user->persist(); //sauve l'utilisateur
                 $this->log_user($user);
@@ -61,6 +60,7 @@ class ControllerMain extends Controller
 
         (new View("signup"))->show(["mail" => $mail, "fullname" => $fullname, "iban" => $iban, "password" => $password,
             "password_confirm" => $password_confirm, "errors" => $errors]);
+
 
     }
 
