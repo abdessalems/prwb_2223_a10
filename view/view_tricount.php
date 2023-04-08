@@ -151,7 +151,7 @@
                     <a href="operation/view_operation/<?= $operation->id ?>/<?= $id_user ?>" class="list-group-item list-group-item-action" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1"><?= $operation->title ?></h5>
-                            <h6><?= round($operation->amount, 2) ?> €</h6>
+                            <h6><?= $operation->amount ?> €</h6>
                         </div>
                         <div class="d-flex w-100 justify-content-between">
                             <small class="mb-1">Paid by <?= $operation->name_paid ?> </small>

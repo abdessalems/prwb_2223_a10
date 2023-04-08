@@ -80,6 +80,7 @@ class ControllerTricount extends Controller
             $operations = operation::get_operations($tricount);
             foreach ($operations as $operation) {
                 $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
+                $operation->amount=round($operation->amount,2);
                 foreach ($operation_amount as $o) {
                     if ($o->id === $user->id) {
                         $My_total = $My_total + $o->amount;
@@ -88,6 +89,7 @@ class ControllerTricount extends Controller
                 $nbr_total_repartitions = $nbr_total_repartitions + $operation->nbr_repartition;
                 $Total_expenses = $Total_expenses + $operation->amount;
             }
+
         }
         (new View("tricount"))->show(["operations" => $operations, "tricount" => $tricount,
             "nbr_total_repartitions" => $nbr_total_repartitions, "My_total" => $My_total, "Total_expenses" => $Total_expenses, "trcount" => $tricount, "id_user" => $id_user]);
