@@ -135,14 +135,14 @@
             <div class="row mb-3">
                 <label for="customRange1" class="form-label">Order this expenses by</label>
                 <select class="form-select" >
-                    <option selected value="amount-asc">Amount &#xf062;</option>
-                    <option value="amount-desc">Amount &#xf063;</option>
-                    <option value="operation_date-asc">Date &#xf062;</option>
-                    <option value="operation_date-desc">Date &#xf063;</option>
-                    <option value="name_paid-asc">Initiator &#xf062;</option>
-                    <option value="name_paid-desc">Initiator &#xf063;</option>
-                    <option value="title-asc">Title &#xf062;</option>
-                    <option value="title-desc">Title &#xf063;</option>
+                    <option selected value="amount-asc">Amount ▲</option>
+                    <option value="amount-desc">Amount ▼</option>
+                    <option value="operation_date-asc">Date ▲</option>
+                    <option value="operation_date-desc">Date ▼</option>
+                    <option value="name_paid-asc">Initiator ▲</option>
+                    <option value="name_paid-desc">Initiator ▼</option>
+                    <option value="title-asc">Title ▲</option>
+                    <option value="title-desc">Title ▼</option>
                 </select>
             </div>
 
