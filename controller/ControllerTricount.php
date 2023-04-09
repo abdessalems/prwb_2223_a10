@@ -102,7 +102,7 @@ class ControllerTricount extends Controller
     {
         $user = $this->get_user_or_redirect();
         $idTricount = $_GET["param1"];
-        $id_user = $_GET["param2"];
+        $id_user = $user->id;
         $tricount = tricount::get_tricount_by_id($idTricount);
         $subscribers = $tricount::get_subscriber($idTricount);
         $Nosubscribers = $tricount::getNOsubscriber($idTricount, $id_user);

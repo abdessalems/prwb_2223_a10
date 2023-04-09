@@ -39,7 +39,7 @@
         <div style="display: block ruby">
             <h5 class="card-title">Your Tricounts</h5>
             <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add new tricount" class="btn btn-primary"
-               style="float: right" type="button" href="your link for add tricount here yassin">Add </a>
+               style="float: right" type="button" href="tricount/addTricounts">Add </a>
         </div>
         <div class="list-group">
             <?php foreach ($tricounts as $tricount): ?>

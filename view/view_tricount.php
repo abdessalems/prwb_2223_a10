@@ -109,7 +109,7 @@
     <div class="d-flex w-100 justify-content-between">
         <a  class="btn btn-outline-danger" href="tricount/tricount">Back</a>
         <h5 style="align-self: center " class="card-title" ><?= $tricount->title ?> > Expenses <h5/>
-            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit tricount"  class="btn btn-primary" href="your link of edit here yassin ok ">Edit</a>
+            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit tricount"  class="btn btn-primary" href="tricount/view_edit_tricount/<?= $tricount->id ?>">Edit</a>
     </div>
 
 </div>
@@ -131,7 +131,7 @@
     <?php endif; ?>
     <?php else : ?>
         <div class="list-group">
-            <a class="btn btn btn-success" href="view balance ">   <i class="bi bi-arrow-left-right"></i>  view balance </a>
+            <a class="btn btn btn-success" href="trount/view_balance ">   <i class="bi bi-arrow-left-right"></i>  view balance </a>
             <div class="row mb-3">
                 <label for="customRange1" class="form-label">Order this expenses by</label>
                 <select class="form-select" >
