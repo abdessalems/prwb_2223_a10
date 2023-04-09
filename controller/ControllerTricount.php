@@ -193,6 +193,7 @@ class ControllerTricount extends Controller
         $user = $this->get_user_or_redirect();
         $idTricount = $_GET["param1"];
         $nameSubscriber = $_GET["param2"];
+        var_dump($nameSubscriber);
         $idSubscriber = user::get_user_by_name($nameSubscriber);
         print_r($idSubscriber);
         print_r($idTricount);

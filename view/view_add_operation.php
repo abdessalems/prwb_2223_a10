@@ -6,7 +6,7 @@
     <base href="<?=$web_root?>"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" >
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 <body>
@@ -35,21 +35,33 @@
 
 
 
+    <div class="row mb-3">
+        <div class="col-sm-10">
 
-    <div class="input-group mb-3">
+            <input  class="form-control" id="title" name="title" type="text"  placeholder="Title" value="<?php if(isset($title)) { echo $title; } ?>"  aria-label="Amount (to the nearest dollar)">
 
-        <input  class="form-control" id="title" name="title" type="text"  placeholder="Title" value="<?php if(isset($title)) { echo $title; } ?>"  aria-label="Amount (to the nearest dollar)">
+        </div>
+    </div>
 
+
+
+    <div class="form-inline">
+        <div class="form-group mb-3">
+            <label for="amount" class="sr-only">Amount</label>
+            <div class="input-group col-md-70">
+                <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" value="<?php if(isset($amount)) { echo $amount; } ?>" aria-label="Amount (to the nearest dollar)">
+                <div class="input-group-append">
+                    <span class="input-group-text">euro</span>
+                </div>
+            </div>
+        </div>
     </div>
 
 
 
 
-    <div class="input-group mb-3">
 
-         <input  class="form-control" type="number" id="amount" name="amount" placeholder="Amount" value="<?php if(isset($amount)) { echo $amount; } ?>" aria-label="Amount (to the nearest dollar)">
-        <span class="input-group-text">euro</span>
-    </div>
+
 
 
 
@@ -117,4 +129,31 @@
 
 </body>
 </html>
+<script>
+    $(document).ready(function() {
+        $('form').submit(function() {
+            var title = $('#title').val();
+            var amount = $('#amount').val();
+            var isValid = true;
+
+            
+            if (title.length < 3) {
+                $('#title').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#title').removeClass('is-invalid');
+            }
+
+
+            if (amount <= 0) {
+                $('#amount').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#amount').removeClass('is-invalid');
+            }
+
+            return isValid;
+        });
+    });
+</script>
 

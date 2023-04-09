@@ -187,8 +187,20 @@ class tricount extends Model
     }
 
     public static function delete_subscriber(int $idTricount, int $idUser) {
-        self::execute("delete from subscriptions WHERE (tricount=:tricount and user =:user) ", ["tricount" => $idTricount, "user" => $idUser]);
+        try {
+            self::execute("delete from subscriptions WHERE (tricount=:tricount and user =:user) ", ["tricount" => $idTricount, "user" => $idUser]);
+
+            if (self::getRowCount() > 0) {
+                return 'success';
+            } else {
+                return 'error';
+            }
+        } catch (PDOException $e) {
+
+            return 'error';
+        }
     }
+
 
 
 
