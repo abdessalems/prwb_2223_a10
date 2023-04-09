@@ -245,34 +245,34 @@ class operation extends Model
 //        }
 //        return $errors;
 //    }
-public function add_operation() : Operation|array {
-    $errors = [];
+    public function add_operation() : Operation|array {
+        $errors = [];
 
 //    if (empty($this->title)) {
 //        $errors[] = "Title must be filled.";
 //    }
 
-    if (empty($errors)) {
-        self::execute("INSERT INTO operations (title, tricount, amount, operation_date, initiator) 
+        if (empty($errors)) {
+            self::execute("INSERT INTO operations (title, tricount, amount, operation_date, initiator) 
                        VALUES (:title, :tricount, :amount, :operation_date, :initiator)",
-            [
-                "title" => $this->title,
-                "tricount" => $this->tricount,
-                "amount" => $this->amount,
-                "operation_date" => $this->operation_date,
-                "initiator" => $this->initiator
-            ]);
-        return $this;
-    }
+                [
+                    "title" => $this->title,
+                    "tricount" => $this->tricount,
+                    "amount" => $this->amount,
+                    "operation_date" => $this->operation_date,
+                    "initiator" => $this->initiator
+                ]);
+            return $this;
+        }
 
-    return $errors;
-}
+        return $errors;
+    }
 
     public static function validateOperationAmount(operation $operation) : array {
         $errors = [];
 
 
-         if($operation->amount<0){
+        if($operation->amount<0){
             $errors[] = "Amount must be positive.";
         }
 
@@ -324,4 +324,4 @@ public function add_operation() : Operation|array {
 
 
 
-    }
+}

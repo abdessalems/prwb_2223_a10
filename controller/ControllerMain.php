@@ -19,6 +19,8 @@ class ControllerMain extends Controller
     }
 
 
+
+
 //    public function index() : void {
     //    if ($this->user_logged()) {
     //      $this->redirect("user", "full_name");
@@ -52,6 +54,7 @@ class ControllerMain extends Controller
              $errors = array_merge($errors, user::validate_passwords($password, $password_confirm));
             if (count($errors) == 0) {
                 $user->persist(); //sauve l'utilisateur
+               // $this->redirect("main", "login");
                 $this->log_user($user);
                 $this->redirect("tricount", "tricount");
             }

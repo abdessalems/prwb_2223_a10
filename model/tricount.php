@@ -92,16 +92,31 @@ class tricount extends Model
         return $errors;
     }
 
-    public static function getParticipentByTricount(int $tricountId): array
-    {
-        $query = self::execute("SELECT * FROM users WHERE id in (SELECT DISTINCT user FROM subscriptions WHERE tricount=:id) ORDER BY full_name", ["id" => $tricountId]);
+
+//    public static function getParticipentByTricount(int $tricountId): array
+//    {
+//        $query = self::execute("SELECT * FROM users WHERE id in (SELECT DISTINCT user FROM subscriptions WHERE tricount=:id) ORDER BY full_name", ["id" => $tricountId]);
+//    }
+    public static function validatetitle(Tricount $tricount, User $user) : array {
+        $errors = [];
+
+
+        if (self::titleExists($tricount->title, $user->id)) {
+            $errors[] = "Title already exists .";
+        }
+
+        return $errors;
+    }
+    public static function getParticipentByTricount(int $tricountId):array{
+        $query = self::execute("SELECT * FROM users WHERE id in (SELECT DISTINCT user FROM subscriptions WHERE tricount=:id) ORDER BY full_name",["id" => $tricountId]);
         $data = $query->fetchAll();
         $results = [];
-        foreach ($data as $row) {
-            $results[] = new User($row["mail"], $row["hashed_password"], $row["full_name"], $row["iban"], $row["id"]);
+        foreach($data as $row){
+            $results[] = new User($row["mail"],$row["hashed_password"],$row["full_name"],$row["iban"],$row["id"]);
         }
         return $results;
     }
+
 
     public static function security_tricount(object $user, mixed $id_tricount)
     {
@@ -190,10 +205,18 @@ class tricount extends Model
         self::execute("INSERT INTO `subscriptions` (`tricount`, `user`) VALUES (:tricount_id, :user_id)", ["tricount_id" => $idTricount, "user_id" => $idUser]);
     }
 
+
     public static function delete_subscriber(int $idTricount, int $idUser)
     {
         self::execute("delete from subscriptions WHERE (tricount=:tricount and user =:user) ", ["tricount" => $idTricount, "user" => $idUser]);
     }
+
+
+
+
+
+
+
 
 
 }

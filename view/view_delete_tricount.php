@@ -21,6 +21,13 @@
 <div style="display: flex; justify-content: center; width: 100%; margin-top: 10px;">
     <p style="color: red;">Do you really want to delete this operation "<strong style="color:red;"><?= $tricount->title ?></strong>" and all of its dependencies?</p>
 
+
+</div>
+
+<div style="display: flex; justify-content: center; width: 100%; margin-top: 10px;">
+      <p style="color:red;">This process cannot be undone.</p>
+</div>
+
 </div>
 
 <div style="display: flex; justify-content: center; width: 100%; margin-top: 10px;">
@@ -29,9 +36,10 @@
 
 
 
+
 <div style="display: flex; justify-content: center; width: 100%; padding: 10px;">
     <button class="btn btn-primary w-100" style="background-color: grey; color: white; margin: auto;">
-        <a href='tricount/tricount'  style="color:white;">Cancel</a>
+        <a href='tricount/EditTricounts/<?= $tricount->id ?>/<?= $user->id ?> '  style="color:white;">Cancel</a>
     </button>
     <button class="btn btn-primary w-100"  style="background-color: red; color: white; margin: auto;">
         <a href='tricount/deleteTricount/<?= $tricount->id ?>' style="color:white;">Delete</a>

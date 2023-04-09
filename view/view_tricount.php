@@ -109,9 +109,8 @@
     <div class="d-flex w-100 justify-content-between">
         <a  class="btn btn-outline-danger" href="tricount/tricount">Back</a>
         <h5 style="align-self: center " class="card-title" ><?= $tricount->title ?> > Expenses <h5/>
-            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit tricount"  class="btn btn-primary" href="tricount/view_edit_tricount/<?= $tricount->id ?>">Edit</a>
+            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit tricount"  class="btn btn-primary" href="tricount/EditTricounts/<?= $tricount->id ?>/<?= $id_user ?>">Edit </a>
     </div>
-
 </div>
 <div class="card mx-2">
 
@@ -126,7 +125,8 @@
         <?php else : ?>
         <h3> Your Tricount is empty !</h3>
         <p> Click below to add your first expense ! </p>
-        <a href="link ">Add an expense</a>
+
+        <a href="tricount/view_balance/<?= $tricount->id ?>/<?= $id_user ?>">view balance </a> <br>
     </div>
     <?php endif; ?>
     <?php else : ?>
