@@ -18,8 +18,10 @@ class ControllerOperation extends Controller
 
     public function edit_operation(): void
     {
+        $user = $this->get_user_or_redirect();
         $id_operation = $_GET["param1"];
-        $id_user = $_GET["param2"];
+        $id_user = $user->id;
+
         $operation = operation::get_operation_by_id($id_operation);
         $tricount = tricount::get_tricount_by_id($operation->tricount);
         $operations = operation::get_operations($tricount);

@@ -31,11 +31,11 @@
 <body>
 <div class="card-header">
     <div class="d-flex w-100 justify-content-between">
-        <a class="btn btn-outline-danger" href="tricount/view_tricount/<?= $operation->tricount ?>/<?= $id_user ?>">
+        <a class="btn btn-outline-danger" href="tricount/view_tricount/<?= $operation->tricount ?>">
             Back</a>
         <h5 style="align-self: center " class="card-title"><?= $tricount->title ?> > <?= $operation->title ?> <h5/>
             <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit operation" class="btn btn-primary"
-               href="operation/edit_operation/<?= $operation->id ?>/<?= $id_user ?>">Edit</a>
+               href="operation/edit_operation/<?= $operation->id ?>">Edit</a>
     </div>
 </div>
 

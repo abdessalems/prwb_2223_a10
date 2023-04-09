@@ -32,7 +32,7 @@
 <body>
 <div class="card-header">
     <div class="d-flex w-100 justify-content-between">
-        <a class="btn btn-outline-danger" href="operation/view_operation/<?= $operation->id ?>/<?= $id_user ?>">Cancel</a>
+        <a class="btn btn-outline-danger" href="operation/view_operation/<?= $operation->id ?>">Cancel</a>
         <h5 style="align-self: center " class="card-title"><?= $tricount->title ?> > Edit expense <h5/>
     </div>
 </div>
