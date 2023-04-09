@@ -43,7 +43,7 @@
         </div>
         <div class="list-group">
             <?php foreach ($tricounts as $tricount): ?>
-                <a href="tricount/view_tricount/<?= $tricount->id ?>/<?= $user->id ?>"
+                <a href="tricount/view_tricount/<?= $tricount->id ?>"
                    class="list-group-item list-group-item-action" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1"><?= $tricount->title ?></h5>

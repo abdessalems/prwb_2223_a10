@@ -148,7 +148,7 @@
 
             <div id="operations_list">
                 <?php foreach ($operations as $operation): ?>
-                    <a href="operation/view_operation/<?= $operation->id ?>/<?= $id_user ?>" class="list-group-item list-group-item-action" aria-current="true">
+                    <a href="operation/view_operation/<?= $operation->id ?>" class="list-group-item list-group-item-action" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1"><?= $operation->title ?></h5>
                             <h6><?= $operation->amount ?> €</h6>

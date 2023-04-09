@@ -71,7 +71,7 @@ class ControllerTricount extends Controller
     {
         $user = $this->get_user_or_redirect();
         $id_tricount = $_GET["param1"];
-        $id_user = $_GET["param2"];
+        $id_user = $user->id;
         $tricount = tricount::get_tricount_by_id($id_tricount);
         $nbr_total_repartitions = 0;
         $My_total = 0;
