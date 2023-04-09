@@ -17,9 +17,7 @@ class ControllerTricount extends Controller
     public function tricount(): void
     {
         $user = $this->get_user_or_redirect();
-        $userr = user::get_user_by_mail($user->mail);
-        $tricounts = $this->get_tricount($userr);
-        //$nbr_Participent_Tricount = $this->get_nbr_Participent_Tricount($tricounts);
+        $tricounts = $this->get_tricount($user);
         (new View('list_tricounts'))->show(['user' => $user, "tricounts" => $tricounts]);
     }
 
@@ -37,8 +35,6 @@ class ControllerTricount extends Controller
 //liste des tricounts de l'utilisateur connecté.
     public function Tricounts(): void
     {
-
-
         $user = $this->get_user_or_redirect();
         $tricounts = $user->get_tricounts();
         $nbr_Participent_Tricount = $tricounts->Participent_Tricount();
@@ -50,8 +46,8 @@ class ControllerTricount extends Controller
     {
 
         $user = $this->get_user_or_redirect();
-        $idUser="10";
-        $title="";
+        $idUser = "10";
+        $title = "";
         $errors = [];
         if (isset($_POST['title'])) {
             $des = $_POST['description'];
@@ -63,15 +59,18 @@ class ControllerTricount extends Controller
                 $this->redirect("tricount", "tricount");
             }
         }
-        (new View("add_tricount"))->show(["user" => $user,"description"=>$des,"title"=>$title, "errors" => $errors]);
+        (new View("add_tricount"))->show(["user" => $user, "description" => $des, "title" => $title, "errors" => $errors]);
     }
 
 
     public function view_tricount(): void
     {
+
         $user = $this->get_user_or_redirect();
         $id_tricount = $_GET["param1"];
         $id_user = $user->id;
+        if (tricount::security_tricount( $user,$id_tricount) ) {
+
         $tricount = tricount::get_tricount_by_id($id_tricount);
         $nbr_total_repartitions = 0;
         $My_total = 0;
@@ -80,7 +79,7 @@ class ControllerTricount extends Controller
             $operations = operation::get_operations($tricount);
             foreach ($operations as $operation) {
                 $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
-                $operation->amount=round($operation->amount,2);
+                $operation->amount = round($operation->amount, 2);
                 foreach ($operation_amount as $o) {
                     if ($o->id === $user->id) {
                         $My_total = $My_total + $o->amount;
@@ -93,6 +92,9 @@ class ControllerTricount extends Controller
         }
         (new View("tricount"))->show(["operations" => $operations, "tricount" => $tricount,
             "nbr_total_repartitions" => $nbr_total_repartitions, "My_total" => $My_total, "Total_expenses" => $Total_expenses, "trcount" => $tricount, "id_user" => $id_user]);
+    }
+    else
+        $this->redirect("tricount", "tricount");
     }
 
     public function EditTricounts(): void
