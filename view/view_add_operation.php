@@ -14,8 +14,8 @@
 
 
 <form class="col-7 mx-auto my-2" action="operation/add_operation/<?= $tricount->id ?>" method="post">
-    <div style="background-color: lightblue; padding: 10px;">
-        <div class="d-flex justify-content-between mt-3">
+    <div class="card-header">
+        <div class="d-flex w-100 justify-content-between">
 
 
             <a  class="btn btn-outline-danger" href="" > Cancel</a>
@@ -39,7 +39,8 @@
 
 
 
-
+    <div class="card">
+        <div class="card-body">
 
     <div class="row mb-3">
         <div class="col-sm-10">
@@ -79,6 +80,9 @@
     </div>
 
 
+
+
+
     <div class="row mb-3" >
         <div class="col-sm-10">
             <label class="form-label" for="Paid">Paid By</label>
@@ -92,21 +96,22 @@
 
 
 
-<div class="row mb-3">
-    <div class="col-sm-10">
+ <div class="row mb-3">
+     <div class="col-sm-10">
         <p>For Whom ? (select at least one ) </p>
-        <table class="table table-borderless datatable" style="display:flex; flex-direction:column;">
+         <table class="table table-borderless datatable">
             <form action="operation/add_operation" method="post">
+                <tbody>
                 <?php foreach ($paidBy as $index => $person): ?>
-                    <tr style="display:flex; flex-direction:row;">
-                        <td class="border p-4 rounded-start-1">
+                <tr>
+                        <td>
                             <input type="checkbox" value="<?= $person['full_name'] ?>" name="checkbox_<?= $index ?>">
                         </td>
-                        <td class="border p-4 flex-grow-1">
-                            <label for="check"><?=$person['full_name']  ?></label>
+                        <td >
+                            <label class="form-label" for="check"><?=$person['full_name']  ?></label>
                         </td>
-                        <td class="form-control bg-transparent w-50">
-                            <input type="number" id="weight_<?= $index ?>" name="weight_<?= $index ?>" min="1" max="10">
+                        <td >
+                            <input class="form-control" type="number" id="weight_<?= $index ?>" name="weight_<?= $index ?>" min="1" max="10">
                         </td>
                     </tr>
                 <?php endforeach; ?>

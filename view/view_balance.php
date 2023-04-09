@@ -10,51 +10,42 @@
 
 </head>
 <body>
-<div style="background-color: lightsteelblue; padding: 10px;">
 
-    <button style="color:red; border: 1px solid red;">
 
-        <a href='tricount/view_tricount/<?= $tricount->id ?>/<?=  $user->id ?>' style="text-decoration: none; color: red;">Back</a>
-    </button>
-    <div class="d-flex justify-content-center mt-3">
-        <div class="title" style="text-align: right;">
+<div class="card-header">
+    <div class="d-flex w-100 justify-content-between">
+        <a  class="btn btn-outline-danger" href='tricount/view_tricount/<?= $tricount->id ?>/<?=  $user->id ?>'>Back</a>
+        <h5 style="align-self: center " class="card-title" ><?= $tricount->title ?> > Balance <h5/>
 
-            <h3 style="color: gray;"><?= $tricount->title ?> < Balance </h3>
-        </div>
     </div>
 </div>
 
 
 
 
-<div class="view_balance" >
 
+<div class="card">
+    <div class="card-body">
+        <table style="height: 60px; width: 1000px;">
+            <tr>
 
+            </tr>
+            <?php foreach ($participents as $participent): ?>
+                <?php if(($participent->account)>0): ?>
+                    <tr>
+                        <td><?php echo $participent->full_name; ?></td>
+                        <td style="background-color: green; background-size: 50% 100%;"><?php echo $participent->account; ?></td>
+                    </tr>
+                <?php  elseif(($participent->account)<0): ?>
+                    <tr>
+                        <td style="background-color: red; background-size: 50% 100%;"><?php echo $participent->account; ?></td>
+                        <td><?php echo $participent->full_name; ?></td>
 
-
-    <table style="height: 60px; width: 1000px;">
-        <tr>
-
-        </tr>
-        <?php foreach ($participents as $participent): ?>
-            <?php if(($participent->account)>0): ?>
-                <tr>
-                    <td><?php echo $participent->full_name; ?></td>
-                    <td style="background-color: green";><?php echo $participent->account; ?></td>
-                </tr>
-            <?php  elseif(($participent->account)<0): ?>
-                <tr>
-                    <td style="background-color: red";><?php echo $participent->account; ?></td>
-                    <td><?php echo $participent->full_name; ?></td>
-
-                </tr>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </table>
-
-
-
-
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </table>
+    </div>
 </div>
 </body>
 </html>

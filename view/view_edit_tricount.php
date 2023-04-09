@@ -20,11 +20,12 @@
 
 <div id="subscriber-message"></div>
 <form id="addForm" action="tricount/EditTricounts/<?= $tricount->id ?>/<?= $id_user ?>" method="post">
-    <div style="background-color: lightsteelblue; padding: 10px;">
-        <div class="d-flex justify-content-between mt-3">
-            <button style="color:red; background-color:white;  border: 1px solid red;">
-                <a href="" style="text-decoration: none; color: red;">Cancel</a>
-            </button>
+    <div class="card-header">
+        <div class="d-flex w-100 justify-content-between">
+
+
+            <a  class="btn btn-outline-danger" href="tricount/tricount">Cancel</a>
+
 
             <div class="d-flex justify-content-center mt-3">
                 <div class="title">
@@ -35,6 +36,8 @@
             <input type="submit" class="btn btn-primary" value="Save"/>
         </div>
     </div>
+    <div class="card">
+        <div class="card-body">
 
     <div>
         <label for="exampleFormControlInput1" class="form-label">Title:</label><br>

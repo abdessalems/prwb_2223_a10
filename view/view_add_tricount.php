@@ -21,8 +21,8 @@
 
 
 <form class="col-7 mx-auto my-2" id="addForm" action="tricount/addTricounts" method="post">
-    <div style="background-color: lightblue; padding: 10px;">
-        <div class="d-flex justify-content-between mt-3">
+    <div class="card-header">
+        <div class="d-flex w-100 justify-content-between">
 
             <a  class="btn btn-outline-danger" href="" > Cancel</a>
 
@@ -45,14 +45,14 @@
 
 
 
-    <!--    <div class="form-group">-->
-    <!--        <label class="form-control-label">Titre :</label><br>-->
-    <!--        <div class="input-group mb-3">-->
-    <!--            <input type="text" class="form-control" name="title" id="title" aria-label="title" aria-describedby="basic-addon1">-->
-    <!--        </div>-->
-    <!--        <span class="text-danger" id="title-error"></span>-->
-    <!--        <span class="text-success" id="title-message"></span>-->
-    <!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <label class="form-control-label">Titre :</label><br>-->
+<!--        <div class="input-group mb-3">-->
+<!--            <input type="text" class="form-control" name="title" id="title" aria-label="title" aria-describedby="basic-addon1">-->
+<!--        </div>-->
+<!--        <span class="text-danger" id="title-error"></span>-->
+<!--        <span class="text-success" id="title-message"></span>-->
+<!--    </div>-->
     <div class="container">
         <div>
             <label class="form-control-label">Titre :</label><br>
@@ -69,14 +69,14 @@
     </div>
 
 
-    <!--    <div class="input-group">-->
-    <!--        <label class="form-control-label">Description (optionnelle) :</label><br>-->
-    <!--        <div>-->
-    <!--        <textarea name="description" textarea class="form-control" aria-label="With textarea" id="description" "></textarea>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--    <span class="text-danger" id="description-error"></span>-->
-    <!--    <span class="text-success" id="description-message"></span>-->
+<!--    <div class="input-group">-->
+<!--        <label class="form-control-label">Description (optionnelle) :</label><br>-->
+<!--        <div>-->
+<!--        <textarea name="description" textarea class="form-control" aria-label="With textarea" id="description" "></textarea>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <span class="text-danger" id="description-error"></span>-->
+<!--    <span class="text-success" id="description-message"></span>-->
 
 
 </form>
@@ -143,3 +143,6 @@
         });
     });
 </script>
+
+
+
