@@ -198,11 +198,13 @@ class ControllerTricount extends Controller
         print_r($idSubscriber);
         print_r($idTricount);
 
-        tricount::delete_subscriber($idSubscriber,$idTricount);
+        tricount::delete_subscriber($idTricount,$idSubscriber);
+        echo json_encode("success");
         $tricount = tricount::get_tricount_by_id($idTricount);
         $subscribers = $tricount::get_subscriber($idTricount);
         $Nosubscribers = $tricount::getNOsubscriber($idTricount, $idSubscriber);
         $idSubscriber = user::get_user_by_name($nameSubscriber);
+        $this->redirect("tricount", "EditTricounts/$idTricount/$user->id");
 
 
         (new View("edit_Tricount"))->show(["user" => $user, "tricount" => $tricount, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);

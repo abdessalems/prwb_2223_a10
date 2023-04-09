@@ -14,24 +14,30 @@
 
 
 <form class="col-7 mx-auto my-2" action="operation/add_operation/<?= $tricount->id ?>" method="post">
-
-    <div class="card-header" style="background-color: #00b3ff; padding: 10px;">
+    <div style="background-color: lightblue; padding: 10px;">
         <div class="d-flex justify-content-between mt-3">
-            <a  class="btn btn-outline-danger" href="tricount/view_tricount/<?= $tricount->id ?>/<?= $idUser?>">Back</a>
+
+
+            <a  class="btn btn-outline-danger" href="" > Cancel</a>
+
+
+
             <div class="d-flex justify-content-center mt-3">
                 <div class="title">
-                    <h3 style="color: gray;"><?= $tricount->title ?> > new Expense </h3>
+                    <h5 style="color: gray;"><?= $tricount->title ?> > new Expense </h5>
                 </div>
             </div>
 
-            <div class="d-flex flex-row">
-                <input class="btn btn-primary " type="submit" value="Save">
-            </div>
+
+            <input  data-bs-placement="bottom" class="btn btn-primary" value="Save" type="submit">
 
 
         </div>
-
     </div>
+
+
+
+
 
 
 
@@ -136,7 +142,7 @@
             var amount = $('#amount').val();
             var isValid = true;
 
-            
+
             if (title.length < 3) {
                 $('#title').addClass('is-invalid');
                 isValid = false;

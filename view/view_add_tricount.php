@@ -20,12 +20,12 @@
 
 
 
-<form id="addForm" action="tricount/addTricounts" method="post">
-    <div style="background-color: lightsteelblue; padding: 10px;">
+<form class="col-7 mx-auto my-2" id="addForm" action="tricount/addTricounts" method="post">
+    <div style="background-color: lightblue; padding: 10px;">
         <div class="d-flex justify-content-between mt-3">
-            <button style="color:red; background-color:white;  border: 1px solid red;"">
-            <a href="" style="text-decoration: none; color: red;"> Cancel</a>
-            </button>
+
+            <a  class="btn btn-outline-danger" href="" > Cancel</a>
+
 
 
             <div class="d-flex justify-content-center mt-3">
@@ -35,28 +35,48 @@
             </div>
 
 
-            <input class="btn btn-primary" value="Save" type="submit">
+            <input  data-bs-placement="bottom" class="btn btn-primary" value="Save" type="submit">
 
 
         </div>
 
     </div>
 
-    <div class="form-group">
-        <label class="form-control-label">Titre :</label><br>
-        <div class="input-group mb-3">
+
+
+
+<!--    <div class="form-group">-->
+<!--        <label class="form-control-label">Titre :</label><br>-->
+<!--        <div class="input-group mb-3">-->
+<!--            <input type="text" class="form-control" name="title" id="title" aria-label="title" aria-describedby="basic-addon1">-->
+<!--        </div>-->
+<!--        <span class="text-danger" id="title-error"></span>-->
+<!--        <span class="text-success" id="title-message"></span>-->
+<!--    </div>-->
+    <div class="container">
+        <div>
+            <label class="form-control-label">Titre :</label><br>
             <input type="text" class="form-control" name="title" id="title" aria-label="title" aria-describedby="basic-addon1">
+            <span class="text-danger" id="title-error"></span>
+            <span class="text-success" id="title-message"></span>
         </div>
-        <span class="text-danger" id="title-error"></span>
-        <span class="text-success" id="title-message"></span>
+        <div>
+            <label class="form-control-label">Description (optionnelle) :</label><br>
+            <textarea name="description" textarea class="form-control" aria-label="With textarea" id="description" "></textarea>
+            <span class="text-danger" id="description-error"></span>
+            <span class="text-success" id="description-message"></span>
+        </div>
     </div>
 
-    <div>
-        <label class="form-control-label">Description (optionnelle) :</label><br>
-        <textarea name="description" id="description" rows="10" cols="30" style="width: 100%; height: 100px;"></textarea>
-    </div>
-    <span class="text-danger" id="description-error"></span>
-    <span class="text-success" id="description-message"></span>
+
+<!--    <div class="input-group">-->
+<!--        <label class="form-control-label">Description (optionnelle) :</label><br>-->
+<!--        <div>-->
+<!--        <textarea name="description" textarea class="form-control" aria-label="With textarea" id="description" "></textarea>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <span class="text-danger" id="description-error"></span>-->
+<!--    <span class="text-success" id="description-message"></span>-->
 
 
 </form>
@@ -77,6 +97,11 @@
 
     $(document).ready(function() {
 
+        // Ajouter l'événement input pour surveiller les changements dans le champ du titre
+        $('#title').on('input', function() {
+            validateForm();
+        });
+
         $('#title, #description').on('input', function() {
             validateForm();
         });
@@ -88,9 +113,9 @@
 
 
             if (title == "") {
-                $('#title-error').html('The titre is obligatory.');
+                $('#title-error').html('The titre is obligatory.').removeClass('text-success').addClass('text-danger');
             } else if (title.length < 3) {
-                $('#title-error').html('The title must have at least 3 characters');
+                $('#title-error').html('The title must have at least 3 characters').removeClass('text-success').addClass('text-danger');
             } else {
                 $('#title-error').html('It looks good!').removeClass('text-danger').addClass('text-success');
             }

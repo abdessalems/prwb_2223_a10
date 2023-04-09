@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<div style="background-color: lightsteelblue; padding: 10px;">
+<div style="background-color: lightblue; padding: 10px;">
 
 
 
