@@ -11,6 +11,18 @@ class operation extends Model
     {
     }
 
+    public static function security_operation(int $userId, $operation_amount,int $initiator)
+    {
+        $ok= false ;
+        if($initiator==$userId){$ok=true ;}
+        foreach ($operation_amount as $o) {
+            if($o->id==$userId){
+                $ok=true ;
+            }
+        }
+        return $ok ;
+    }
+
     public function update_operation(operation $operation, int $initiator): operation
     {
         if (self::get_operation_by_id($operation->id))
@@ -181,6 +193,7 @@ class operation extends Model
         return $result['weight'];
 
     }
+
 
 
     public static function get_operationOfTricountId(int $idTricount):int{

@@ -48,7 +48,7 @@ class user extends Model
 
     }
 
-    public static function get_amount_operations(operation $operation, int $nbr_repartition): array
+    public static function get_amount_operations(operation $operation): array
     {
         $operation_amount = $operation->amount;
         $operations_with_amount = [];

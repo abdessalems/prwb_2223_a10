@@ -69,32 +69,33 @@ class ControllerTricount extends Controller
         $user = $this->get_user_or_redirect();
         $id_tricount = $_GET["param1"];
         $id_user = $user->id;
-        if (tricount::security_tricount( $user,$id_tricount) ) {
+        if (tricount::security_tricount($user, $id_tricount)) {
 
-        $tricount = tricount::get_tricount_by_id($id_tricount);
-        $nbr_total_repartitions = 0;
-        $My_total = 0;
-        $Total_expenses = 0;
-        if (isset($_GET["param1"]) && $_GET["param1"] !== "") {
-            $operations = operation::get_operations($tricount);
-            foreach ($operations as $operation) {
-                $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
-                $operation->amount = round($operation->amount, 2);
-                foreach ($operation_amount as $o) {
-                    if ($o->id === $user->id) {
-                        $My_total = $My_total + $o->amount;
+            $tricount = tricount::get_tricount_by_id($id_tricount);
+            $nbr_total_repartitions = 0;
+            $My_total = 0;
+            $Total_expenses = 0;
+            if (isset($_GET["param1"]) && $_GET["param1"] !== "") {
+                $operations = operation::get_operations($tricount);
+
+                foreach ($operations as $operation) {
+                    $operation_amount = user::get_amount_operations($operation);
+                    $operation->amount = round($operation->amount, 2);
+                     foreach ($operation_amount as $o) {
+                        if ($o->id === $user->id) {
+                            $My_total = $My_total + $o->amount;
+                        }
                     }
-                }
-                $nbr_total_repartitions = $nbr_total_repartitions + $operation->nbr_repartition;
-                $Total_expenses = $Total_expenses + $operation->amount;
-            }
 
-        }
-        (new View("tricount"))->show(["operations" => $operations, "tricount" => $tricount,
-            "nbr_total_repartitions" => $nbr_total_repartitions, "My_total" => $My_total, "Total_expenses" => $Total_expenses, "trcount" => $tricount, "id_user" => $id_user]);
-    }
-    else
-        $this->redirect("error");
+                    $nbr_total_repartitions = $nbr_total_repartitions + $operation->nbr_repartition;
+                    $Total_expenses = $Total_expenses + $operation->amount;
+                }
+
+            }
+            (new View("tricount"))->show(["operations" => $operations, "tricount" => $tricount,
+                "nbr_total_repartitions" => $nbr_total_repartitions, "My_total" => $My_total, "Total_expenses" => $Total_expenses, "trcount" => $tricount, "id_user" => $id_user]);
+        } else
+            $this->redirect("error");
     }
 
     public function EditTricounts(): void

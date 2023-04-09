@@ -24,21 +24,22 @@ class ControllerOperation extends Controller
         $tricount = tricount::get_tricount_by_id($operation->tricount);
         $operations = operation::get_operations($tricount);
         $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
-        if (isset($_POST['title'])) {
-            $initiator = user::get_user_by_id($_POST['initiator']);
-            $new_operation = new operation($_POST['title'], $operation->tricount, $_POST['amount'],
-                $_POST['date'],$_POST['initiator'],  $operation->created_at,$operation->id,$initiator->full_name);
-            $operation->update_operation($new_operation, $initiator->id);
-            $operation->update_amount_operations($new_operation,$_POST['weight'],$operation_amount);
-            $operation = operation::get_operation_by_id($id_operation);
-            $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
-            $this->redirect("operation", "view_operation",$id_operation);
+        if (operation::security_operation($id_user, $operation_amount, $operation->initiator)) {
 
-        }
-        (new View("edit_operation"))->show(["operation" => $operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "operation_amount" => $operation_amount]);
+            if (isset($_POST['title'])) {
+                $initiator = user::get_user_by_id($_POST['initiator']);
+                $new_operation = new operation($_POST['title'], $operation->tricount, $_POST['amount'],
+                    $_POST['date'], $_POST['initiator'], $operation->created_at, $operation->id, $initiator->full_name);
+                $operation->update_operation($new_operation, $initiator->id);
+                $operation->update_amount_operations($new_operation, $_POST['weight'], $operation_amount);
+                $operation = operation::get_operation_by_id($id_operation);
+                $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
+                $this->redirect("operation", "view_operation", $id_operation);
+
+            }
+            (new View("edit_operation"))->show(["operation" => $operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "operation_amount" => $operation_amount]);
+        } else   $this->redirect("error");
     }
-
-
 
 
     public function view_operation(): void
@@ -52,12 +53,18 @@ class ControllerOperation extends Controller
         $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
         $nbr_operations = (count($operations));
         $all_operation = $operation::get_operations($tricount);
-        $id_next_operation = operation::get_next_operation($id_operation, $all_operation);
-        $id_previous_operation = operation::get_prev_operation($id_operation, $all_operation);
-        $id_first_operation = $all_operation[0]->id;
-        $id_last_operation = $all_operation[count($all_operation) - 1]->id;
-        $cmpt = $operation::get_including_operation_by_idUser_operationId($id_user, $operation->id); ////if the user includ in operation return >=1 si nn 0
-        (new View("operation"))->show(["id_next_operation" => $id_next_operation, "id_previous_operation" => $id_previous_operation, "operation" => $operation, "all_operation" => $all_operation, "id_operation" => $id_operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "cmpt" => $cmpt, "operation_amount" => $operation_amount, "nbr_operations" => $nbr_operations, 'id_first_operation' => $id_first_operation, "id_last_operation" => $id_last_operation]);
+        if (operation::security_operation($id_user, $operation_amount, $operation->initiator)) {
+
+            $id_next_operation = operation::get_next_operation($id_operation, $all_operation);
+            $id_previous_operation = operation::get_prev_operation($id_operation, $all_operation);
+            $id_first_operation = $all_operation[0]->id;
+            $id_last_operation = $all_operation[count($all_operation) - 1]->id;
+            $cmpt = $operation::get_including_operation_by_idUser_operationId($id_user, $operation->id); ////if the user includ in operation return >=1 si nn 0
+            (new View("operation"))->show(["id_next_operation" => $id_next_operation, "id_previous_operation" => $id_previous_operation, "operation" => $operation, "all_operation" => $all_operation, "id_operation" => $id_operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "cmpt" => $cmpt, "operation_amount" => $operation_amount, "nbr_operations" => $nbr_operations, 'id_first_operation' => $id_first_operation, "id_last_operation" => $id_last_operation]);
+
+        } else
+            $this->redirect("error");
+
     }
 
 
@@ -71,8 +78,6 @@ class ControllerOperation extends Controller
         $name = "";
         $date = "";
         $amount = "";
-
-
         $errors = "";
         $paidBy = [];
         $allName = [];
