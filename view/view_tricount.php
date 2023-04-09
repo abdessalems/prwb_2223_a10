@@ -131,7 +131,7 @@
     <?php endif; ?>
     <?php else : ?>
         <div class="list-group">
-            <a class="btn btn btn-success" href="trount/view_balance ">   <i class="bi bi-arrow-left-right"></i>  view balance </a>
+            <a class="btn btn btn-success" href="tricount/view_balance/<?= $tricount->id ?>/<?= $id_user ?> ">   <i class="bi bi-arrow-left-right"></i>  view balance </a>
             <div class="row mb-3">
                 <label for="customRange1" class="form-label">Order this expenses by</label>
                 <select class="form-select" >
