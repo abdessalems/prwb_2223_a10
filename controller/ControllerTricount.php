@@ -94,7 +94,7 @@ class ControllerTricount extends Controller
             "nbr_total_repartitions" => $nbr_total_repartitions, "My_total" => $My_total, "Total_expenses" => $Total_expenses, "trcount" => $tricount, "id_user" => $id_user]);
     }
     else
-        $this->redirect("tricount", "tricount");
+        $this->redirect("error");
     }
 
     public function EditTricounts(): void
@@ -113,8 +113,6 @@ class ControllerTricount extends Controller
             $subscriber = $_POST['subscriber'];
             $idSubscriber = user::get_user_by_name($subscriber);
             tricount::add_Subscriber($idTricount, $idSubscriber);
-
-
         }
 
         if (isset($_POST['title'])) {

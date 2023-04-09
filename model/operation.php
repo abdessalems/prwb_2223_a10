@@ -11,12 +11,28 @@ class operation extends Model
     {
     }
 
-    public function update_operation(operation $operation, int $id_user): operation
+    public function update_operation(operation $operation, int $initiator): operation
     {
-        if (self::get_operation_by_id($this->id))
+        if (self::get_operation_by_id($operation->id))
             self::execute("UPDATE operations SET title=:title,amount=:amount,operation_date=:date,initiator=:initiator WHERE id= :id",
-                ["id" =>$this->id, "title" => $operation->title, "amount" => $operation->amount, "date" => $operation->operation_date,
-                    "initiator" => $id_user, "amount" => $operation->amount]);
+                ["id" => $operation->id, "title" => $operation->title, "amount" => $operation->amount, "date" => $operation->operation_date,
+                    "initiator" => $initiator, "amount" => $operation->amount]);
+        return $this;
+    }
+
+    public function update_amount_operations(operation $operation,  array $weights = [] , array $participants = []):operation
+    {
+        if (self::get_operation_by_id($operation->id))
+        {
+            $i = 0;
+            foreach ($participants as $participant)
+            {
+                self::execute("UPDATE repartitions SET weight= :weight WHERE operation= :operation and user = :user",
+                    ["weight" => $weights[$i], "user" => $participant->id, "operation" => $operation->id]);
+                $i++;
+            }
+
+        }
         return $this;
     }
 

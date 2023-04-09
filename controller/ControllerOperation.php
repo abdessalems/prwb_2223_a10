@@ -15,29 +15,30 @@ class ControllerOperation extends Controller
         $this->view_operation();
     }
 
-
     public function edit_operation(): void
     {
         $user = $this->get_user_or_redirect();
         $id_operation = $_GET["param1"];
         $id_user = $user->id;
-
         $operation = operation::get_operation_by_id($id_operation);
         $tricount = tricount::get_tricount_by_id($operation->tricount);
         $operations = operation::get_operations($tricount);
         $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
-        if (isset($_POST['titlee'])) {
-            $new_operation = new operation($_POST['titlee'], $operation->tricount, $_POST['amount'], $_POST['date'], $operation->initiator, $operation->created_at);
-            $operation->update_operation($new_operation, $operation->initiator);
-            $this->redirect("operation", "edit_operation", $id_operation, $id_user);
+        if (isset($_POST['title'])) {
+            $initiator = user::get_user_by_id($_POST['initiator']);
+            $new_operation = new operation($_POST['title'], $operation->tricount, $_POST['amount'],
+                $_POST['date'],$_POST['initiator'],  $operation->created_at,$operation->id,$initiator->full_name);
+            $operation->update_operation($new_operation, $initiator->id);
+            $operation->update_amount_operations($new_operation,$_POST['weight'],$operation_amount);
+            $operation = operation::get_operation_by_id($id_operation);
+            $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
+            $this->redirect("operation", "view_operation",$id_operation);
 
         }
         (new View("edit_operation"))->show(["operation" => $operation, "tricount" => $tricount, "id_user" => $id_user, "operations" => $operations, "operation_amount" => $operation_amount]);
-
-        // ,"tricount" => $tricount, "nbr_total_repartitions" =>$nbr_total_repartitions,"My_total"=>$My_total,"Total_expenses"=>$Total_expenses,"trcount"=>$tricount,"id_user"=>$id_user]);
-
-
     }
+
+
 
 
     public function view_operation(): void

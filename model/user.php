@@ -120,19 +120,22 @@ class user extends Model
     }
 
 
-    public function get_user_by_id(int $id): user|false
+    public static function get_user_by_id(int $id): user|false
     {
         $query = self::execute("SELECT * FROM users where id = :id", ["id" => $id]);
         $data = $query->fetch(); // un seul résultat au maximum
         if ($query->rowCount() == 0) {
             return false;
         } else {
-
-
-            return new user($data["mail"], $data["hashed_password"], $data["full_name"], $data["iban"], $data["id"]);
+            return new user($data["mail"],$data["hashed_password"],$data["full_name"], $data["iban"],$data["id"]);
         }
 
     }
+
+
+
+
+
 
     /**
      * Update an existing user in the database
@@ -322,6 +325,17 @@ class user extends Model
         $query = self::execute("SELECT users.id FROM users WHERE full_name =:full_name", ["full_name" => $name]);
         $result = $query->fetch();
         return intval($result['id']);
+    }
+
+    public static function get_user_by_namee(string $initiator) : user|false
+    {
+        $query = self::execute("SELECT * FROM users where full_name = :name", ["name"=>$initiator]);
+        $data = $query->fetch(); // un seul résultat au maximum
+        if ($query->rowCount() == 0) {
+            return false;
+        } else {
+            return new user($data["mail"], $data["hashed_password"],$data["full_name"],$data["iban"], $data['id']);
+        }
     }
 
 
