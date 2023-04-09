@@ -260,18 +260,16 @@ class user extends Model
         return $errors;
     }
 
-    public static function validate_iban(string $iban): array
-    {
+    public static function validate_iban(string $iban) : array{
         $errors = [];
         $ibanRegex = '/^[A-Z]{2}\d{2}[A-Z0-9]{4}\d{7}([A-Z0-9]?){0,16}$/';
         if (strlen($iban) < 16) {
             $errors[] = "Iban should contain 16 caracters";
-        } else if (!preg_match($ibanRegex, $iban)) {
+        }
+        else if(!preg_match($ibanRegex,$iban)){
             $errors[] = "Invalid iban";
 
         }
-        $errors = array_merge($errors, self::validate_ibann($iban));
-
         return $errors;
 
 
