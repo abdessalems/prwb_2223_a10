@@ -77,12 +77,12 @@
     <div class="d-flex w-100 justify-content-between">
 
         <?php if (!($id_operation == $id_first_operation)) : ?>
-            <a class="btn btn-primary" href='operation/view_operation/<?= $id_previous_operation ?>/<?= $id_user ?>'>Previous</a>
+            <a class="btn btn-primary" href='operation/view_operation/<?= $id_previous_operation ?>'>Previous</a>
         <?php endif; ?>
 
         <?php if (!($id_operation == $id_last_operation)) : ?>
             <a class="btn btn-primary" style="float: right"
-               href='operation/view_operation/<?= $id_next_operation ?>/<?= $id_user ?>'>Next</a>
+               href='operation/view_operation/<?= $id_next_operation ?>'>Next</a>
         <?php endif; ?>
 
 

@@ -20,7 +20,6 @@ class ControllerOperation extends Controller
         $user = $this->get_user_or_redirect();
         $id_operation = $_GET["param1"];
         $id_user = $user->id;
-        var_dump();
         $operation = operation::get_operation_by_id($id_operation);
         $tricount = tricount::get_tricount_by_id($operation->tricount);
         $operations = operation::get_operations($tricount);
