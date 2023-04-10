@@ -11,16 +11,27 @@ class operation extends Model
     {
     }
 
-    public static function security_operation(int $userId, $operation_amount,int $initiator)
+    public static function security_operation(int $userId, $operations)
     {
-        $ok= false ;
-        if($initiator==$userId){$ok=true ;}
-        foreach ($operation_amount as $o) {
-            if($o->id==$userId){
-                $ok=true ;
+        $ok = false;
+        foreach ($operations as $o) {
+            if ($o->initiator == $userId) {
+                $ok = true;
             }
         }
-        return $ok ;
+        return $ok;
+    }
+
+    public static function security_edit_operation(int $id_user, array $operation_amount,int $initiator)
+    {
+        $ok = false;
+        if($id_user==$initiator) {$ok = true;}
+        foreach ($operation_amount as $o) {
+            if ($o->id === $id_user) {
+                $ok = true;
+            }
+        }
+        return $ok;
     }
 
     public function update_operation(operation $operation, int $initiator): operation
@@ -32,13 +43,11 @@ class operation extends Model
         return $this;
     }
 
-    public function update_amount_operations(operation $operation,  array $weights = [] , array $participants = []):operation
+    public function update_amount_operations(operation $operation, array $weights = [], array $participants = []): operation
     {
-        if (self::get_operation_by_id($operation->id))
-        {
+        if (self::get_operation_by_id($operation->id)) {
             $i = 0;
-            foreach ($participants as $participant)
-            {
+            foreach ($participants as $participant) {
                 self::execute("UPDATE repartitions SET weight= :weight WHERE operation= :operation and user = :user",
                     ["weight" => $weights[$i], "user" => $participant->id, "operation" => $operation->id]);
                 $i++;
@@ -47,7 +56,6 @@ class operation extends Model
         }
         return $this;
     }
-
 
 
     public static function get_prev_operation(int $id_operation, array $operations): int
@@ -167,47 +175,43 @@ class operation extends Model
         return $result['weight'];
     }
 
-    public static function getInitiator(int $id):int
+    public static function getInitiator(int $id): int
     {
         $query = self::execute("SELECT operations.initiator init FROM `operations` WHERE id=:id;", ["id" => $id]);
         $result = $query->fetch();
         return $result['init'];
     }
 
-    public static function getIdOperatiobByTitle (String $title):int
+    public static function getIdOperatiobByTitle(string $title): int
     {
         $query = self::execute("SELECT operations.id as id FROM `operations` WHERE title=:title;", ["title" => $title]);
         $result = $query->fetch();
         return $result['id'];
     }
 
-    public static function getAmountOfOperation(int $id):float{
+    public static function getAmountOfOperation(int $id): float
+    {
         $query = self::execute("SELECT SUM(amount) as somme FROM operations WHERE operations.id=:id;", ["id" => $id]);
         $result = $query->fetch();
         return $result['somme'];
 
     }
-    public static function weightForPartipent(int $id,int $iduser):int{
-        $query = self::execute("SELECT repartitions.weight as weight FROM `repartitions` WHERE operation=:id and user=:iduser", ["id" => $id,"iduser"=>$iduser]);
+
+    public static function weightForPartipent(int $id, int $iduser): int
+    {
+        $query = self::execute("SELECT repartitions.weight as weight FROM `repartitions` WHERE operation=:id and user=:iduser", ["id" => $id, "iduser" => $iduser]);
         $result = $query->fetch();
         return $result['weight'];
 
     }
 
 
-
-    public static function get_operationOfTricountId(int $idTricount):int{
+    public static function get_operationOfTricountId(int $idTricount): int
+    {
         $query = self::execute("SELECT operations.id FROM operations,tricounts where operations.tricount=tricounts.id and tricounts.id=:id;", ["id" => $idTricount]);
         $result = $query->fetch();
         return $result['id'];
     }
-
-
-
-
-
-
-
 
 
     public static function get_operations(tricount $tricount): array
@@ -245,7 +249,8 @@ class operation extends Model
 //        }
 //        return $errors;
 //    }
-    public function add_operation() : Operation|array {
+    public function add_operation(): Operation|array
+    {
         $errors = [];
 
 //    if (empty($this->title)) {
@@ -268,11 +273,12 @@ class operation extends Model
         return $errors;
     }
 
-    public static function validateOperationAmount(operation $operation) : array {
+    public static function validateOperationAmount(operation $operation): array
+    {
         $errors = [];
 
 
-        if($operation->amount<0){
+        if ($operation->amount < 0) {
             $errors[] = "Amount must be positive.";
         }
 
@@ -281,12 +287,13 @@ class operation extends Model
     }
 
 
-    public static function validateOperation(operation $operation) : array {
+    public static function validateOperation(operation $operation): array
+    {
         $errors = [];
 
         if (empty($operation->title)) {
             $errors[] = "Title must be filled.";
-        }else if($operation->amount<0){
+        } else if ($operation->amount < 0) {
             $errors[] = "Amount must be positive.";
         }
 
@@ -297,9 +304,10 @@ class operation extends Model
 //DELETE FROM `operations` WHERE operations.id=1;
 
 
-    public static function delete_operation(int $idOperation) {
-        self::execute("DELETE FROM repartitions WHERE  operation=:id", ["id" => $idOperation ]);
-        self::execute("DELETE FROM operations  WHERE id=:id", ["id" => $idOperation ]);
+    public static function delete_operation(int $idOperation)
+    {
+        self::execute("DELETE FROM repartitions WHERE  operation=:id", ["id" => $idOperation]);
+        self::execute("DELETE FROM operations  WHERE id=:id", ["id" => $idOperation]);
 
     }
 
@@ -320,8 +328,6 @@ class operation extends Model
             "weight" => $weight
         ]);
     }
-
-
 
 
 }

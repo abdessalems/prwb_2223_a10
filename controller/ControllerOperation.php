@@ -23,8 +23,8 @@ class ControllerOperation extends Controller
         $operation = operation::get_operation_by_id($id_operation);
         $tricount = tricount::get_tricount_by_id($operation->tricount);
         $operations = operation::get_operations($tricount);
-        $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
-        if (operation::security_operation($id_user, $operation_amount, $operation->initiator)) {
+        $operation_amount = user::get_amount_operations($operation);
+        if (operation::security_edit_operation($id_user, $operation_amount,$operation->initiator)) {
 
             if (isset($_POST['title'])) {
                 $initiator = user::get_user_by_id($_POST['initiator']);
@@ -50,11 +50,11 @@ class ControllerOperation extends Controller
         $operation = operation::get_operation_by_id($id_operation);
         $tricount = tricount::get_tricount_by_id($operation->tricount);
         $operations = operation::get_operations($tricount);
-        $operation_amount = user::get_amount_operations($operation, $operation->nbr_repartition);
+        $operation_amount = user::get_amount_operations($operation);
         $nbr_operations = (count($operations));
         $all_operation = $operation::get_operations($tricount);
-        if (operation::security_operation($id_user, $operation_amount, $operation->initiator)) {
-
+        var_dump($operation_amount);
+        if (operation::security_operation($id_user, $all_operation)) {
             $id_next_operation = operation::get_next_operation($id_operation, $all_operation);
             $id_previous_operation = operation::get_prev_operation($id_operation, $all_operation);
             $id_first_operation = $all_operation[0]->id;
@@ -72,40 +72,38 @@ class ControllerOperation extends Controller
     {
 
         $user = $this->get_user_or_redirect();
-        $idUser=$user->id;
+        $idUser = $user->id;
         $idTricount = $_GET["param1"];
         $paid = "";
         $name = "";
-        $date= "";
-        $amount="";
-        $title="";
-        $itr="";
+        $date = "";
+        $amount = "";
+        $title = "";
+        $itr = "";
 
 
-        $errors="";
+        $errors = "";
         $paidBy = [];
-        $allName=[];
-        $allUseId=[];
-        $allWeight=[];
-        $tableau=[];
-        $errors=[];
+        $allName = [];
+        $allUseId = [];
+        $allWeight = [];
+        $tableau = [];
+        $errors = [];
         $paidBy = user::get_all_user();
         $tricount = tricount::get_tricount_by_id($idTricount);
-        if(isset($_POST['title']) && isset($_POST["amount"])&& isset($_POST["date"])  ){
+        if (isset($_POST['title']) && isset($_POST["amount"]) && isset($_POST["date"])) {
             $title = $_POST['title'];
             $amount = $_POST['amount'];
-            $date= $_POST["date"];
-            $itr= $_POST["paid"];
+            $date = $_POST["date"];
+            $itr = $_POST["paid"];
 
-            $itrator=user::get_user_by_name($itr);
-            $newoperation = new operation($title,$idTricount,$amount,$date,$itrator);
-
+            $itrator = user::get_user_by_name($itr);
+            $newoperation = new operation($title, $idTricount, $amount, $date, $itrator);
 
 
             $errors = operation::validateOperation($newoperation);
             if (empty($errors)) {
                 $newoperation->add_operation();
-
 
 
                 $idNewOperation = operation::getIdOperatiobByTitle($newoperation->title);
@@ -127,21 +125,20 @@ class ControllerOperation extends Controller
 
             foreach ($tableau as $userId => $weight) {
                 $weight = intval($weight);
-                if ($weight=== 0) {
+                if ($weight === 0) {
                     $weight = 1;
                 }
 
 
-
                 operation::add_reartition($idNewOperation, $userId, $weight);
             }
-            $this->redirect("tricount","view_tricount/$idTricount/$idUser");
+            $this->redirect("tricount", "view_tricount/$idTricount/$idUser");
 
 
         }
 
         $paidBy = user::get_all_user();
-        (new View("add_operation"))->show(["tricount" => $tricount,"title" =>$title,"amount" => $amount,"date" => $date,"paid" => $itr, "paidBy" => $paidBy,"errors" => $errors,"idUser"=>$idUser]);
+        (new View("add_operation"))->show(["tricount" => $tricount, "title" => $title, "amount" => $amount, "date" => $date, "paid" => $itr, "paidBy" => $paidBy, "errors" => $errors, "idUser" => $idUser]);
     }
 
     public function delete_opertation(): void
