@@ -19,12 +19,12 @@
 
 
 <div id="subscriber-message"></div>
-<form id="addForm" action="tricount/EditTricounts/<?= $tricount->id ?>/<?= $id_user ?>" method="post">
+<form id="addForm" action='tricount/view_tricount/<?= $tricount->id ?>' method="post">
     <div class="card-header">
         <div class="d-flex w-100 justify-content-between">
 
 
-            <a  class="btn btn-outline-danger" href="tricount/tricount">Cancel</a>
+            <a  class="btn btn-outline-danger" href='tricount/view_tricount/<?= $tricount->id ?>'>Cancel</a>
 
 
             <div class="d-flex justify-content-center mt-3">

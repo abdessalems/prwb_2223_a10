@@ -41,7 +41,7 @@
             <a href='tricount/tricount'  style="color:white;">Cancel</a>
         </button>
         <button class="btn btn-primary w-100"  style="background-color: red; color: white; margin: auto;">
-            <a href='operation/delete_confirmation/<?= $operation->id ?>' style="color:white;">Delete</a>
+            <a href='operation/delete_operation/<?= $operation->id ?>' style="color:white;">Delete</a>
         </button>
     </div>
 =======

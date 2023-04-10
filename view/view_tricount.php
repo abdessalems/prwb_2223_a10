@@ -110,7 +110,7 @@
     <div class="d-flex w-100 justify-content-between">
         <a  class="btn btn-outline-danger" href="tricount/tricount">Back</a>
         <h5 style="align-self: center " class="card-title" ><?= $tricount->title ?> > Expenses <h5/>
-            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit tricount"  class="btn btn-primary" href="tricount/EditTricounts/<?= $tricount->id ?>/<?= $id_user ?>">Edit </a>
+            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit tricount"  class="btn btn-primary" href="tricount/EditTricounts/<?= $tricount->id ?>">Edit </a>
     </div>
 </div>
 <div class="card mx-2">
@@ -127,12 +127,12 @@
         <h3> Your Tricount is empty !</h3>
         <p> Click below to add your first expense ! </p>
 
-        <a href="tricount/view_balance/<?= $tricount->id ?>/<?= $id_user ?>">view balance </a> <br>
+        <a href="tricount/view_balance/<?= $tricount->id ?>">view balance </a> <br>
     </div>
     <?php endif; ?>
     <?php else : ?>
         <div class="list-group">
-            <a class="btn btn btn-success" href="tricount/view_balance/<?= $tricount->id ?>/<?= $id_user ?> ">   <i class="bi bi-arrow-left-right"></i>  view balance </a>
+            <a class="btn btn btn-success" href="tricount/view_balance/<?= $tricount->id ?>">   <i class="bi bi-arrow-left-right"></i>  view balance </a>
             <div class="row mb-3">
                 <label for="customRange1" class="form-label">Order this expenses by</label>
                 <select class="form-select" >
