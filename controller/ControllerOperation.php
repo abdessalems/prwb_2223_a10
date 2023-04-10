@@ -20,6 +20,7 @@ class ControllerOperation extends Controller
         $user = $this->get_user_or_redirect();
         $id_operation = $_GET["param1"];
         $id_user = $user->id;
+        var_dump();
         $operation = operation::get_operation_by_id($id_operation);
         $tricount = tricount::get_tricount_by_id($operation->tricount);
         $operations = operation::get_operations($tricount);
@@ -53,7 +54,6 @@ class ControllerOperation extends Controller
         $operation_amount = user::get_amount_operations($operation);
         $nbr_operations = (count($operations));
         $all_operation = $operation::get_operations($tricount);
-        var_dump($operation_amount);
         if (operation::security_operation($id_user, $all_operation)) {
             $id_next_operation = operation::get_next_operation($id_operation, $all_operation);
             $id_previous_operation = operation::get_prev_operation($id_operation, $all_operation);

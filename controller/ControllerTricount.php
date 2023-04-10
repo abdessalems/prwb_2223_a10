@@ -57,7 +57,6 @@ class ControllerTricount extends Controller
         // $idUser=$user->id;
 
 
-
         $errors = [];
         if (isset($_POST['title'])) {
             $des = $_POST['description'];
@@ -82,21 +81,26 @@ class ControllerTricount extends Controller
         $id_tricount = $_GET["param1"];
         $id_user = $user->id;
         if (tricount::security_tricount($user, $id_tricount)) {
-
             $tricount = tricount::get_tricount_by_id($id_tricount);
             $nbr_total_repartitions = 0;
             $My_total = 0;
             $Total_expenses = 0;
             if (isset($_GET["param1"]) && $_GET["param1"] !== "") {
                 $operations = operation::get_operations($tricount);
-
                 foreach ($operations as $operation) {
                     $operation_amount = user::get_amount_operations($operation);
                     $operation->amount = round($operation->amount, 2);
-                     foreach ($operation_amount as $o) {
-                        if ($o->id === $user->id) {
-                            $My_total = $My_total + $o->amount;
+                    if (empty($operation_amount)) {
+                        if ($operation->initiator == $id_user) {
+                            $My_total = $My_total + $operation->amount;
                         }
+                    } else {
+                        foreach ($operation_amount as $o) {
+                            if ($o->id === $user->id) {
+                                $My_total = $My_total + $o->amount;
+                            }
+                        }
+
                     }
 
                     $nbr_total_repartitions = $nbr_total_repartitions + $operation->nbr_repartition;
@@ -110,7 +114,8 @@ class ControllerTricount extends Controller
             $this->redirect("error");
     }
 
-    public function EditTricounts () : void
+    public
+    function EditTricounts(): void
     {
         $user = $this->get_user_or_redirect();
         $idTricount = $_GET["param1"];
@@ -154,126 +159,125 @@ class ControllerTricount extends Controller
     }
 
 
-        public
-        function editSubscriber(): void
-        {
-            $user = $this->get_user_or_redirect();
+    public
+    function editSubscriber(): void
+    {
+        $user = $this->get_user_or_redirect();
 
-            $idTricount = $_GET["param1"];
-            $nameSubscriber = $_POST['subscriber'];
-            $idSubscriber = user::get_user_by_name($nameSubscriber);
-            if (isset($nameSubscriber)) {
-                tricount::add_Subscriber($idTricount, $idSubscriber);
-                $this->redirect("tricount", "EditTricounts/$idTricount/$user->id");
-            }
-
-
-            (new View("edit_Tricount"))->show(["user" => $user]);
-        }
-
-
-        public
-        function deleteTricount(): void
-        {
-            $user = $this->get_user_or_redirect();
-            $idTricount = $_GET["param1"];
-            $tricount = tricount::get_tricount_by_id($idTricount);
-            $Operation = operation::get_operations($tricount);
-
-            foreach ($Operation as $Operation) {
-                operation::delete_operation($Operation->id);
-
-            }
-
-
-            tricount::delete_tricount($idTricount);
-
-
-            $this->redirect("tricount", "tricount");
-
-            (new View("delete_tricount"))->show(["user" => $user]);
-        }
-
-        public
-        function first_delete(): void
-        {
-            $user = $this->get_user_or_redirect();
-            $idTricount = $_GET["param1"];
-            $tricount = tricount::get_tricount_by_id($idTricount);
-
-            (new View("delete_tricount"))->show(["user" => $user, "tricount" => $tricount]);
-        }
-
-
-        public
-        function deleteSubscriber(): void
-        {
-            $user = $this->get_user_or_redirect();
-            $idTricount = $_GET["param1"];
-            $nameSubscriber = $_GET["param2"];
-            var_dump($nameSubscriber);
-            $idSubscriber = user::get_user_by_name($nameSubscriber);
-            print_r($idSubscriber);
-            print_r($idTricount);
-
-            tricount::delete_subscriber($idTricount, $idSubscriber);
-            echo json_encode("success");
-            $tricount = tricount::get_tricount_by_id($idTricount);
-            $subscribers = $tricount::get_subscriber($idTricount);
-            $Nosubscribers = $tricount::getNOsubscriber($idTricount, $idSubscriber);
-            $idSubscriber = user::get_user_by_name($nameSubscriber);
+        $idTricount = $_GET["param1"];
+        $nameSubscriber = $_POST['subscriber'];
+        $idSubscriber = user::get_user_by_name($nameSubscriber);
+        if (isset($nameSubscriber)) {
+            tricount::add_Subscriber($idTricount, $idSubscriber);
             $this->redirect("tricount", "EditTricounts/$idTricount/$user->id");
+        }
 
 
-            (new View("edit_Tricount"))->show(["user" => $user, "tricount" => $tricount, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
+        (new View("edit_Tricount"))->show(["user" => $user]);
+    }
 
+
+    public
+    function deleteTricount(): void
+    {
+        $user = $this->get_user_or_redirect();
+        $idTricount = $_GET["param1"];
+        $tricount = tricount::get_tricount_by_id($idTricount);
+        $Operation = operation::get_operations($tricount);
+
+        foreach ($Operation as $Operation) {
+            operation::delete_operation($Operation->id);
 
         }
 
 
+        tricount::delete_tricount($idTricount);
 
-        public function view_balance():void
+
+        $this->redirect("tricount", "tricount");
+
+        (new View("delete_tricount"))->show(["user" => $user]);
+    }
+
+    public
+    function first_delete(): void
+    {
+        $user = $this->get_user_or_redirect();
+        $idTricount = $_GET["param1"];
+        $tricount = tricount::get_tricount_by_id($idTricount);
+
+        (new View("delete_tricount"))->show(["user" => $user, "tricount" => $tricount]);
+    }
+
+
+    public
+    function deleteSubscriber(): void
+    {
+        $user = $this->get_user_or_redirect();
+        $idTricount = $_GET["param1"];
+        $nameSubscriber = $_GET["param2"];
+        var_dump($nameSubscriber);
+        $idSubscriber = user::get_user_by_name($nameSubscriber);
+        print_r($idSubscriber);
+        print_r($idTricount);
+
+        tricount::delete_subscriber($idTricount, $idSubscriber);
+        echo json_encode("success");
+        $tricount = tricount::get_tricount_by_id($idTricount);
+        $subscribers = $tricount::get_subscriber($idTricount);
+        $Nosubscribers = $tricount::getNOsubscriber($idTricount, $idSubscriber);
+        $idSubscriber = user::get_user_by_name($nameSubscriber);
+        $this->redirect("tricount", "EditTricounts/$idTricount/$user->id");
+
+
+        (new View("edit_Tricount"))->show(["user" => $user, "tricount" => $tricount, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
+
+
+    }
+
+
+    public
+    function view_balance(): void
     {
         $user = $this->get_user_or_redirect();
         $id_tricount = $_GET["param1"];
-        $tricount=tricount::get_tricount_by_id($id_tricount);
+        $tricount = tricount::get_tricount_by_id($id_tricount);
 
         //$operations = operation::get_operationOfTricountId($id_tricount);
         $operations = operation::get_operations($tricount);
 
         $participents = tricount::getParticipentByTricount($id_tricount);
-        foreach ($operations as $operation){
+        foreach ($operations as $operation) {
 
-            $weightForOperation=operation::getWeightForOperation($operation->id);
+            $weightForOperation = operation::getWeightForOperation($operation->id);
 
-            $initiator=operation::getInitiator($operation->id);
+            $initiator = operation::getInitiator($operation->id);
 
-            $AmountOfOperation=operation::getAmountOfOperation($operation->id);
+            $AmountOfOperation = operation::getAmountOfOperation($operation->id);
 
-            $partOfAmont=$AmountOfOperation/$weightForOperation;
+            $partOfAmont = $AmountOfOperation / $weightForOperation;
 
-            $operationPart=operation::participentByOperation($operation->id);
+            $operationPart = operation::participentByOperation($operation->id);
 
 
-
-            foreach ($participents as $participent){
-                $participates=false;
-                foreach($operationPart as $row){
-                    if($row["user"]==$participent->id){
-                        $participates=true;
+            foreach ($participents as $participent) {
+                $participates = false;
+                foreach ($operationPart as $row) {
+                    if ($row["user"] == $participent->id) {
+                        $participates = true;
                     }
                 }
 
-                if($participates){
+                if ($participates) {
                     $id = $participent->id;
-                    $weightForPartipent=operation::weightForPartipent($operation->id,$id);
-                    if($initiator==$id){
+                    $weightForPartipent = operation::weightForPartipent($operation->id, $id);
+                    if ($initiator == $id) {
 
-                        $participent->account+= round($AmountOfOperation-($weightForPartipent*$partOfAmont),2);
+                        $participent->account += round($AmountOfOperation - ($weightForPartipent * $partOfAmont), 2);
 
-                    }else{
+                    } else {
 
-                        $participent->account-=round($weightForPartipent*$partOfAmont,2);
+                        $participent->account -= round($weightForPartipent * $partOfAmont, 2);
                     }
                 }
             }
@@ -281,16 +285,16 @@ class ControllerTricount extends Controller
         }
 
 
-
-        (new View("balance"))->show(["participents" => $participents,"tricount" => $tricount,"user"=>$user]);
+        (new View("balance"))->show(["participents" => $participents, "tricount" => $tricount, "user" => $user]);
 
     }
 
 
-        public function index(): void
+    public
+    function index(): void
     {
         // TODO: Implement index() method.
     }
-    }
+}
 
 
