@@ -113,7 +113,7 @@
                     url: "tricount/editSubscriber",
                     data: { tricount_id: tricountId, subscriber_name: subscriberName },
                     success: function(response) {
-                        // Reload the page if the request was successful
+
                         if (response === "success") {
                             location.reload();
                         } else {
