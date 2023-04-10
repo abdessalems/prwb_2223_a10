@@ -18,6 +18,7 @@ class ControllerOperation extends Controller
     public function edit_operation(): void
     {
         $user = $this->get_user_or_redirect();
+        $user=user::get_user_by_mail($user->mail) ;
         $id_operation = $_GET["param1"];
         $id_user = $user->id;
         $operation = operation::get_operation_by_id($id_operation);
@@ -66,6 +67,7 @@ class ControllerOperation extends Controller
     {
 
         $user = $this->get_user_or_redirect();
+        $user=user::get_user_by_mail($user->mail) ;
         $idUser = $user->id;
         $idTricount = $_GET["param1"];
         $paid = "";

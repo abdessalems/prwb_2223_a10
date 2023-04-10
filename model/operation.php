@@ -123,7 +123,7 @@ class operation extends Model
         return $cmpt;
     }
 
-    public static function get_operation_by_id(int $id): operation|false
+    public static function get_operation_by_id(int $id): operation| false
     {
         $query = self::execute("SELECT * FROM operations WHERE id= :id ;", ["id" => $id]);
         $data = $query->fetchAll();

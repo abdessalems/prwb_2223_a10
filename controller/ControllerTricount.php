@@ -17,9 +17,8 @@ class ControllerTricount extends Controller
     public function tricount(): void
     {
         $user = $this->get_user_or_redirect();
-
+        $user=user::get_user_by_mail($user->mail) ;
         $tricounts = $this->get_tricount($user);
-
         $user = $_SESSION['user'];
         $userr = user::get_user_by_mail($user->mail);
         $tricounts = $this->get_tricount($userr);
