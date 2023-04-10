@@ -32,7 +32,7 @@
 
 
 
-<form class="col-7 mx-auto my-2" action="operation/add_operation/<?= $tricount->id ?>" method="post">
+<form class="col-7 mx-auto my-2" action="operation/add_operation/<?= $tricount->id ?>" method="post" onsubmit="return validateForm()">
     <div class="card-header">
         <div class="d-flex w-100 justify-content-between">
 
@@ -160,30 +160,25 @@
 </body>
 </html>
 <script>
-    $(document).ready(function() {
-        $('form').submit(function() {
-            var title = $('#title').val();
-            var amount = $('#amount').val();
-            var isValid = true;
+function validateForm() {
+
+    var title = document.getElementById("title").value;
+    var amount = document.getElementById("amount").value;
 
 
-            if (title.length < 3) {
-                $('#title').addClass('is-invalid');
-                isValid = false;
-            } else {
-                $('#title').removeClass('is-invalid');
-            }
+    if (title == "" || amount == "") {
+    alert("Veuillez remplir tous les champs obligatoires.");
+    return false;
+    }
 
 
-            if (amount <= 0) {
-                $('#amount').addClass('is-invalid');
-                isValid = false;
-            } else {
-                $('#amount').removeClass('is-invalid');
-            }
+    if (isNaN(amount) || amount <= 0) {
+        alert("Le montant doit être un nombre positif.");
+        return false;
+    }
 
-            return isValid;
-        });
-    });
+
+    return true;
+}
 </script>
 
