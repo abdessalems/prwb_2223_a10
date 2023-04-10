@@ -55,16 +55,13 @@ class ControllerTricount extends Controller
 
         $user = $this->get_user_or_redirect();
         // $idUser=$user->id;
-
-
+        $user_aftet_insert = user::get_user_by_mail($user->mail) ;
         $errors = [];
         if (isset($_POST['title'])) {
             $des = $_POST['description'];
             $title = $_POST['title'];
-            $user = $_SESSION['user'];
-            var_dump($user->id);
-            $n_tricount = new tricount($title, $user->id, $des);
-            $errors = tricount::validate($n_tricount, $user);
+            $n_tricount = new tricount($title, $user_aftet_insert->id, $des);
+            $errors = tricount::validate($n_tricount, $user_aftet_insert);
             if (empty($errors)) {
                 $n_tricount->insert_tricount();
                 $this->redirect("tricount", "tricount");
@@ -76,7 +73,6 @@ class ControllerTricount extends Controller
 
     public function view_tricount(): void
     {
-
         $user = $this->get_user_or_redirect();
         $id_tricount = $_GET["param1"];
         $id_user = $user->id;

@@ -50,8 +50,10 @@ class ControllerMain extends Controller
             $errors = user::validate_unicity($mail);
             $errors = array_merge($errors, $user->validate());
             $errors = array_merge($errors, user::validate_name($fullname));
-            $errors = array_merge($errors, user::validate_iban($iban));
              $errors = array_merge($errors, user::validate_passwords($password, $password_confirm));
+            if (!empty($user_iban)){
+                $errors = array_merge($errors, user::validate_iban($iban));
+            }
             if (count($errors) == 0) {
                 $user->persist(); //sauve l'utilisateur
                // $this->redirect("main", "login");

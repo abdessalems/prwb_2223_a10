@@ -19,7 +19,7 @@
 
 
 <div id="subscriber-message"></div>
-<form id="addForm" action='tricount/view_tricount/<?= $tricount->id ?>' method="post">
+<form id="addForm" action='tricount/EditTricounts/<?= $tricount->id ?>' method="post">
     <div class="card-header">
         <div class="d-flex w-100 justify-content-between">
 
