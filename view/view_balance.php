@@ -14,7 +14,7 @@
 
 <div class="card-header">
     <div class="d-flex w-100 justify-content-between">
-        <a  class="btn btn-outline-danger" href='tricount/view_tricount/<?= $tricount->id ?>/<?=  $user->id ?>'>Back</a>
+        <a  class="btn btn-outline-danger" href='tricount/view_tricount/<?= $tricount->id ?>'>Back</a>
         <h5 style="align-self: center " class="card-title" ><?= $tricount->title ?> > Balance <h5/>
 
     </div>

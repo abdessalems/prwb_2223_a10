@@ -75,7 +75,11 @@
     <div class="d-flex w-100 justify-content-between">
         <a class="btn btn-outline-danger"  href="operation/view_operation/<?= $operation->id ?>">Cancel</a>
         <h5 style="align-self: center " class="card-title" ><?= $tricount->title ?> > Edit expense <h5/>
-            <a class="btn btn-danger" href="operation/delete_opertation/<?= $operation->id ?>/<?= $id_user ?>">Delete</a>
+
+
+
+            <a class="btn btn-danger" href="operation/delete_opertation/<?= $operation->id ?>">Delete
+                this operation</a>
     </div>
 </div>
 

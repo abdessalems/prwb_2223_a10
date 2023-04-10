@@ -142,12 +142,9 @@ class ControllerOperation extends Controller
 
     public function delete_opertation(): void
     {
-
         $id_operation = $_GET["param1"];
 
         $operation = operation::get_operation_by_id($id_operation);
-
-
         (new View("delete_operation"))->show(["operation" => $operation]);
     }
 
