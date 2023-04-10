@@ -36,9 +36,10 @@
     <script>
         // Pass the PHP variable $operations to JavaScript
         const operations = <?php echo json_encode($operations); ?>;
-        // Parse the amount to integer so we can sort it after
+        // Parse the amount to float so we can sort it after
         for (let operation of operations) {
-            operation.amount = parseInt(operation.amount);
+            operation.amount = parseFloat(operation.amount);
+           // Math.round(operation.amount * 100) / 100
         }
         const user_id = <?= $id_user ?>;
         let selectElement;
