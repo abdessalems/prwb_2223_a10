@@ -123,13 +123,13 @@ class ControllerTricount extends Controller
         $title = "";
         $description = "";
 
-        if (isset($_POST['subscriber'])) {
-            $subscriber = $_POST['subscriber'];
-            $idSubscriber = user::get_user_by_name($subscriber);
-            tricount::add_Subscriber($idTricount, $idSubscriber);
-
-
-        }
+//        if (isset($_POST['subscriber'])) {
+//            $subscriber = $_POST['subscriber'];
+//            $idSubscriber = user::get_user_by_name($subscriber);
+//            tricount::add_Subscriber($idTricount, $idSubscriber);
+//
+//
+//        }
 
         if (isset($_POST['title'])) {
             $title = $_POST['title'];
