@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" >
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 
+    
 
 </head>
 <body>
@@ -19,6 +20,36 @@
 
 
 <div id="subscriber-message"></div>
+<form id="addForm" action='tricount/EditTricounts/<?= $tricount->id ?>' method="post">
+    <div class="card-header">
+        <div class="d-flex w-100 justify-content-between">
+
+
+            <a  class="btn btn-outline-danger" href='tricount/view_tricount/<?= $tricount->id ?>'>Cancel</a>
+
+
+            <div class="d-flex justify-content-center mt-3">
+                <div class="title">
+                    <h3><?= $tricount->title ?> > Edit</h3>
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Save"/>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+
+    <div>
+        <label for="exampleFormControlInput1" class="form-label">Title:</label><br>
+        <input type="text" id="title" name="title" class="form-control" value="<?= $tricount->title ?>"><br><br>
+    </div>
+
+    <div class="form-floating mb-3">
+        <label>Description (optional):</label><br>
+        <textarea class="form-control mb-3" name="description"><?= $tricount->description ?></textarea>
+    </div>
+</form>
 
 <form action="tricount/editSubscriber/<?= $tricount->id ?>/<?= $id_user ?>" method="post">
     <input type="hidden" name="tricount_id" value="<?php echo $tricount->id; ?>" id="tricount_id"
@@ -27,7 +58,7 @@
             <thead>
             <tr>
                 <th>Subscribers</th>
-                <th>Action</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -83,7 +114,7 @@
                     url: "tricount/editSubscriber",
                     data: { tricount_id: tricountId, subscriber_name: subscriberName },
                     success: function(response) {
-                        // Reload the page if the request was successful
+
                         if (response === "success") {
                             location.reload();
                         } else {
@@ -100,7 +131,7 @@
 
             var subscriberId = $(this).closest("form").data("subscriber-id");
 
-            
+
             delete_participant(subscriberId);
         });
 

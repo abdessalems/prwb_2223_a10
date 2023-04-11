@@ -6,48 +6,46 @@ require_once 'framework/Controller.php';
 
 class ControllerSettings extends Controller
 {
-
-
     //page d'accueil.
     public function index(): void
     {
         $this->settings();
     }
 
-    /**
-     * This function is the alternative of the edit_profile function
-     * it is called when we put edit profile in a tab in the same setting view
-     * @return void
-     */
-
-    public function alternate_edit_profile(): void
+    public function edit_profile(): void
     {
-        $user = $this->get_user_or_redirect();
+
+        $user_b = $this->get_user_or_redirect();
+        $user = user::get_user_by_mail($user_b->mail) ;
         $password = $user->hashed_password;
         $errors = [];
+        $user_name = $user->full_name ;
+        $user_mail= $user->mail ;
+        $user_iban = $user->iban ;
         if (isset($_POST['full_name'])) {
-            $full_name = $_POST['full_name'];
-            $iban = $_POST['iban'];
+            $user_name = $_POST['full_name'];
+            $user_mail=  $_POST['mail'];
+            $user_iban = $_POST['iban'];
             $user_befor = user::get_user_by_mail($user->mail);
-            $mail = $user->mail;
-            $user->full_name = $full_name;
-            $user->iban = $iban;
-            $errors = user::validate_name($full_name);
-            $errors = array_merge($errors,user::validate_iban($iban));
-            if (empty($errors)) {
-                $user->update($mail, $full_name, $iban, $password, $user_befor->id);
-                $this->redirect("settings", "alternate_edit_profile");
+            $errors = user::validate_name($user_name);
+            if (!empty($user_iban)){
+                $errors = array_merge($errors, user::validate_iban($user_iban));
             }
+            if (count($errors) == 0) {
+                $user->update($user_mail, $user_name,$user_iban, $password, $user_befor->id);
+                $this->redirect("settings", "settings");
+            }
+
         }
-        $user = user::get_user_by_mail($user->mail) ;
-        (new View("settings"))->show(["user" => $user, "errors" => $errors]);
+        (new View("edit_profile"))->show(["user" => $user, "errors" => $errors,"user_name" => $user_name
+            ,"user_mail" => $user_mail,"user_iban" => $user_iban]);
     }
 
 
-    public function alternate_change_password(): void
+    public function change_password(): void
     {
         $user = $this->get_user_or_redirect();
-        $p = "";
+        $p="";
         $np = "";
         $cp = "";
         $errors = [];
@@ -62,11 +60,11 @@ class ControllerSettings extends Controller
             $po = Tools::my_hash($np);
             if (empty($errors)) {
                 $user->update($mail, $name, $iban, $po, $user->id);
-                $this->redirect("settings", "alternate_change_password");
+                $this->redirect("settings", "settings");
+
             }
         }
-        $user = user::get_user_by_mail($mail) ;
-        (new View("settings"))->show(["user" => $user, "errors" => $errors]);
+        (new View("change_password"))->show(["user" => $user, "errors" => $errors,"p"=>$p,"np"=>$np,"cp"=> $cp]);
 
     }
 
@@ -78,7 +76,6 @@ class ControllerSettings extends Controller
         $errors = [];
         if (isset($_POST['mail']) && isset($_POST['password'])) {
             $mail = $_POST['mail'];
-
             $password = $_POST['password'];
             $errors = user::validate_login($mail, $password);
             if (empty($errors)) {
@@ -95,7 +92,9 @@ class ControllerSettings extends Controller
         // $user = $user::get_user_by_mail($mail);
         $errors = [];
 
-        (new View("settings"))->show(["user" => $user, "errors"=>$errors]);
+        $a = "aaaaa" ;
+
+        (new View("settings"))->show(["user" => $user,"a"=>$a , "errors"=>$errors]);
     }
 
 

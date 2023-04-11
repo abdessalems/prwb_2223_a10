@@ -4,21 +4,40 @@
     <meta charset="UTF-8">
     <title>add_operation</title>
     <base href="<?=$web_root?>"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicons -->
+    <link href="./assets/img/fav_icon.png" rel="icon">
+    <link href="./assets/img/touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Vendor CSS Files -->
+    <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="./assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="./assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="./assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="./assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="./assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="./assets/css/styles.css" rel="stylesheet">
 
 </head>
 <body>
 
 
 
-<form class="col-7 mx-auto my-2" action="operation/add_operation/<?= $tricount->id ?>" method="post">
-    <div style="background-color: lightblue; padding: 10px;">
-        <div class="d-flex justify-content-between mt-3">
+<form class="col-7 mx-auto my-2" action="operation/add_operation/<?= $tricount->id ?>" method="post" onsubmit="return validateForm()">
+    <div class="card-header">
+        <div class="d-flex w-100 justify-content-between">
 
 
-            <a  class="btn btn-outline-danger" href="" > Cancel</a>
+            <a  class="btn btn-outline-danger" href='tricount/view_tricount/<?= $tricount->id ?>' > Cancel</a>
 
 
 
@@ -39,7 +58,8 @@
 
 
 
-
+    <div class="card">
+        <div class="card-body">
 
     <div class="row mb-3">
         <div class="col-sm-10">
@@ -79,6 +99,9 @@
     </div>
 
 
+
+
+
     <div class="row mb-3" >
         <div class="col-sm-10">
             <label class="form-label" for="Paid">Paid By</label>
@@ -92,21 +115,22 @@
 
 
 
-<div class="row mb-3">
-    <div class="col-sm-10">
+ <div class="row mb-3">
+     <div class="col-sm-10">
         <p>For Whom ? (select at least one ) </p>
-        <table class="table table-borderless datatable" style="display:flex; flex-direction:column;">
+         <table class="table table-borderless datatable">
             <form action="operation/add_operation" method="post">
+                <tbody>
                 <?php foreach ($paidBy as $index => $person): ?>
-                    <tr style="display:flex; flex-direction:row;">
-                        <td class="border p-4 rounded-start-1">
+                <tr>
+                        <td>
                             <input type="checkbox" value="<?= $person['full_name'] ?>" name="checkbox_<?= $index ?>">
                         </td>
-                        <td class="border p-4 flex-grow-1">
-                            <label for="check"><?=$person['full_name']  ?></label>
+                        <td >
+                            <label class="form-label" for="check"><?=$person['full_name']  ?></label>
                         </td>
-                        <td class="form-control bg-transparent w-50">
-                            <input type="number" id="weight_<?= $index ?>" name="weight_<?= $index ?>" min="1" max="10">
+                        <td >
+                            <input class="form-control" type="number" id="weight_<?= $index ?>" name="weight_<?= $index ?>" min="1" max="10">
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -136,30 +160,25 @@
 </body>
 </html>
 <script>
-    $(document).ready(function() {
-        $('form').submit(function() {
-            var title = $('#title').val();
-            var amount = $('#amount').val();
-            var isValid = true;
+function validateForm() {
+
+    var title = document.getElementById("title").value;
+    var amount = document.getElementById("amount").value;
 
 
-            if (title.length < 3) {
-                $('#title').addClass('is-invalid');
-                isValid = false;
-            } else {
-                $('#title').removeClass('is-invalid');
-            }
+    if (title == "" || amount == "") {
+    alert("Veuillez remplir tous les champs obligatoires.");
+    return false;
+    }
 
 
-            if (amount <= 0) {
-                $('#amount').addClass('is-invalid');
-                isValid = false;
-            } else {
-                $('#amount').removeClass('is-invalid');
-            }
+    if (isNaN(amount) || amount <= 0) {
+        alert("Le montant doit être un nombre positif.");
+        return false;
+    }
 
-            return isValid;
-        });
-    });
+
+    return true;
+}
 </script>
 

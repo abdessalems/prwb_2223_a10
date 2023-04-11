@@ -11,16 +11,51 @@ class operation extends Model
     {
     }
 
-    public function update_operation(operation $operation, int $id_user): operation
+    public static function security_operation(int $userId, $operations)
     {
+        $ok = false;
+        foreach ($operations as $o) {
+            if ($o->initiator == $userId) {
+                $ok = true;
+            }
+        }
+        return $ok;
+    }
 
+    public static function security_edit_operation(int $id_user, array $operation_amount,int $initiator)
+    {
+        $ok = false;
+        if($id_user==$initiator) {$ok = true;}
+        foreach ($operation_amount as $o) {
+            if ($o->id === $id_user) {
+                $ok = true;
+            }
+        }
+        return $ok;
+    }
+
+    public function update_operation(operation $operation, int $initiator): operation
+    {
         if (self::get_operation_by_id($operation->id))
             self::execute("UPDATE operations SET title=:title,amount=:amount,operation_date=:date,initiator=:initiator WHERE id= :id",
                 ["id" => $operation->id, "title" => $operation->title, "amount" => $operation->amount, "date" => $operation->operation_date,
-                    "initiator" => $id_user, "amount" => $operation->amount]);
+                    "initiator" => $initiator, "amount" => $operation->amount]);
         return $this;
     }
 
+    public function update_amount_operations(operation $operation, array $weights = [], array $participants = []): operation
+    {
+        if (self::get_operation_by_id($operation->id)) {
+            $i = 0;
+            foreach ($participants as $participant) {
+                self::execute("UPDATE repartitions SET weight= :weight WHERE operation= :operation and user = :user",
+                    ["weight" => $weights[$i], "user" => $participant->id, "operation" => $operation->id]);
+                $i++;
+            }
+
+        }
+        return $this;
+    }
 
 
     public static function get_prev_operation(int $id_operation, array $operations): int
@@ -88,7 +123,7 @@ class operation extends Model
         return $cmpt;
     }
 
-    public static function get_operation_by_id(int $id): operation|false
+    public static function get_operation_by_id(int $id): operation| false
     {
         $query = self::execute("SELECT * FROM operations WHERE id= :id ;", ["id" => $id]);
         $data = $query->fetchAll();
@@ -140,46 +175,43 @@ class operation extends Model
         return $result['weight'];
     }
 
-    public static function getInitiator(int $id):int
+    public static function getInitiator(int $id): int
     {
         $query = self::execute("SELECT operations.initiator init FROM `operations` WHERE id=:id;", ["id" => $id]);
         $result = $query->fetch();
         return $result['init'];
     }
 
-    public static function getIdOperatiobByTitle (String $title):int
+    public static function getIdOperatiobByTitle(string $title): int
     {
         $query = self::execute("SELECT operations.id as id FROM `operations` WHERE title=:title;", ["title" => $title]);
         $result = $query->fetch();
         return $result['id'];
     }
 
-    public static function getAmountOfOperation(int $id):float{
+    public static function getAmountOfOperation(int $id): float
+    {
         $query = self::execute("SELECT SUM(amount) as somme FROM operations WHERE operations.id=:id;", ["id" => $id]);
         $result = $query->fetch();
         return $result['somme'];
 
     }
-    public static function weightForPartipent(int $id,int $iduser):int{
-        $query = self::execute("SELECT repartitions.weight as weight FROM `repartitions` WHERE operation=:id and user=:iduser", ["id" => $id,"iduser"=>$iduser]);
+
+    public static function weightForPartipent(int $id, int $iduser): int
+    {
+        $query = self::execute("SELECT repartitions.weight as weight FROM `repartitions` WHERE operation=:id and user=:iduser", ["id" => $id, "iduser" => $iduser]);
         $result = $query->fetch();
         return $result['weight'];
 
     }
 
 
-    public static function get_operationOfTricountId(int $idTricount):int{
+    public static function get_operationOfTricountId(int $idTricount): int
+    {
         $query = self::execute("SELECT operations.id FROM operations,tricounts where operations.tricount=tricounts.id and tricounts.id=:id;", ["id" => $idTricount]);
         $result = $query->fetch();
         return $result['id'];
     }
-
-
-
-
-
-
-
 
 
     public static function get_operations(tricount $tricount): array
@@ -200,8 +232,6 @@ class operation extends Model
             $operations_with_paidName_and_Nbrepartition [] = new operation($operation->title, $operation->tricount, $operation->amount, $operation->operation_date,
                 $operation->initiator, $operation->created_at, $operation->id, $name, $nbr_repartitions_By_operationt);
         }
-
-
         return $operations_with_paidName_and_Nbrepartition;
     }
 
@@ -219,7 +249,8 @@ class operation extends Model
 //        }
 //        return $errors;
 //    }
-    public function add_operation() : Operation|array {
+    public function add_operation(): Operation|array
+    {
         $errors = [];
 
 //    if (empty($this->title)) {
@@ -242,11 +273,12 @@ class operation extends Model
         return $errors;
     }
 
-    public static function validateOperationAmount(operation $operation) : array {
+    public static function validateOperationAmount(operation $operation): array
+    {
         $errors = [];
 
 
-        if($operation->amount<0){
+        if ($operation->amount < 0) {
             $errors[] = "Amount must be positive.";
         }
 
@@ -255,12 +287,13 @@ class operation extends Model
     }
 
 
-    public static function validateOperation(operation $operation) : array {
+    public static function validateOperation(operation $operation): array
+    {
         $errors = [];
 
         if (empty($operation->title)) {
             $errors[] = "Title must be filled.";
-        }else if($operation->amount<0){
+        } else if ($operation->amount < 0) {
             $errors[] = "Amount must be positive.";
         }
 
@@ -271,9 +304,10 @@ class operation extends Model
 //DELETE FROM `operations` WHERE operations.id=1;
 
 
-    public static function delete_operation(int $idOperation) {
-        self::execute("DELETE FROM repartitions WHERE  operation=:id", ["id" => $idOperation ]);
-        self::execute("DELETE FROM operations  WHERE id=:id", ["id" => $idOperation ]);
+    public static function delete_operation(int $idOperation)
+    {
+        self::execute("DELETE FROM repartitions WHERE  operation=:id", ["id" => $idOperation]);
+        self::execute("DELETE FROM operations  WHERE id=:id", ["id" => $idOperation]);
 
     }
 
@@ -294,8 +328,6 @@ class operation extends Model
             "weight" => $weight
         ]);
     }
-
-
 
 
 }

@@ -21,8 +21,8 @@
 
 
 <form class="col-7 mx-auto my-2" id="addForm" action="tricount/addTricounts" method="post">
-    <div style="background-color: lightblue; padding: 10px;">
-        <div class="d-flex justify-content-between mt-3">
+    <div class="card-header">
+        <div class="d-flex w-100 justify-content-between">
 
             <a  class="btn btn-outline-danger" href="" > Cancel</a>
 
