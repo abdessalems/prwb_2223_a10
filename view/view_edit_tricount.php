@@ -93,6 +93,16 @@
         <input class="btn btn-danger w-100" type="submit" style="background-color:red; color:white;" name="monBouton" value="delete this tricount">
     </form>
 </footer>
+<?php if (count($errors) != 0): ?>
+    <div class='alert alert-danger'>
+        <p><strong>Please correct the following error(s) :</strong></p>
+        <ul>
+            <?php foreach ($errors as $error): ?>
+                <li><?= $error ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
 </body>
 
 </html>

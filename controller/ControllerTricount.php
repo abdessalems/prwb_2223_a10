@@ -114,7 +114,7 @@ class ControllerTricount extends Controller
     {
         $user = $this->get_user_or_redirect();
         $idTricount = $_GET["param1"];
-        $id_user =  $user->id ;
+        $id_user = $user->id;
         $tricount = tricount::get_tricount_by_id($idTricount);
         $subscribers = $tricount::get_subscriber($idTricount);
         $Nosubscribers = $tricount::getNOsubscriber($idTricount, $id_user);
@@ -122,36 +122,35 @@ class ControllerTricount extends Controller
         $subscriber = "";
         $title = "";
         $description = "";
+        $errors=[];
+        $lastTitle = $tricount->title;
 
-//        if (isset($_POST['subscriber'])) {
-//            $subscriber = $_POST['subscriber'];
-//            $idSubscriber = user::get_user_by_name($subscriber);
-//            tricount::add_Subscriber($idTricount, $idSubscriber);
-//
-//
-//        }
+
+
 
         if (isset($_POST['title'])) {
             $title = $_POST['title'];
+
             $description = $_POST['description'];
             $new_tricount = new tricount($title, $id_user, $description, $idTricount);
+            if ($lastTitle == $title) {
+                $tricount->update_tricount($new_tricount, $idTricount);
+                $this->redirect("tricount", "tricount");
+            } else {
+                $errors = tricount::validatetitle($new_tricount, $user);
+                if (empty($errors)) {
+                    $tricount->update_tricount($new_tricount, $idTricount);
+                    $this->redirect("tricount", "tricount");
 
-            // $errors = tricount::validatetitle($new_tricount, $user);
-            //var_dump($errors);
-
-            // if (empty($errors)) {
-
-            $tricount->update_tricount($new_tricount, $idTricount);
-
-            // }
-            // $tricount->update_tricount($new_tricount,$idTricount );
-
-            $this->redirect("tricount", "tricount");
-            (new View("edit_tricount"))->show(["user" => $user, "tricount" => $tricount, "id_user" => $id_user, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
-        } else {
-            (new View("edit_tricount"))->show(["user" => $user, "tricount" => $tricount, "id_user" => $id_user, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
+                }
+            }
+               (new View("edit_tricount"))->show(["user" => $user, "tricount" => $tricount, "id_user" => $id_user, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers,"errors" => $errors]);
+            }
+        else {
+                (new View("edit_tricount"))->show(["user" => $user, "tricount" => $tricount, "id_user" => $id_user, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers,"errors" => $errors]);
+            }
         }
-    }
+
 
 
     public
