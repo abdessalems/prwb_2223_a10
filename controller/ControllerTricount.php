@@ -153,19 +153,17 @@ class ControllerTricount extends Controller
 
 
 
-    public
-    function editSubscriber(): void
+    public function editSubscriber(): void
     {
         $user = $this->get_user_or_redirect();
-
         $idTricount = $_GET["param1"];
-        $nameSubscriber = $_POST['subscriber'];
-        $idSubscriber = user::get_user_by_name($nameSubscriber);
-        if (isset($nameSubscriber)) {
+
+        if (isset($_POST['subscriber']) && !empty($_POST['subscriber'])) {
+            $nameSubscriber = $_POST['subscriber'];
+            $idSubscriber = user::get_user_by_name($nameSubscriber);
             tricount::add_Subscriber($idTricount, $idSubscriber);
             $this->redirect("tricount", "EditTricounts/$idTricount/$user->id");
         }
-
 
         (new View("edit_Tricount"))->show(["user" => $user]);
     }
