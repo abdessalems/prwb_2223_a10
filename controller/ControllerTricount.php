@@ -162,7 +162,7 @@ class ControllerTricount extends Controller
             $nameSubscriber = $_POST['subscriber'];
             $idSubscriber = user::get_user_by_name($nameSubscriber);
             tricount::add_Subscriber($idTricount, $idSubscriber);
-            $this->redirect("tricount", "EditTricounts/$idTricount/$user->id");
+            $this->redirect("tricount", "EditTricounts/$idTricount");
         }
 
         (new View("edit_Tricount"))->show(["user" => $user]);
@@ -201,31 +201,50 @@ class ControllerTricount extends Controller
         (new View("delete_tricount"))->show(["user" => $user, "tricount" => $tricount]);
     }
 
-
-    public
-    function deleteSubscriber(): void
+    public function deleteSubscriber(): void
     {
         $user = $this->get_user_or_redirect();
-        $idTricount = $_GET["param1"];
-        $nameSubscriber = $_GET["param2"];
-        var_dump($nameSubscriber);
-        $idSubscriber = user::get_user_by_name($nameSubscriber);
-        print_r($idSubscriber);
-        print_r($idTricount);
-
-        tricount::delete_subscriber($idTricount, $idSubscriber);
-        echo json_encode("success");
-        $tricount = tricount::get_tricount_by_id($idTricount);
-        $subscribers = $tricount::get_subscriber($idTricount);
-        $Nosubscribers = $tricount::getNOsubscriber($idTricount, $idSubscriber);
-        $idSubscriber = user::get_user_by_name($nameSubscriber);
-        $this->redirect("tricount", "EditTricounts/$idTricount/$user->id");
+        var_dump("ocs");
 
 
-        (new View("edit_Tricount"))->show(["user" => $user, "tricount" => $tricount, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
+            $tricountid = $_GET["param1"];
+            var_dump($tricountid);
+
+            $nameSubscriber = $_GET["param2"];
+            var_dump($nameSubscriber);
+            $idSubscriber = user::get_user_by_name($nameSubscriber);
+            var_dump($idSubscriber);
+            Tricount::delete_subscriber($tricountid,$idSubscriber);
+            $this->redirect("tricount", "EditTricounts/$tricountid");
+        }
 
 
-    }
+
+
+//    public
+//    function deleteSubscriber(): void
+//    {
+//        $user = $this->get_user_or_redirect();
+//        $idTricount = $_GET["param1"];
+//        $nameSubscriber = $_GET["param2"];
+//        var_dump($nameSubscriber);
+//        $idSubscriber = user::get_user_by_name($nameSubscriber);
+//        print_r($idSubscriber);
+//        print_r($idTricount);
+//
+//        tricount::delete_subscriber($idTricount, $idSubscriber);
+//
+//        $tricount = tricount::get_tricount_by_id($idTricount);
+//        $subscribers = $tricount::get_subscriber($idTricount);
+//        $Nosubscribers = $tricount::getNOsubscriber($idTricount, $idSubscriber);
+//        $idSubscriber = user::get_user_by_name($nameSubscriber);
+//        $this->redirect("tricount", "EditTricounts/$idTricount/$user->id");
+//
+//
+//        (new View("edit_Tricount"))->show(["user" => $user, "tricount" => $tricount, "subscribers" => $subscribers, "Nosubscribers" => $Nosubscribers]);
+//
+//
+//    }
 
 
     public
