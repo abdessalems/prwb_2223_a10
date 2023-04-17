@@ -19,6 +19,17 @@ class ControllerMain extends Controller
     }
 
 
+    public function title_exists_service() : void {
+        $res = "false";
+        if(isset($_GET["param1"]) && $_GET["param1"] !== ""){
+            $user = tricount::get_tricount($_GET["param1"]);
+            if($user)
+                $res =  "true";
+        } 
+        echo $res;
+    }
+
+
 
 
 //    public function index() : void {

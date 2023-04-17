@@ -14,6 +14,16 @@ require_once 'model/Tricount.php';
 class ControllerTricount extends Controller
 {
 
+    public function tricount_exists_service() : void {
+        $res = "false";
+        if(isset($_GET["param1"]) && $_GET["param1"] !== ""){
+            $tricount = tricount::get_tricount_by_title($_GET["param1"]);
+            
+            if($tricount)
+                $res =  "true";
+        } 
+        echo $res;
+    }
     public function tricount(): void
     {
         $user = $this->get_user_or_redirect();
@@ -306,6 +316,17 @@ class ControllerTricount extends Controller
     {
         // TODO: Implement index() method.
     }
+
+
+    // public
+    // function validateTitle(): void
+
+    // {
+    //     $user = $this->get_user_or_redirect();
+    //     $id_tricount = $_GET["param1"];
+    //     $tricount = tricount::get_tricount_by_id($id_tricount);
+    //     tricount::validatetitle( $tricount, $user)
+    // }
 }
 
 

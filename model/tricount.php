@@ -214,7 +214,16 @@ class tricount extends Model
 
 
 
-
+    public static function get_tricount_by_title(string $title) : tricount|false {
+        $query = self::execute("SELECT * FROM tricounts where title = :title", ["title"=>$title]);
+        $data = $query->fetch(); // un seul résultat au maximum
+        if ($query->rowCount() == 0) {
+            return false;
+        } else {
+           
+           return new tricount($data["title"], $data["creator"], $data["description"], $data["id"], $data["created_at"], 0);
+        }
+    }
 
 
 

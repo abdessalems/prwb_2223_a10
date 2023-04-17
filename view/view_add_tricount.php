@@ -94,7 +94,6 @@
 </body>
 </html>
 <script>
-
     $(document).ready(function() {
 
         // Ajouter l'événement input pour surveiller les changements dans le champ du titre
@@ -106,20 +105,33 @@
             validateForm();
         });
 
+        async function checkTitleExists(){
+            // l'avantage d'utiliser $.getJSON ici est qu'on récupère un vrai booléeen
+            // au lieu d'un string contenant une valeur booléenne dans le cas de $.get
+            const data = await $.getJSON("Tricount/tricount_exists_service/" + $('#title').val());
+            if(data){
+                $('#title-error').html('The title already exists.').removeClass('text-success').addClass('text-danger');
+                return false;
+            } else {
+                return true;
+            }
+        }
 
-        function validateForm() {
+        async function validateForm() {
             var title = $.trim($("input[name='title']").val());
             var description = $.trim($("textarea[name='description']").val());
 
-
             if (title == "") {
-                $('#title-error').html('The titre is obligatory.').removeClass('text-success').addClass('text-danger');
+                $('#title-error').html('The title is obligatory.').removeClass('text-success').addClass('text-danger');
             } else if (title.length < 3) {
                 $('#title-error').html('The title must have at least 3 characters').removeClass('text-success').addClass('text-danger');
             } else {
-                $('#title-error').html('It looks good!').removeClass('text-danger').addClass('text-success');
+                // Vérifie si le titre existe déjà
+                const titleExists = await checkTitleExists();
+                if (titleExists) {
+                    $('#title-error').html('It looks good!').removeClass('text-danger').addClass('text-success');
+                }
             }
-
 
             if ($.trim(description).length > 0) {
                 if (description.length < 3) {
