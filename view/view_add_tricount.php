@@ -42,41 +42,22 @@
 
     </div>
 
-
-
-
-<!--    <div class="form-group">-->
-<!--        <label class="form-control-label">Titre :</label><br>-->
-<!--        <div class="input-group mb-3">-->
-<!--            <input type="text" class="form-control" name="title" id="title" aria-label="title" aria-describedby="basic-addon1">-->
-<!--        </div>-->
-<!--        <span class="text-danger" id="title-error"></span>-->
-<!--        <span class="text-success" id="title-message"></span>-->
-<!--    </div>-->
-    <div class="container">
+ <div class="container">
         <div>
             <label class="form-control-label">Titre :</label><br>
-            <input type="text" class="form-control" name="title" id="title" aria-label="title" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" name="title" id="title" aria-label="title" value="<?php if(isset($title)) { echo $title; } ?>" aria-describedby="basic-addon1">
             <span class="text-danger" id="title-error"></span>
             <span class="text-success" id="title-message"></span>
         </div>
         <div>
             <label class="form-control-label">Description (optionnelle) :</label><br>
-            <textarea name="description" textarea class="form-control" aria-label="With textarea" id="description" "></textarea>
+            <textarea name="description" textarea class="form-control" aria-label="With textarea" value="<?php if(isset($description)) { echo $description ; } ?>" id="description" "></textarea>
             <span class="text-danger" id="description-error"></span>
             <span class="text-success" id="description-message"></span>
         </div>
     </div>
 
 
-<!--    <div class="input-group">-->
-<!--        <label class="form-control-label">Description (optionnelle) :</label><br>-->
-<!--        <div>-->
-<!--        <textarea name="description" textarea class="form-control" aria-label="With textarea" id="description" "></textarea>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <span class="text-danger" id="description-error"></span>-->
-<!--    <span class="text-success" id="description-message"></span>-->
 
 
 </form>
@@ -96,7 +77,7 @@
 <script>
     $(document).ready(function() {
 
-        // Ajouter l'événement input pour surveiller les changements dans le champ du titre
+       
         $('#title').on('input', function() {
             validateForm();
         });
@@ -106,8 +87,7 @@
         });
 
         async function checkTitleExists(){
-            // l'avantage d'utiliser $.getJSON ici est qu'on récupère un vrai booléeen
-            // au lieu d'un string contenant une valeur booléenne dans le cas de $.get
+
             const data = await $.getJSON("Tricount/tricount_exists_service/" + $('#title').val());
             if(data){
                 $('#title-error').html('The title already exists.').removeClass('text-success').addClass('text-danger');
@@ -126,7 +106,7 @@
             } else if (title.length < 3) {
                 $('#title-error').html('The title must have at least 3 characters').removeClass('text-success').addClass('text-danger');
             } else {
-                // Vérifie si le titre existe déjà
+
                 const titleExists = await checkTitleExists();
                 if (titleExists) {
                     $('#title-error').html('It looks good!').removeClass('text-danger').addClass('text-success');

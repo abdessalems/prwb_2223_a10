@@ -17,7 +17,7 @@ class ControllerTricount extends Controller
     public function tricount_exists_service() : void {
         $res = "false";
         if(isset($_GET["param1"]) && $_GET["param1"] !== ""){
-            $tricount = tricount::get_tricount_by_title($_GET["param1"]);
+            $tricount = tricount:: get_tricount_by_title($_GET["param1"]);
             
             if($tricount)
                 $res =  "true";
@@ -65,18 +65,20 @@ class ControllerTricount extends Controller
         $user = $this->get_user_or_redirect();
         // $idUser=$user->id;
         $user_aftet_insert = user::get_user_by_mail($user->mail) ;
+        $title = "";
+        $description ="";
         $errors = [];
         if (isset($_POST['title'])) {
-            $des = $_POST['description'];
+            $description = $_POST['description'];
             $title = $_POST['title'];
-            $n_tricount = new tricount($title, $user_aftet_insert->id, $des);
+            $n_tricount = new tricount($title, $user_aftet_insert->id, $description);
             $errors = tricount::validate($n_tricount, $user_aftet_insert);
             if (empty($errors)) {
                 $n_tricount->insert_tricount();
                 $this->redirect("tricount", "tricount");
             }
         }
-        (new View("add_tricount"))->show(["user" => $user, "errors" => $errors]);
+        (new View("add_tricount"))->show(["user" => $user , "title" => $title ,"description"=>$description, "errors" => $errors]);
     }
 
 

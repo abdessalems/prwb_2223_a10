@@ -85,10 +85,13 @@ class tricount extends Model
 
         if (empty($tricount->title)) {
             $errors[] = "Title must be filled.";
+        } else if (strlen($tricount->title) < 3) {
+            $errors[] = "Title must have at least three letters.";
         } else if (self::titleExists($tricount->title, $user->id)) {
-            $errors[] = "Title already exists .";
+            $errors[] = "Title already exists.";
+        }else if (strlen($tricount->description) < 3) {
+            $errors[] = "description must have at least three letters.";
         }
-
         return $errors;
     }
 
