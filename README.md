@@ -1,4 +1,20 @@
-# Tricount — Shared Expense Manager
+<div align="center">
+
+# 💸 Tricount
+
+### Shared Expense Manager
+
+**Split group expenses, settle up fairly.**
+
+[![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?style=flat-square&logo=php&logoColor=white)](https://www.php.net/)
+[![MySQL](https://img.shields.io/badge/MySQL-MariaDB-4479A1?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Apache](https://img.shields.io/badge/Apache-XAMPP-D22128?style=flat-square&logo=apache&logoColor=white)](https://www.apachefriends.org/)
+[![Architecture](https://img.shields.io/badge/architecture-custom%20MVC-6E4AFF?style=flat-square)](#architecture)
+[![License](https://img.shields.io/badge/license-MIT-22C55E?style=flat-square)](LICENSE)
+
+</div>
+
+---
 
 A web application for splitting shared expenses within a group, in the spirit of [Tricount](https://www.tricount.com/). Users create a *tricount* (a shared expense book), invite participants, record who paid for what, and the application computes how much each person owes or is owed.
 
@@ -120,3 +136,9 @@ Known rough edges at hand-in: the sign-up flow required a re-login before the se
 | **Yassine Houari** | Sign-up, add/edit/delete tricount, add/delete operation, balance view |
 
 Group **A10** — the full commit history of both contributors is preserved in this repository.
+
+---
+
+## License
+
+Released under the [MIT License](LICENSE). © 2023 Abdessalem Saadaoui & Yassine Houari.
