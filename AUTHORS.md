@@ -20,5 +20,5 @@ migrated from the original Bitbucket project with authorship intact.
 
 ## Project
 
-Tricount — a shared expense manager built on a hand-rolled PHP MVC framework.
+Tricount is a shared expense manager built on a hand-rolled PHP MVC framework: participants share an expense book, record who paid what, and the app settles the balance.
 See the README for architecture and setup.
