@@ -8,7 +8,7 @@ Programmation Web Back-end (PRWB) at EPFC, group A10, 2022-2023.
 Authentication and session handling, profile and password management,
 tricount listing, operation views, and work on the framework and router.
 
-## Yassine Houari (@Yassine931)
+## Yassine Houari (@yassin-houari)
 
 Sign-up, add / edit / delete tricount, add / delete operation, and the
 balance view.
