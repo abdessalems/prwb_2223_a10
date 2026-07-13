@@ -17,3 +17,8 @@ balance view.
 
 Both contributors' full commit history is preserved in this repository,
 migrated from the original Bitbucket project with authorship intact.
+
+## Project
+
+Tricount — a shared expense manager built on a hand-rolled PHP MVC framework.
+See the README for architecture and setup.
